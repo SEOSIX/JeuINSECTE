@@ -11,4 +11,9 @@ public class Player : MonoBehaviour
     {
         Instance = this;
     }
+
+    void Init()
+    {
+        p_controller = GetComponent<PlayerController>();
+    }
 }

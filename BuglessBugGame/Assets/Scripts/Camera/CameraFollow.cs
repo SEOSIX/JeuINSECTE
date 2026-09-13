@@ -14,6 +14,10 @@ public class CameraFollow : MonoBehaviour
     {
         if (target)
             transform.position = TargetToCam(target.position);
+        else
+        {
+            target = Player.Instance.transform;
+        }
     }
 
     void LateUpdate()
