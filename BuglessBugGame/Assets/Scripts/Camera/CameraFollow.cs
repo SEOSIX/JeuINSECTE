@@ -19,8 +19,6 @@ public class CameraFollow : MonoBehaviour
         {
             target = Player.Instance.transform;
 
-            Vector3 desiredRotation = camRotation;
-            transform.rotation = Quaternion.LookRotation(desiredRotation);
         }
     }
 
