@@ -5,6 +5,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float smoothTime = 0.3f;
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private Vector3 camRotation;
 
     private Vector3 _velocity;
 
@@ -17,10 +18,13 @@ public class CameraFollow : MonoBehaviour
         else
         {
             target = Player.Instance.transform;
+
+            Vector3 desiredRotation = camRotation;
+            transform.rotation = Quaternion.LookRotation(desiredRotation);
         }
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (!target) return;
 
@@ -32,6 +36,8 @@ public class CameraFollow : MonoBehaviour
             ref _velocity,
             smoothTime
         );
+
+
     }
 
     public float GetPlayerToTargetLerp(Vector3 target)
