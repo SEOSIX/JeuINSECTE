@@ -17,10 +17,10 @@ MonoBehaviour:
   icons:
   - folder: {fileID: 102900000, guid: 52cbf7f74f8a90e4593845e66bdfbc35, type: 3}
     folderIcon: {fileID: 2800000, guid: 2c26ab15f039cf24c973010d915b6385, type: 3}
-    overlayIcon: {fileID: 0}
+    overlayIcon: {fileID: 2800000, guid: 8adc7df5a671f3a42b12fedc6f588509, type: 3}
   - folder: {fileID: 102900000, guid: c0cfbfffddace124d8e7e90c1eab5a5e, type: 3}
     folderIcon: {fileID: 2800000, guid: ef08b1710ef081f4ea3449da60385d92, type: 3}
-    overlayIcon: {fileID: 0}
+    overlayIcon: {fileID: 2800000, guid: beb4cf13af82b9746be6bd9f2245a573, type: 3}
   - folder: {fileID: 102900000, guid: d0943e9e8b7c46440bddb1af31c8bd9f, type: 3}
     folderIcon: {fileID: 2800000, guid: 543f9e77e691c5e41af8c03cc62cb4ae, type: 3}
     overlayIcon: {fileID: 0}
