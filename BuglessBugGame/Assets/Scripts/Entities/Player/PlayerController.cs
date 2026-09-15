@@ -39,6 +39,20 @@ public class PlayerController : MonoBehaviour
             _moveInput = Vector2.zero;
         }
     }
+    
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("Interact");
+            Player.Instance.isInteracted = true;
+        }
+
+        if (context.canceled)
+        {
+            Player.Instance.isInteracted = false;
+        }
+    }
 
     private void Movement() 
     {

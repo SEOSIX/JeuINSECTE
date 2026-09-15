@@ -7,10 +7,13 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerData data;
 
     private PlayerController p_controller;
+    private PlayerInsectPickUp p_insectPickUp;
     private Rigidbody ridigBody;
-
     public PlayerData playerData => data;
+    public PlayerInsectPickUp insectPickUp => p_insectPickUp;
     public Rigidbody _rb => ridigBody;
+    
+    [HideInInspector] public bool isInteracted;
     void Awake()
     {
         Instance = this;
@@ -20,6 +23,7 @@ public class Player : MonoBehaviour
     void Init()
     {
         p_controller = GetComponent<PlayerController>();
+        p_insectPickUp = GetComponent<PlayerInsectPickUp>();
         ridigBody = GetComponent<Rigidbody>();
     }
 }
