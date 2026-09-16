@@ -24,8 +24,8 @@ namespace GamePlayCore
 
         private void CheckForInteract()
         {
-            pickupTitle.gameObject.SetActive(true);
-            if (Player.Instance.isInteracted)
+//            pickupTitle.gameObject.SetActive(true);
+            if (Player.Instance.isInteracted &&  isInside)
             {
                 List<InsectSlot> insect = Player.Instance.playerData.playerInventoryData.insects;
                 InsectSlot existingSlot = insect.Find(slot => slot.insect == bug);
@@ -35,7 +35,7 @@ namespace GamePlayCore
                 Destroy(gameObject);
                 Debug.Log($"{bug.name} has been picked up");
             }
-            else pickupTitle.gameObject.SetActive(false);
+//            else pickupTitle.gameObject.SetActive(false);
         }
         
         
