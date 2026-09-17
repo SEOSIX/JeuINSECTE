@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77218dc579aaa5439df1d39344dfb8d, type: 3}
   m_Name: "Scarabb\xE9"
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
-  insectName: "Barnab\xE9 le scarab\xE9"
+  insectName: "Scarab\xE9"
   insectDescription: 
   insectIcon: {fileID: 0}
   insectPrefab: {fileID: 0}

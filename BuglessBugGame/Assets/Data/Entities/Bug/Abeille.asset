@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f77218dc579aaa5439df1d39344dfb8d, type: 3}
-  m_Name: Bousier
+  m_Name: Abeille
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
-  insectName: Bousier
+  insectName: Abeille
   insectDescription: 
   insectIcon: {fileID: 0}
   insectPrefab: {fileID: 0}
