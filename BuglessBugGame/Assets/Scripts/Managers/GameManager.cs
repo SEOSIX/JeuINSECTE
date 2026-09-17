@@ -7,9 +7,13 @@ public class GameManager : MonoBehaviour
     [Header("Privates")]
     private UIManager uiManager;
     
-    
     [Header("Public")]
     public Player player;
+    
+    [Header("ScenesName")]
+    [SerializeField] public string _lobbySceneName;
+    //TESTSCENE
+    [SerializeField] public string _testScene;
 
     public UIManager M_UI => uiManager;
     private void Awake()

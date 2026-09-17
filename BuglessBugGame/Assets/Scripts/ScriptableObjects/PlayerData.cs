@@ -27,6 +27,8 @@ public class PlayerInventoryData
     [Header("Inventory")]
     public List<InsectSlot> insects = new List<InsectSlot>();
     
+    public List<InsectData> insectsOnInventory = new List<InsectData>();
+    
     public int GetCount(InsectData item)
     {
         foreach (var slot in insects)

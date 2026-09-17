@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -14,21 +15,20 @@ public class UIController : MonoBehaviour
     private Coroutine catchCoroutine;
     private void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        CatchInsect();
+        _leaveButton.onClick.AddListener(SummaryJourney);
+        _catchButton.onClick.AddListener(CatchInsect);
     }
 
     private void CatchInsect()
     {
         Player player = GameManager.instance.player;
         
-        if (_catchButton.onClick != null)
-        {
-            player.isInteracted = true;
-        }
+        player.isInteracted = true;
     }
+
+    private void SummaryJourney()
+    {
+        GameManager.instance.M_UI.journey._parentJourneySum.SetActive(true);
+    }
+    
 }
