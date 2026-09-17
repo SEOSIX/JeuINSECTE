@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class UIJourney : MonoBehaviour
 {
-    [Header("RefUI")] [SerializeField] public GameObject _parentJourneySum;
+    [Header("RefUI")]
+    [SerializeField] public GameObject _parentJourney;
+    [SerializeField] public GameObject _parentJourneySum;
     [SerializeField] private Transform bugSumContainer;
     [SerializeField] private Transform _bugBannerSpawn;
     [SerializeField] private Button _returnLobbyButton;
@@ -54,7 +56,6 @@ public class UIJourney : MonoBehaviour
     }
     private void ReturnLobby()
     {
-        _parentJourneySum.SetActive(false);
         GameManager.instance.player.playerData.playerInventoryData.insects.Clear();
         SceneManager.LoadScene(GameManager.instance._lobbySceneName);
     }
