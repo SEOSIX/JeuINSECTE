@@ -19,7 +19,6 @@ public class PlayerControllerData
     public float rotationSpeed = 1.0f;
     [Header("Pickup")]
     public float pickupDistance = 2f;
-    public float maxAimAngle = 15f;
 }
 
 [Serializable]
