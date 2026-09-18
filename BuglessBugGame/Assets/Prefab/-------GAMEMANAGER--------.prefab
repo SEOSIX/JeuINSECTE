@@ -287,8 +287,19 @@ MonoBehaviour:
   bugSumContainer: {fileID: 1432651797176443559}
   _bugBannerSpawn: {fileID: 3216295608683318269}
   _returnLobbyButton: {fileID: 4007408749311029612}
+  _leaveButton: {fileID: 7053585240548745777}
   bugSumPrefab: {fileID: 1215134386896462433, guid: a31804faed9adf64abad05875675c175, type: 3}
   bugSumBannerPrefab: {fileID: 1958959054571406276, guid: 733585aa89ceb714fa9e25cc7222550a, type: 3}
+  bannerLifetime: 3
+  bannerOffscreenOffsetX: 2700
+  bannerMoveInDuration: 0.4
+  bannerMoveInEase: 9
+  summaryRevealDelay: 0.3
+  scaleUpDuration: 0.2
+  scaleUpEase: 27
+  startRotationZ: -15
+  punchRotationStrength: 11
+  punchRotationDuration: 0.25
 --- !u!114 &1979504362791621730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
   _catchButton: {fileID: 2561806694045816319}
-  _leaveButton: {fileID: 7053585240548745777}
 --- !u!114 &1406632719112030253
 MonoBehaviour:
   m_ObjectHideFlags: 0

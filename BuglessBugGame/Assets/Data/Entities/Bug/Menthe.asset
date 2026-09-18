@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Menthe
   insectDescription: 
-  insectIcon: {fileID: 0}
+  insectIcon: {fileID: 21300000, guid: 6918e60a1aab500439ff1c4bf2a173c5, type: 3}
   insectPrefab: {fileID: 0}
   maxStackable: 0
