@@ -42,6 +42,8 @@ namespace GamePlayCore
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
+            Player player = GameManager.instance.player;
+            player.isInteracted = false;
             isInside=true;
         }
 
