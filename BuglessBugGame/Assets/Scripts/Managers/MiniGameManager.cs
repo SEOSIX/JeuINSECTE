@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiniGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject instanceMinigameParent;
-
+    
     private GameObject currentMiniGameInstance;
     private MiniGameUI currentMiniGameUI;
     private Insect currentInsect;
@@ -32,6 +32,9 @@ public class MiniGameManager : MonoBehaviour
         currentInsect = insect;
         currentMiniGameInstance = Instantiate(insect.bug.catchMiniGamePrefabUI, instanceMinigameParent.transform);
         currentMiniGameUI = currentMiniGameInstance.GetComponent<MiniGameUI>();
+        
+        //ici c'est pour init le MiniGame type d'input a recieve
+        currentMiniGameUI.Init(this, insect.bug);
     }
 
     public void OnMiniGameSuccess()

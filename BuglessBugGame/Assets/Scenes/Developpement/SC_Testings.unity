@@ -11552,6 +11552,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4093774979402171084, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: rootCanvas
+      value: 
+      objectReference: {fileID: 5250932003082994611}
     - target: {fileID: 4602562103002428037, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -11653,6 +11657,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+--- !u!223 &5250932003082994611 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 8856560235380276200, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+  m_PrefabInstance: {fileID: 5250932003082994607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Public")]
     public Player player;
-    public GameObject cam;
+    public Camera cam;
     
     [Header("ScenesName")]
     [SerializeField] public string _lobbySceneName;
@@ -50,14 +50,14 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == _lobbySceneName)
         {
             M_UI.lobby._parentLobbyUI.SetActive(true);
-            cam.SetActive(false);
+            cam.gameObject.SetActive(false);
             player.gameObject.SetActive(false);
             M_UI.journey._parentJourney.SetActive(false);
         }
         else if (SceneManager.GetActiveScene().name == _testScene)
         {
             M_UI.lobby._parentLobbyUI.SetActive(false);
-            cam.SetActive(true);
+            cam.gameObject.SetActive(true);
             player.gameObject.SetActive(true);
             M_UI.journey._parentJourney.SetActive(true);
         }

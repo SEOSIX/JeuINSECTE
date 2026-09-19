@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   player: {fileID: 7987066572975972804}
-  cam: {fileID: 4602562103002428037}
+  cam: {fileID: 1626397393175048642}
   _lobbySceneName: SC_Lobby
   _testScene: SC_Testings
 --- !u!114 &2198945338293788783
