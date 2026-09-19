@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Privates")]
     private UIManager uiManager;
+    private MiniGameManager miniGameManager;
     
     [Header("Public")]
     public Player player;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public string _testScene;
 
     public UIManager M_UI => uiManager;
+    public MiniGameManager M_MiniGameManager => miniGameManager;
     private void Awake()
     {
         if (instance == null)
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         uiManager = GetComponent<UIManager>();
-        
+        miniGameManager = GetComponent<MiniGameManager>();
     }
 
     private void ViewManaging()

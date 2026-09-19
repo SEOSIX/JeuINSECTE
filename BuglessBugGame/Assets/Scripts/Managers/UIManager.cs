@@ -6,7 +6,6 @@ public class UIManager : MonoBehaviour
     [HideInInspector]public UIJourney journey;
     [HideInInspector]public UIChalet lobby;
 
-
     void Awake()
     {
         journey = GetComponent<UIJourney>();
