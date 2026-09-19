@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 2264575523076893744}
   - component: {fileID: 1979504362791621730}
   - component: {fileID: 1406632719112030253}
+  - component: {fileID: 4093774979402171084}
   m_Layer: 0
   m_Name: -------GAMEMANAGER--------
   m_TagString: Untagged
@@ -327,6 +328,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIChalet
   _goWalkButton: {fileID: 3721522022777863003}
   _parentLobbyUI: {fileID: 3427955472491433001}
+--- !u!114 &4093774979402171084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8139945426383917259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eda1e744bd30f8947bf59360fce670f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameManager
+  instanceMinigameParent: {fileID: 4230113851778678918}
 --- !u!1 &8305607808632867805
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,6 +859,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!1 &4230113851778678918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6233291362623971921, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+  m_PrefabInstance: {fileID: 7797273960030937815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5171352882619541183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3166361864245789800, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
