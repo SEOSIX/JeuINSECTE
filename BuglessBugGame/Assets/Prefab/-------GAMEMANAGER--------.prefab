@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIJourney
   _parentJourney: {fileID: 2068351528729334421}
+  _outMiniGame_UI: {fileID: 5559854903807703835}
   _parentJourneySum: {fileID: 5171352882619541183}
   bugSumContainer: {fileID: 1432651797176443559}
   _bugBannerSpawn: {fileID: 3216295608683318269}
@@ -764,10 +765,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: JourneyUI
       objectReference: {fileID: 0}
-    - target: {fileID: 8106824143745347650, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8111651795557081975, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -867,6 +864,11 @@ GameObject:
 --- !u!1 &5171352882619541183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3166361864245789800, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+  m_PrefabInstance: {fileID: 7797273960030937815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5559854903807703835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2386320428083173836, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
   m_PrefabInstance: {fileID: 7797273960030937815}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6778509652086692463 stripped

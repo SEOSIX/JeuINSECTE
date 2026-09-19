@@ -15,7 +15,10 @@ public class MiniGameManager : MonoBehaviour
     public void DetectForInteraction(Insect insect)
     {
         if (IsMiniGameActive) return;
-
+        
+        GameManager.instance.M_UI.isUiActive = true;
+        GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(false);
+        
         List<InsectSlot> insectList = Player.Instance.playerData.playerInventoryData.insects;
         InsectSlot existingSlot = insectList.Find(slot => slot.insect == insect.bug);
         if (existingSlot != null && existingSlot.count == insect.bug.maxStackable) return;
@@ -60,5 +63,7 @@ public class MiniGameManager : MonoBehaviour
         currentMiniGameInstance = null;
         currentMiniGameUI = null;
         currentInsect = null;
+        GameManager.instance.M_UI.isUiActive = false;
+        GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(true);
     }
 }

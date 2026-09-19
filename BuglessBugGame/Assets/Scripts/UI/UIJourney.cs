@@ -11,6 +11,7 @@ public class UIJourney : MonoBehaviour
 {
     [Header("RefUI")]
     [SerializeField] public GameObject _parentJourney;
+    [SerializeField] public GameObject _outMiniGame_UI;
     [SerializeField] public GameObject _parentJourneySum;
     [SerializeField] private Transform bugSumContainer;
     [SerializeField] private Transform _bugBannerSpawn;
@@ -208,6 +209,7 @@ public class UIJourney : MonoBehaviour
     
     private void ReturnLobby()
     {
+        GameManager.instance.M_UI.isUiActive = false;
         _parentJourneySum.gameObject.SetActive(false);
         GameManager.instance.player.enabled = true;
         GameManager.instance.player.playerData.playerInventoryData.insects.Clear();
@@ -236,6 +238,8 @@ public class UIJourney : MonoBehaviour
     
     private IEnumerator ShowSummary()
     {
+        GameManager.instance.M_UI.isUiActive = true;
+        
         yield return new WaitForSeconds(summaryRevealDelay);
         
         foreach (GameObject row in _summaryRows)
