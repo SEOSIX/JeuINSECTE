@@ -19,7 +19,7 @@ public class MiniGameManager : MonoBehaviour
         GameManager.instance.M_UI.isUiActive = true;
         GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(false);
         
-        List<InsectSlot> insectList = Player.Instance.playerData.playerInventoryData.insects;
+        List<InsectSlot> insectList = GameManager.instance.player.playerData.playerInventoryData.insects;
         InsectSlot existingSlot = insectList.Find(slot => slot.insect == insect.bug);
         if (existingSlot != null && existingSlot.count == insect.bug.maxStackable) return;
 
@@ -42,7 +42,7 @@ public class MiniGameManager : MonoBehaviour
     {
         if (currentInsect == null) return;
 
-        Player.Instance.insectPickUp.AddItem(currentInsect.bug, currentInsect.count);
+        GameManager.instance.player.insectPickUp.AddItem(currentInsect.bug, currentInsect.count);
         Destroy(currentInsect.gameObject);
 
         Player player = GameManager.instance.player;

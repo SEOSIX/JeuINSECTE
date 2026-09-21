@@ -18,7 +18,7 @@ public class PlayerInsectPickUp : MonoBehaviour
 
     public void AddItem(InsectData insect, int count = 1)
     {
-        PlayerInventoryData inventoryData = Player.Instance.playerData.playerInventoryData;
+        PlayerInventoryData inventoryData = GameManager.instance.player.playerData.playerInventoryData;
         
         if (insect == null || count <= 0) return;
         
@@ -43,8 +43,6 @@ public class PlayerInsectPickUp : MonoBehaviour
         {
             inventoryData.insectsOnInventory.Add(insect);
         }
-        
-        //TODO A MODIFIER ICI POUR REFRESH UI SEULEMENT QUAND ON QUITTE
         if (journey != null)
             journey.RefreshUI();
         

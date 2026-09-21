@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance {get; private set;}
-
     [SerializeField] private PlayerData data;
 
     private PlayerController p_controller;
@@ -16,12 +14,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isInteracted;
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else { Destroy(gameObject);}
         Init();
     }
 

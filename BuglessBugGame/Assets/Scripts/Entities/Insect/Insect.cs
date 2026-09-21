@@ -24,7 +24,7 @@ namespace GamePlayCore
 
         private void CheckForInteract()
         {
-            if (Player.Instance.isInteracted && isInside)
+            if (GameManager.instance.player.isInteracted && isInside)
             {
                 GameManager.instance.M_MiniGameManager.DetectForInteraction(this);
             }
