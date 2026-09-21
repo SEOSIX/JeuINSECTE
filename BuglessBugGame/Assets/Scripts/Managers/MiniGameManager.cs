@@ -8,7 +8,7 @@ public class MiniGameManager : MonoBehaviour
     
     private GameObject currentMiniGameInstance;
     private MiniGameUI currentMiniGameUI;
-    private Insect currentInsect;
+    public Insect currentInsect {get; private set;}
 
     public bool IsMiniGameActive => currentMiniGameInstance != null;
 
@@ -35,6 +35,7 @@ public class MiniGameManager : MonoBehaviour
         
         //ici c'est pour init le MiniGame type d'input a recieve
         currentMiniGameUI.Init(this, insect.bug);
+        MiniGameUI.currentTryCount = currentInsect.bug.tryCount;
     }
 
     public void OnMiniGameSuccess()
@@ -54,6 +55,8 @@ public class MiniGameManager : MonoBehaviour
 
     public void OnMiniGameFailed()
     {
+        MiniGameUI.currentTryCount = currentInsect.bug.tryCount;
+        
         CloseMiniGame();
     }
 
@@ -67,6 +70,7 @@ public class MiniGameManager : MonoBehaviour
         currentMiniGameUI = null;
         currentInsect = null;
         GameManager.instance.M_UI.isUiActive = false;
+        GameManager.instance.player.isInteracted = false;
         GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(true);
     }
 }

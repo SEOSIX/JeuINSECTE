@@ -17,3 +17,10 @@ MonoBehaviour:
   insectIcon: {fileID: 21300000, guid: 6918e60a1aab500439ff1c4bf2a173c5, type: 3}
   insectPrefab: {fileID: 0}
   maxStackable: 0
+  catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: a25eb7c773cd1de49b5122de1ed11faf, type: 3}
+  bugSpeed: 0
+  hidePercentage: 0
+  hideTime: 0
+  stopTime: 0
+  tryCount: 4
+  typeCatch: 1

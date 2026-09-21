@@ -7,21 +7,86 @@ public class UILineDrawer : Graphic
 {
     //tuto suivis pour la réalisation du script
     [SerializeField] private float lineThickness = 8f;
+    [SerializeField] private float maxLineLength = 1300f;
 
     private readonly List<Vector2> points = new List<Vector2>();
+    private float currentLength = 0f;
+
+    public float CurrentLength => currentLength;
+    public float MaxLineLength => maxLineLength;
+    public bool IsAtMaxLength => currentLength >= maxLineLength;
 
     public void SetPoints(List<Vector2> newPoints)
     {
         points.Clear();
-        points.AddRange(newPoints);
+        currentLength = 0f;
+
+        foreach (var p in newPoints)
+        {
+            if (!TryAddPointInternal(p))
+                break;
+        }
+
+        if (IsAtMaxLength)
+        {
+            ClearPoints();
+            return;
+        }
+
         SetVerticesDirty();
+    }
+    public bool AddPoint(Vector2 newPoint)
+    {
+        bool added = TryAddPointInternal(newPoint);
+
+        if (IsAtMaxLength)
+        {
+            ClearPoints();
+            return false;
+        }
+
+        SetVerticesDirty();
+        return added;
+    }
+
+    private bool TryAddPointInternal(Vector2 newPoint)
+    {
+        if (points.Count == 0)
+        {
+            points.Add(newPoint);
+            return true;
+        }
+
+        Vector2 last = points[points.Count - 1];
+        float segmentLength = Vector2.Distance(last, newPoint);
+
+        if (currentLength + segmentLength <= maxLineLength)
+        {
+            points.Add(newPoint);
+            currentLength += segmentLength;
+            return true;
+        }
+        else
+        {
+            float remaining = maxLineLength - currentLength;
+            if (remaining > 0f)
+            {
+                Vector2 dir = (newPoint - last).normalized;
+                Vector2 clampedPoint = last + dir * remaining;
+                points.Add(clampedPoint);
+                currentLength = maxLineLength;
+            }
+            return false;
+        }
     }
 
     public void ClearPoints()
     {
         points.Clear();
+        currentLength = 0f;
         SetVerticesDirty();
     }
+    
 
     protected override void OnPopulateMesh(VertexHelper vh)
     {

@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using GamePlayCore;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MiniGameUI : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private TextMeshProUGUI tryCountTxt;
     [SerializeField] private RectTransform insectIconRect;
     [SerializeField] private UILineDrawer lineDrawer;
     [SerializeField] private RectTransform drawingArea;
@@ -24,6 +27,8 @@ public class MiniGameUI : MonoBehaviour
     private List<Vector2> currentLocalPoints = new List<Vector2>();
     private bool isDrawing;
     
+    [HideInInspector] public static int currentTryCount;
+    
     private Canvas rootCanvas;
 
     public void Init(MiniGameManager manager, InsectData bug)
@@ -36,6 +41,8 @@ public class MiniGameUI : MonoBehaviour
     private void Update()
     {
         HandleInput();
+        
+        tryCountTxt.text = $"essais restant : {currentTryCount}";
     }
 
     private void HandleInput()
@@ -112,7 +119,16 @@ public class MiniGameUI : MonoBehaviour
         currentLocalPoints.Clear();
         lineDrawer.ClearPoints();
     }
-    
+
+    private void CheckFail()
+    {
+        currentTryCount--;
+        tryCountTxt.text = $"essais restant : {currentTryCount}";
+        if (currentTryCount <= 0)
+        {
+            Fail();
+        }
+    }
 
     #region DrawCircle
 
@@ -122,7 +138,7 @@ public class MiniGameUI : MonoBehaviour
 
             if (currentPoints.Count < minCirclePoints || insectIconRect == null)
             {
-                
+                CheckFail();
                 ResetDrawing();
                 return;
             }
@@ -130,7 +146,7 @@ public class MiniGameUI : MonoBehaviour
             float distStartEnd = Vector2.Distance(currentPoints[0], currentPoints[^1]);
             if (distStartEnd > circleClosureThreshold)
             {
-                
+                CheckFail();
                 ResetDrawing();
                 return;
             }
@@ -140,7 +156,10 @@ public class MiniGameUI : MonoBehaviour
             if (IsPointInsidePolygon(insectScreenPos, currentPoints))
                 Success();
             else
+            {
+                CheckFail();
                 ResetDrawing();
+            }
         }
 
         private bool IsPointInsidePolygon(Vector2 point, List<Vector2> polygon)
@@ -157,7 +176,6 @@ public class MiniGameUI : MonoBehaviour
                 }
                 j = i;
             }
-
             return inside;
         }
         
@@ -174,7 +192,7 @@ public class MiniGameUI : MonoBehaviour
             if (currentPoints.Count < 2 || insectIconRect == null)
             {
                 ResetDrawing();
-                //ajout de fail ++; et si fail = bugTryCatchCount on appel Fail(); 
+                CheckFail();
                 return;
             }
 
@@ -189,6 +207,7 @@ public class MiniGameUI : MonoBehaviour
                     return;
                 }
             }
+            CheckFail();
         }
 
         private float DistancePointToSegment(Vector2 point, Vector2 a, Vector2 b)

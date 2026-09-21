@@ -22,5 +22,5 @@ MonoBehaviour:
   hidePercentage: 0
   hideTime: 0
   stopTime: 0
-  tryCount: 0
+  tryCount: 4
   typeCatch: 1
