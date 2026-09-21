@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Interact");
             Player.Instance.isInteracted = true;
         }
 

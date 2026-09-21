@@ -1664,9 +1664,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2583090492604144725, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 1499209151271836427, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: m_PointerDownAction.m_Name
+      value: Pointer Down
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499209151271836427, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: m_PointerMoveAction.m_Name
+      value: Pointer Move
       objectReference: {fileID: 0}
     - target: {fileID: 6788290739259890020, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: m_LocalPosition.x
