@@ -24,24 +24,18 @@ namespace GamePlayCore
 
         private void CheckForInteract()
         {
-//            pickupTitle.gameObject.SetActive(true);
-            if (Player.Instance.isInteracted &&  isInside)
+            if (Player.Instance.isInteracted && isInside)
             {
-                List<InsectSlot> insect = Player.Instance.playerData.playerInventoryData.insects;
-                InsectSlot existingSlot = insect.Find(slot => slot.insect == bug);
-                if (existingSlot != null && existingSlot.count == bug.maxStackable) return;
-            
-                Player.Instance.insectPickUp.AddItem(bug, count);
-                Destroy(gameObject);
-                Debug.Log($"{bug.name} has been picked up");
+                GameManager.instance.M_MiniGameManager.DetectForInteraction(this);
             }
-//            else pickupTitle.gameObject.SetActive(false);
         }
         
         
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
+            Player player = GameManager.instance.player;
+            player.isInteracted = false;
             isInside=true;
         }
 

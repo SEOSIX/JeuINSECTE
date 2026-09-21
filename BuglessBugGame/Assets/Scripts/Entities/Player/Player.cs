@@ -14,9 +14,14 @@ public class Player : MonoBehaviour
     public Rigidbody _rb => ridigBody;
     
     [HideInInspector] public bool isInteracted;
-    void Awake()
+    private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else { Destroy(gameObject);}
         Init();
     }
 

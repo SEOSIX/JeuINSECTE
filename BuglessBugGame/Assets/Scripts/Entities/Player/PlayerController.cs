@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.instance.M_UI.isUiActive) return;
+        
         Movement();
         if (Player.Instance._rb.linearVelocity.y > 0f)
         {
@@ -44,7 +46,6 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Interact");
             Player.Instance.isInteracted = true;
         }
 
