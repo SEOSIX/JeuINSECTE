@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance {get; private set;}
-
     [SerializeField] private PlayerData data;
 
     private PlayerController p_controller;
@@ -14,9 +12,8 @@ public class Player : MonoBehaviour
     public Rigidbody _rb => ridigBody;
     
     [HideInInspector] public bool isInteracted;
-    void Awake()
+    private void Awake()
     {
-        Instance = this;
         Init();
     }
 

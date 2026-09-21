@@ -11,19 +11,21 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveInput;
     private PlayerInput playerInput;
 
-    private void Awake()
+    private void Start()
     {
-        _player = Player.Instance;
+        _player = GameManager.instance.player;
         currentSpeed = _player.playerData.playerControllerData.walkSpeed;
     }
 
 
     void FixedUpdate()
     {
+        if (GameManager.instance.M_UI.isUiActive) return;
+        
         Movement();
-        if (Player.Instance._rb.linearVelocity.y > 0f)
+        if (GameManager.instance.player._rb.linearVelocity.y > 0f)
         {
-            Player.Instance._rb.linearVelocity = new Vector3(Player.Instance._rb.linearVelocity.x, 0f, Player.Instance._rb.linearVelocity.z);
+            GameManager.instance.player._rb.linearVelocity = new Vector3(GameManager.instance.player._rb.linearVelocity.x, 0f, GameManager.instance.player._rb.linearVelocity.z);
         }
     }
 
@@ -44,13 +46,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Interact");
-            Player.Instance.isInteracted = true;
+            GameManager.instance.player.isInteracted = true;
         }
 
         if (context.canceled)
         {
-            Player.Instance.isInteracted = false;
+            GameManager.instance.player.isInteracted = false;
         }
     }
 
@@ -65,21 +66,21 @@ public class PlayerController : MonoBehaviour
 
         Vector3 isoDirection = Vector3.ClampMagnitude(isoDirectionRaw, 1f);
 
-        currentSpeed = Player.Instance.playerData.playerControllerData.walkSpeed;
+        currentSpeed = GameManager.instance.player.playerData.playerControllerData.walkSpeed;
 
         Vector3 velocity = isoDirection * currentSpeed;
-        velocity.y = Player.Instance._rb.linearVelocity.y;
+        velocity.y = GameManager.instance.player._rb.linearVelocity.y;
 
-        Player.Instance._rb.linearVelocity = velocity;
+        GameManager.instance.player._rb.linearVelocity = velocity;
 
         if (isoDirection.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(isoDirection);
 
-            Player.Instance._rb.MoveRotation(Quaternion.Slerp(
-                Player.Instance._rb.rotation,
+            GameManager.instance.player._rb.MoveRotation(Quaternion.Slerp(
+                GameManager.instance.player._rb.rotation,
                 targetRotation,
-                  Player.Instance.playerData.playerControllerData.rotationSpeed * Time.fixedDeltaTime));
+                  GameManager.instance.player.playerData.playerControllerData.rotationSpeed * Time.fixedDeltaTime));
         }
 
 
