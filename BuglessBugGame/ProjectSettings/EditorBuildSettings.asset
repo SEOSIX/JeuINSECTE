@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Developpement/SC_Lobby.unity
     guid: 1078cf5f2e153a242830f5dee7c2b11f
   - enabled: 1
+    path: Assets/Scenes/SC_Main.unity
+    guid: d3a6bf66d7705aa43a4f80d5a4572107
+  - enabled: 1
     path: Assets/Scenes/Developpement/SC_Testings.unity
     guid: 7f979179ea77c354ab6200bf39f0e26d
   m_configObjects:

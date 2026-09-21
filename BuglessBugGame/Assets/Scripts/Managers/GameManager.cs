@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Public")]
     public Player player;
     public Camera cam;
+    public Transform playerSpawn;
     
     [Header("ScenesName")]
     [SerializeField] public string _lobbySceneName;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (sceneName == _lobbySceneName)
         {
+            player.gameObject.transform.position = playerSpawn.position;
             M_UI.lobby._parentLobbyUI.SetActive(true);
             cam.gameObject.SetActive(false);
             M_UI.isUiActive = true;
@@ -66,6 +68,7 @@ public class GameManager : MonoBehaviour
         }
         else if (sceneName == _testScene)
         {
+            player.gameObject.transform.position = playerSpawn.position;
             M_UI.lobby._parentLobbyUI.SetActive(false);
             cam.gameObject.SetActive(true);
             M_UI.journey._parentJourney.SetActive(true);
