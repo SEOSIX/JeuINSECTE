@@ -46,6 +46,6 @@ public class PlayerInsectPickUp : MonoBehaviour
         if (journey != null)
             journey.RefreshUI();
         
-        OnInsectPicked?.Invoke(insect, count);
+        OnInsectPicked?.Invoke(insect, count = 1);
     }
 }
