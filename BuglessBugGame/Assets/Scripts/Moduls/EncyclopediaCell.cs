@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +7,6 @@ namespace Moduls
     public class EncyclopediaCell : MonoBehaviour
     {
         [Header("RefsUI")]
-        [SerializeField] private TextMeshProUGUI insectName;
-        [SerializeField] private TextMeshProUGUI insectDescription;
         [SerializeField] private Image icon;
         [SerializeField] private Button button;
 
@@ -32,12 +29,6 @@ namespace Moduls
 
             if (icon != null)
                 icon.sprite = bug.insectIcon;
-
-            if (insectName != null)
-                insectName.text = bug.insectName;
-
-            if (insectDescription != null)
-                insectDescription.text = bug.insectDescription;
         }
 
         private void HandleClick()
