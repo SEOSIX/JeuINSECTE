@@ -50,6 +50,18 @@ public class Encyclopedia : MonoBehaviour
         closeBookButton.onClick.AddListener(CloseBook);
         nextPageBookButton.onClick.AddListener(NextSpread);
         previousPageBookButton.onClick.AddListener(PreviousSpread);
+
+        InitializeFromData();
+    }
+    
+    private void InitializeFromData()
+    {
+        if (data == null) return;
+
+        foreach (InsectData insectData in data.encyclopediaData)
+        {
+            CreateCell(insectData);
+        }
     }
 
     void OpenBook()
@@ -75,17 +87,21 @@ public class Encyclopedia : MonoBehaviour
         if (!data.encyclopediaData.Contains(insectData))
         {
             data.encyclopediaData.Add(insectData);
-
-            GameObject newInsect = Instantiate(insectPrefab, cellPool); // parent = pool au départ
-            EncyclopediaCell cell = newInsect.GetComponent<EncyclopediaCell>();
-            cell.SetupInsectEncyclopedia(insectData);
-            cell.OnCellClicked += (insect) => HandleCellClicked(insect, cell);
-
-            allCells.Add(cell);
+            CreateCell(insectData);
 
             if (encyclopediaUI != null && encyclopediaUI.activeInHierarchy)
                 RefreshCurrentSpread();
         }
+    }
+    
+    private void CreateCell(InsectData insectData)
+    {
+        GameObject newInsect = Instantiate(insectPrefab, cellPool);
+        EncyclopediaCell cell = newInsect.GetComponent<EncyclopediaCell>();
+        cell.SetupInsectEncyclopedia(insectData);
+        cell.OnCellClicked += (insect) => HandleCellClicked(insect, cell);
+
+        allCells.Add(cell);
     }
 
     private void RefreshCurrentSpread()
@@ -115,6 +131,7 @@ public class Encyclopedia : MonoBehaviour
                 cell.gameObject.SetActive(false);
             }
         }
+        UpdateNavigationButtons();
     }
 
     private void HandleCellClicked(InsectData insect, EncyclopediaCell cell)
@@ -125,10 +142,17 @@ public class Encyclopedia : MonoBehaviour
             leftPage.ShowDetail(insect);
     }
 
+    private int MaxSpread => allCells.Count == 0 ? 0 : (allCells.Count - 1) / InsectsPerSpread;
+
+    private void UpdateNavigationButtons()
+    {
+        nextPageBookButton.interactable = allCells.Count > 0 && currentSpread < MaxSpread;
+        previousPageBookButton.interactable = currentSpread > 0;
+    }
+    
     public void NextSpread()
     {
-        int maxSpread = Mathf.Max(0, (allCells.Count - 1) / InsectsPerSpread);
-        if (currentSpread < maxSpread)
+        if (currentSpread < MaxSpread)
         {
             currentSpread++;
             RefreshCurrentSpread();

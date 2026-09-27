@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3094fc5da57f91b4f9172e93a5a54157, type: 3}
   m_Name: Encyclopedia
   m_EditorClassIdentifier: Assembly-CSharp::EncyclopediaData
-  encyclopediaData: []
+  encyclopediaData:
+  - {fileID: 11400000, guid: bdee23dc84f7fdd4b9fc4aa279ada3f9, type: 2}
+  - {fileID: 11400000, guid: 3c601bdc0a675a946a042e403052e5f3, type: 2}
+  - {fileID: 11400000, guid: 2a1334444768efb48899410935226a51, type: 2}
+  - {fileID: 11400000, guid: 1e92b2e965359b94597e456ca37081b5, type: 2}
+  - {fileID: 11400000, guid: 18ccfe6e45518f14aa3b4cf66be8ae45, type: 2}
