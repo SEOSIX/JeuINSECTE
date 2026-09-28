@@ -101,6 +101,9 @@
         },
         {
             "m_Id": "2d68dbaf57f44e879d4d5bce3815122f"
+        },
+        {
+            "m_Id": "b45a4a7def894ead8f5abf15ab1b31c1"
         }
     ],
     "m_GroupDatas": [],
@@ -1412,10 +1415,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1741.33349609375,
-            "y": -1055.33349609375,
-            "width": 209.3333740234375,
-            "height": 328.00006103515627
+            "x": -1745.0,
+            "y": -1000.0001220703125,
+            "width": 208.0,
+            "height": 326.00006103515627
         }
     },
     "m_Slots": [
@@ -1790,10 +1793,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3291.33349609375,
-            "y": -78.66675567626953,
-            "width": 242.0,
-            "height": 96.00010681152344
+            "x": -3516.0,
+            "y": -93.0,
+            "width": 241.0,
+            "height": 94.0
         }
     },
     "m_Slots": [
@@ -2511,6 +2514,43 @@
         "w": 0.0
     },
     "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.CustomFunctionNode",
+    "m_ObjectId": "b45a4a7def894ead8f5abf15ab1b31c1",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Custom Function",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -2249.302001953125,
+            "y": -1702.2462158203125,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [],
+    "synonyms": [
+        "code",
+        "HLSL"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": false,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SourceType": 1,
+    "m_FunctionName": "Enter function name here...",
+    "m_FunctionSource": "",
+    "m_FunctionSourceUsePragmas": true,
+    "m_FunctionBody": "Enter function body here..."
 }
 
 {

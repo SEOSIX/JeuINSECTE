@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [Header("Privates")]
     private UIManager uiManager;
     private MiniGameManager miniGameManager;
+    private Encyclopedia moduleEncyclopedia;
     
     [Header("Public")]
     public Player player;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         uiManager = GetComponent<UIManager>();
         miniGameManager = GetComponent<MiniGameManager>();
+        moduleEncyclopedia = GetComponentInChildren<Encyclopedia>();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
