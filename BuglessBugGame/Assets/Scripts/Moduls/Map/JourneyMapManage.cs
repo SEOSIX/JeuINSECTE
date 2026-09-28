@@ -1,20 +1,21 @@
+using System.Collections.Generic;
 using Moduls.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct MapButtonEntry
+{
+    public Button button;
+    public MapData mapPreviewData;
+}
 public class JourneyMapManage : MonoBehaviour
 {
-    public class MapButtonEntry
-    {
-        public Button button;
-        public MapData mapPreviewData;
-    }
-    
-    [SerializeField] private MapButtonEntry[] mapEntries;
-    
+    [SerializeField] private List<MapButtonEntry> mapEntries = new List<MapButtonEntry>();
     [SerializeField] private GameObject mapPreviewPrefab;
     [SerializeField] private Transform previewContainer;
+    [SerializeField] private Button returnToLobbyButton;
     
     private GameObject currentPreviewInstance;
     private MapData currentSelectedMapData;
@@ -26,6 +27,8 @@ public class JourneyMapManage : MonoBehaviour
             MapData data = entry.mapPreviewData;
             entry.button.onClick.AddListener(() => OnMapButtonClicked(data));
         }
+
+        returnToLobbyButton.onClick.AddListener(() => ReturnToLobby());
     }
 
     private void OnMapButtonClicked(MapData mapData)
@@ -49,6 +52,8 @@ public class JourneyMapManage : MonoBehaviour
         if (preview != null)
         {
             preview.SetUp(mapData);
+            preview.startMap.onClick.AddListener(() => LoadMap());
+            preview.backToMapSelection.onClick.AddListener(() => ClosePreview());
         }
     }
     
@@ -60,5 +65,22 @@ public class JourneyMapManage : MonoBehaviour
             return;
         }
         SceneManager.LoadScene(currentSelectedMapData.mapName);
+    }
+    
+    private void ClosePreview()
+    {
+        if (currentPreviewInstance != null)
+        {
+            Destroy(currentPreviewInstance);
+            currentPreviewInstance = null;
+        }
+
+        currentSelectedMapData = null;
+    }
+
+    private void ReturnToLobby()
+    {
+        GameManager.instance.M_UI.lobby._parentMapUI.SetActive(false);
+        GameManager.instance.M_UI.lobby._parentLobbyUI.SetActive(true);
     }
 }

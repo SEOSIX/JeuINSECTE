@@ -9,5 +9,5 @@ public class MapData : ScriptableObject
     public Sprite mapImage;
     public string mapName;
     [TextArea(3, 4)]public string mapDescription;
-    public List<Insect> insectsAvailable;
+    public List<InsectData> insectsAvailable;
 }
