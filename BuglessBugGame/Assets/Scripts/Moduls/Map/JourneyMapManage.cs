@@ -65,6 +65,7 @@ public class JourneyMapManage : MonoBehaviour
             return;
         }
         SceneManager.LoadScene(currentSelectedMapData.mapName);
+        ClosePreview();
         GameManager.instance.M_UI.lobby._parentMapUI.SetActive(false);
     }
     
