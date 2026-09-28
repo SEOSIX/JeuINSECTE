@@ -362,6 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIChalet
   _goWalkButton: {fileID: 3721522022777863003}
   _parentLobbyUI: {fileID: 3427955472491433001}
+  _parentMapUI: {fileID: 893589072921513253}
 --- !u!114 &4093774979402171084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +807,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Leave
       objectReference: {fileID: 0}
+    - target: {fileID: 6941122201561362418, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7523960276572510326, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
       propertyPath: m_SizeDelta.x
       value: 256
@@ -854,6 +859,11 @@ PrefabInstance:
 --- !u!224 &691131661947316870 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7323450919845693521, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+  m_PrefabInstance: {fileID: 7797273960030937815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &893589072921513253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6941122201561362418, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
   m_PrefabInstance: {fileID: 7797273960030937815}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1432651797176443559 stripped
