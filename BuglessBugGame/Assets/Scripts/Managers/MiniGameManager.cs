@@ -7,7 +7,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject instanceMinigameParent;
     
     private GameObject currentMiniGameInstance;
-    private MiniGameUI currentMiniGameUI;
+    public MiniGameUI currentMiniGameUI {get; private set;}
     public Insect currentInsect {get; private set;}
 
     public bool IsMiniGameActive => currentMiniGameInstance != null;

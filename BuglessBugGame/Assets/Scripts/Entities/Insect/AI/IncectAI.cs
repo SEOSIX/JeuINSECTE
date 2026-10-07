@@ -13,7 +13,7 @@ public class IncectAI : MonoBehaviour
         Catched
     }
     private InsectData data;
-    
+    private MiniGameManager miniGameManager;
     private AiState aiState;
     
     private float currentVelocity;
@@ -32,14 +32,17 @@ public class IncectAI : MonoBehaviour
     
     void FixedUpdate()
     {
-        InsectMovements();
+        //InsectMovements();
+        CheckPosition();
+        Debug.Log(isHidden);
     }
 
     void Init()
     {
         data = GameManager.instance.M_MiniGameManager.currentInsect.bug;
         canvasRectTransform = GetComponent<RectTransform>();
-
+        
+        miniGameManager = GameManager.instance.M_MiniGameManager;
         direction = GetRandomDirection();
         
         directionChangeTimer = intervalPickChance;
@@ -61,6 +64,7 @@ public class IncectAI : MonoBehaviour
         insectTransform.anchoredPosition += direction * data.bugSpeed * Time.fixedDeltaTime;
 
         LimitToScreen();
+        
 
         currentVelocity = (insectTransform.position - lastPosition).magnitude / Time.fixedDeltaTime;
         lastPosition = insectTransform.position;
@@ -105,8 +109,32 @@ public class IncectAI : MonoBehaviour
         insectTransform.anchoredPosition = pos;
     }
 
-    private bool CheckPosition()
+    private void CheckPosition()
     {
-        return false;
+        isHidden = false;
+        foreach (RectTransform hidingSpots in miniGameManager.currentMiniGameUI.hideSpot)
+        {
+            Vector2 pos = hidingSpots.anchoredPosition;
+            
+            if (CheckBounds() == pos)
+            {
+                isHidden = true;
+            }
+            else
+                isHidden = false;
+        }
+    }
+
+    private Vector2 CheckBounds()
+    {
+        float sizeX = insectTransform.localScale.x / 2;
+        float sizeY = insectTransform.localScale.y / 2;
+
+        Vector2 upL = new Vector2(insectTransform.position.x - sizeX, insectTransform.position.y + sizeY);
+        Vector2 upR = new Vector2(insectTransform.position.x + sizeX, insectTransform.position.y + sizeY);
+        Vector2 downL = new Vector2(insectTransform.position.x - sizeX, insectTransform.position.y - sizeY);
+        Vector2 downR = new Vector2(insectTransform.position.x + sizeX, insectTransform.position.y - sizeY);
+        
+        return upL + upR +downL + downR;
     }
 }

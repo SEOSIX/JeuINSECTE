@@ -12,6 +12,7 @@ public class MiniGameUI : MonoBehaviour
     [SerializeField] private UILineDrawer lineDrawer;
     [SerializeField] private RectTransform drawingArea;
     [SerializeField] private Canvas canvas;
+    [SerializeField] public RectTransform[] hideSpot;
 
     [Header("Swipe Settings")]
     [SerializeField] private float swipeHitRadius = 40f;
