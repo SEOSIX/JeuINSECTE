@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 _velocity;
 
-    private Vector3 PlayerPos => Player.Instance.transform.position;
+    private Vector3 PlayerPos => GameManager.instance.player.transform.position;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
             transform.position = TargetToCam(target.position);
         else
         {
-            target = Player.Instance.transform;
+            target = GameManager.instance.player.transform;
 
         }
     }

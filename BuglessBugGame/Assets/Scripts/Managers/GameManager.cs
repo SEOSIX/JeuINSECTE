@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     [Header("Privates")]
     private UIManager uiManager;
     private MiniGameManager miniGameManager;
+    private Encyclopedia moduleEncyclopedia;
     
     [Header("Public")]
     public Player player;
     public Camera cam;
+    public Transform playerSpawn;
     
     [Header("ScenesName")]
     [SerializeField] public string _lobbySceneName;
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public UIManager M_UI => uiManager;
     public MiniGameManager M_MiniGameManager => miniGameManager;
+
     private void Awake()
     {
         if (instance == null)
@@ -28,38 +31,50 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else { Destroy(gameObject);}
-        
+        else { Destroy(gameObject); return; }
         
         Init();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        ViewManaging();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Init()
     {
         uiManager = GetComponent<UIManager>();
         miniGameManager = GetComponent<MiniGameManager>();
+        moduleEncyclopedia = GetComponentInChildren<Encyclopedia>();
     }
 
-    private void ViewManaging()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().name == _lobbySceneName)
+        ViewManaging(scene.name);
+    }
+
+    private void ViewManaging(string sceneName)
+    {
+        if (sceneName == _lobbySceneName)
         {
+            player.gameObject.transform.position = playerSpawn.position;
             M_UI.lobby._parentLobbyUI.SetActive(true);
             cam.gameObject.SetActive(false);
-            player.gameObject.SetActive(false);
+            M_UI.isUiActive = true;
             M_UI.journey._parentJourney.SetActive(false);
         }
-        else if (SceneManager.GetActiveScene().name == _testScene)
+        else if (sceneName == _testScene)
         {
+            player.gameObject.transform.position = playerSpawn.position;
             M_UI.lobby._parentLobbyUI.SetActive(false);
             cam.gameObject.SetActive(true);
-            player.gameObject.SetActive(true);
             M_UI.journey._parentJourney.SetActive(true);
+            M_UI.isUiActive = false;
         }
     }
 }

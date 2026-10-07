@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Abeille
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Abeille
-  insectDescription: 
-  insectIcon: {fileID: 21300000, guid: 6918e60a1aab500439ff1c4bf2a173c5, type: 3}
+  insectDescription: Les abeilles volent
+  insectIcon: {fileID: 21300000, guid: 583b1b585c5082742b228ead9d69e360, type: 3}
   insectPrefab: {fileID: 0}
   maxStackable: 0
   catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: e605b9ba1f15ba447bdb17e76d8d4056, type: 3}
