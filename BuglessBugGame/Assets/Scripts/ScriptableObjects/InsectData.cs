@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Insect", menuName = "Data/Insect Data")]
@@ -11,15 +12,15 @@ public class InsectData : ScriptableObject
     
     [Header("Infos générales")]
     public string insectName;
-    [TextArea(3, 5)] public string insectDescription;
+    [TextArea(3, 5)] public List<string> insectDescription;
     public Sprite insectIcon;
     public GameObject insectPrefab;
-    public int maxStackable;
+    public int catchCount;
     
     [Header("CatchMiniGame")]
     public GameObject catchMiniGamePrefabUI;
     public float bugSpeed;
-    public float hidePercentage;
+    [Range(0f, 1f)]public float changeDirectionPercentage;
     public float hideTime;
     public float stopTime;
     public int tryCount;

@@ -21,7 +21,7 @@ public class MiniGameManager : MonoBehaviour
         
         List<InsectSlot> insectList = GameManager.instance.player.playerData.playerInventoryData.insects;
         InsectSlot existingSlot = insectList.Find(slot => slot.insect == insect.bug);
-        if (existingSlot != null && existingSlot.count == insect.bug.maxStackable) return;
+        if (existingSlot != null && existingSlot.count == insect.bug.catchCount) return;
 
         if (insect.bug.catchMiniGamePrefabUI == null)
         {

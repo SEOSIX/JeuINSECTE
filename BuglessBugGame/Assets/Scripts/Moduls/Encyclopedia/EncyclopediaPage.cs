@@ -21,7 +21,7 @@ public class EncyclopediaPage : MonoBehaviour
         if (detailPanel != null) detailPanel.SetActive(true);
 
         if (detailName != null) detailName.text = insect.insectName;
-        if (detailDescription != null) detailDescription.text = insect.insectDescription;
+        //if (detailDescription != null) detailDescription.text = insect.insectDescription;
     }
 
     public void ShowGrid()

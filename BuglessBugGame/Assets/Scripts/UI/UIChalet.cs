@@ -18,7 +18,6 @@ public class UIChalet : MonoBehaviour
 
     private void GoToMap()
     {
-        //a modifier plus tard pour aller sur l'UI map
         GameManager.instance.player.playerData.playerInventoryData.insects.Clear();
         _parentMapUI.SetActive(true);
         _parentLobbyUI.SetActive(false);

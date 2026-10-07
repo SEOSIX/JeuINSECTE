@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Bousier
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Bousier
-  insectDescription: Les bousiers roulent des bouules de terres
+  insectDescription: []
   insectIcon: {fileID: 21300000, guid: 583b1b585c5082742b228ead9d69e360, type: 3}
   insectPrefab: {fileID: 0}
-  maxStackable: 0
+  catchCount: 0
   catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: a25eb7c773cd1de49b5122de1ed11faf, type: 3}
-  bugSpeed: 0
-  hidePercentage: 0
+  bugSpeed: 150
+  changeDirectionPercentage: 0.335
   hideTime: 0
   stopTime: 0
   tryCount: 4
