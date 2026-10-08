@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GamePlayCore;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -90,33 +91,35 @@ public class MiniGameManager : MonoBehaviour
         var ai = currentMiniGameUI.aiMovements;
         ai.StartRunAway();
         
-        StartCoroutine(RevealTextCoroutine());
+        var text = currentMiniGameUI.loseInsectGo.GetComponent<TextMeshProUGUI>();
+        int totalCharacters = text.textInfo.characterCount;
+        
+        StartCoroutine(RevealTextCoroutine(text, totalCharacters));
         
         while (!ai.RunAwayStep(Time.deltaTime))
             yield return null;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
+        
         CloseMiniGame();
         loseCoroutine = null;
     }
 
-    IEnumerator RevealTextCoroutine()
+    IEnumerator RevealTextCoroutine(TextMeshProUGUI text, int totalCharacters)
     {
-        var text = currentMiniGameUI.loseInsectGo.GetComponent<TMPro.TextMeshProUGUI>();
-
-        
         currentMiniGameUI.loseInsectGo.SetActive(true);
         text.maxVisibleCharacters = 0;
         text.ForceMeshUpdate();
-        int total = text.textInfo.characterCount;
-        float duration = 1.5f;
+        totalCharacters = text.textInfo.characterCount;
+        float duration = 1f;
         float t = 0f;
 
-        while (text.maxVisibleCharacters < total)
+        while (text.maxVisibleCharacters < totalCharacters)
         {
             t += Time.deltaTime;
-            text.maxVisibleCharacters = Mathf.Min(total, Mathf.FloorToInt(t / duration * total));
+            text.maxVisibleCharacters = Mathf.Min(totalCharacters, Mathf.FloorToInt(t / duration * totalCharacters));
             yield return null;
         }
+        text.maxVisibleCharacters = totalCharacters;
     }
 }
