@@ -2164,14 +2164,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3749024387993492091, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6495192618389812493, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.332
-      objectReference: {fileID: 0}
+    - target: {fileID: 5039552167253802289, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: leftUI
+      value: 
+      objectReference: {fileID: 755742069}
+    - target: {fileID: 5039552167253802289, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: terrariumUI
+      value: 
+      objectReference: {fileID: 395624143}
     - target: {fileID: 6788290739259890020, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2217,10 +2217,17 @@ PrefabInstance:
       value: -------GAMEMANAGER--------
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1627208342792994001, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+    - {fileID: 8148313792555945260, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+--- !u!1 &395624143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3079382276118315001, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+  m_PrefabInstance: {fileID: 395624142}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &440358620
 GameObject:
   m_ObjectHideFlags: 0
@@ -5476,6 +5483,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749845563}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &755742069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6103846211896040232, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+  m_PrefabInstance: {fileID: 395624142}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &767362975
 GameObject:
   m_ObjectHideFlags: 0

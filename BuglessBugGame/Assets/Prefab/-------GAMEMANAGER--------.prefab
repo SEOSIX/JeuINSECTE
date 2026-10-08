@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 1979504362791621730}
   - component: {fileID: 1406632719112030253}
   - component: {fileID: 4093774979402171084}
+  - component: {fileID: 5039552167253802289}
   m_Layer: 0
   m_Name: -------GAMEMANAGER--------
   m_TagString: Untagged
@@ -376,6 +377,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGameManager
   instanceMinigameParent: {fileID: 4230113851778678918}
+--- !u!114 &5039552167253802289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8139945426383917259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c463147eb19e6498673828c89ccdf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
 --- !u!1 &8305607808632867805
 GameObject:
   m_ObjectHideFlags: 0
