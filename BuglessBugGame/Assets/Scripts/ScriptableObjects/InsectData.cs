@@ -22,6 +22,7 @@ public class InsectData : ScriptableObject
     public float bugSpeed;
     [Range(0f, 1f)]public float changeDirectionPercentage;
     public float hideTime;
+    public float hideChance;
     public float stopTime;
     public int tryCount;
     public TypeCatch typeCatch;

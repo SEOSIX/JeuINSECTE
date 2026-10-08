@@ -5235,6 +5235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   player: {fileID: 0}
   cam: {fileID: 0}
+  playerSpawn: {fileID: 0}
   _lobbySceneName: 
   _testScene: 
 --- !u!1 &1144027911
@@ -11451,6 +11452,10 @@ PrefabInstance:
     - target: {fileID: 1910625770389804492, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
       propertyPath: m_fontSizeMin
       value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875129063762128638, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4972461908132216335, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
       propertyPath: m_Name

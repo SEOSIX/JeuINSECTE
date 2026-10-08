@@ -13,6 +13,7 @@ public class MiniGameUI : MonoBehaviour
     [SerializeField] private RectTransform drawingArea;
     [SerializeField] private Canvas canvas;
     [SerializeField] public RectTransform[] hideSpot;
+    [SerializeField] public GameObject loseInsectGo;
 
     [Header("Swipe Settings")]
     [SerializeField] private float swipeHitRadius = 40f;
@@ -20,29 +21,34 @@ public class MiniGameUI : MonoBehaviour
     [Header("Circle Settings")]
     [SerializeField] private float circleClosureThreshold = 50f;
     [SerializeField] private int minCirclePoints = 10;
-
+    
     private MiniGameManager miniGameManager;
     private InsectData.TypeCatch typeCatch;
-
+    
+    private Canvas rootCanvas;
     private List<Vector2> currentPoints = new List<Vector2>();
     private List<Vector2> currentLocalPoints = new List<Vector2>();
     private bool isDrawing;
     
     [HideInInspector] public static int currentTryCount;
-    
-    private Canvas rootCanvas;
+    [HideInInspector] public IncectAI aiMovements;
+
+    public TextMeshProUGUI countTryText => tryCountTxt;
 
     public void Init(MiniGameManager manager, InsectData bug)
     {
         miniGameManager = manager;
         typeCatch = bug.typeCatch;
         rootCanvas = GameManager.instance.M_UI.journey._parentJourney.GetComponent<Canvas>();
+        
+        aiMovements = gameObject.GetComponent<IncectAI>();
+        tryCountTxt.enabled = true;
     }
 
     private void Update()
     {
+        if (aiMovements.isHidden) return;
         HandleInput();
-        
         tryCountTxt.text = $"essais restant : {currentTryCount}";
     }
 
@@ -123,10 +129,13 @@ public class MiniGameUI : MonoBehaviour
 
     private void CheckFail()
     {
+        if (miniGameManager.loseCoroutine != null) return;
+        
         currentTryCount--;
         tryCountTxt.text = $"essais restant : {currentTryCount}";
         if (currentTryCount <= 0)
         {
+            tryCountTxt.enabled = false;
             Fail();
         }
     }

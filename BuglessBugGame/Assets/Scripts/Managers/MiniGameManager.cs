@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using GamePlayCore;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MiniGameManager : MonoBehaviour
@@ -11,6 +13,13 @@ public class MiniGameManager : MonoBehaviour
     public Insect currentInsect {get; private set;}
 
     public bool IsMiniGameActive => currentMiniGameInstance != null;
+
+    [HideInInspector]public Coroutine loseCoroutine;
+
+    private void Update()
+    {
+        if (loseCoroutine != null) return;
+    }
 
     public void DetectForInteraction(Insect insect)
     {
@@ -25,7 +34,7 @@ public class MiniGameManager : MonoBehaviour
 
         if (insect.bug.catchMiniGamePrefabUI == null)
         {
-            Debug.LogWarning($"No catchMiniGamePrefabUI set on {insect.bug.name}");
+            Debug.LogWarning($"No prefab set for {insect.bug.name}");
             return;
         }
 
@@ -35,6 +44,7 @@ public class MiniGameManager : MonoBehaviour
         
         //ici c'est pour init le MiniGame type d'input a recieve
         currentMiniGameUI.Init(this, insect.bug);
+        currentMiniGameUI.loseInsectGo.SetActive(false);
         MiniGameUI.currentTryCount = currentInsect.bug.tryCount;
     }
 
@@ -56,8 +66,10 @@ public class MiniGameManager : MonoBehaviour
     public void OnMiniGameFailed()
     {
         MiniGameUI.currentTryCount = currentInsect.bug.tryCount;
+
+        if (loseCoroutine != null) return;
+        loseCoroutine = StartCoroutine(RunAwayCoroutine());
         
-        CloseMiniGame();
     }
 
     private void CloseMiniGame()
@@ -72,5 +84,39 @@ public class MiniGameManager : MonoBehaviour
         GameManager.instance.M_UI.isUiActive = false;
         GameManager.instance.player.isInteracted = false;
         GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(true);
+    }
+    private IEnumerator RunAwayCoroutine()
+    {
+        var ai = currentMiniGameUI.aiMovements;
+        ai.StartRunAway();
+        
+        StartCoroutine(RevealTextCoroutine());
+        
+        while (!ai.RunAwayStep(Time.deltaTime))
+            yield return null;
+
+        yield return new WaitForSeconds(0.5f);
+        CloseMiniGame();
+        loseCoroutine = null;
+    }
+
+    IEnumerator RevealTextCoroutine()
+    {
+        var text = currentMiniGameUI.loseInsectGo.GetComponent<TMPro.TextMeshProUGUI>();
+
+        
+        currentMiniGameUI.loseInsectGo.SetActive(true);
+        text.maxVisibleCharacters = 0;
+        text.ForceMeshUpdate();
+        int total = text.textInfo.characterCount;
+        float duration = 1.5f;
+        float t = 0f;
+
+        while (text.maxVisibleCharacters < total)
+        {
+            t += Time.deltaTime;
+            text.maxVisibleCharacters = Mathf.Min(total, Mathf.FloorToInt(t / duration * total));
+            yield return null;
+        }
     }
 }

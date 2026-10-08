@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Menthe
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Mente
-  insectDescription: []
+  insectDescription:
+  - Ceci est un insecte, nous pouvont le trouver dans la nature.
   insectIcon: {fileID: 4928961528173233806, guid: 76f99dfc1429a004980c5b833b3f9e1d, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
   catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: a25eb7c773cd1de49b5122de1ed11faf, type: 3}
-  bugSpeed: 150
-  changeDirectionPercentage: 0.335
-  hideTime: 0
+  bugSpeed: 225
+  changeDirectionPercentage: 0.01
+  hideTime: 0.75
+  hideChance: 1.16
   stopTime: 0
   tryCount: 4
   typeCatch: 1

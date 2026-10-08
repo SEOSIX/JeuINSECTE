@@ -124,6 +124,7 @@ MonoBehaviour:
   lineDrawer: {fileID: 5026399632722544364}
   drawingArea: {fileID: 1383743099299724062}
   canvas: {fileID: 174500721066427996}
+  hideSpot: []
   swipeHitRadius: 40
   circleClosureThreshold: 50
   minCirclePoints: 10
@@ -408,7 +409,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  lineThickness: 8
+  lineThickness: 15
   maxLineLength: 2000
 --- !u!1 &9210721442260436611
 GameObject:
