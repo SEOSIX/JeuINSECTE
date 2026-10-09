@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     [HideInInspector]public UIJourney journey;
     [HideInInspector]public UIChalet lobby;
+    [HideInInspector] public TerrariumManager terrariumManager;
 
     private bool IsUIActive;
     
@@ -18,5 +19,6 @@ public class UIManager : MonoBehaviour
     {
         journey = GetComponent<UIJourney>();
         lobby = GetComponent<UIChalet>();
+        terrariumManager = GetComponent<TerrariumManager>();
     }
 }

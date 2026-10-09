@@ -1,57 +1,92 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TerrariumManager : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject terrariumUI;
     [SerializeField] private GameObject leftUI;
+    
+    [SerializeField]private TerrariumData terrariumData;
 
-    [SerializeField] private float minSwipeDistance = 50f;
+    private Vector2 swipeInput;
+    private PlayerInput playerInput;
 
-    private Vector2 startSwipePosition;
-
+    private void Awake()
+    {
+        Init();
+    }
+    
+    private void Init()
+    {
+        SetTerrariumLevel();
+    }
+    
     private void Update()
     {
-        DetectSwipe();
+        ActivateTerrariumUI();
     }
 
-    private void DetectSwipe()
+    public void Swipe(InputAction.CallbackContext context)
     {
-        if (Input.touchCount > 0)
+        if (context.performed)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-                startSwipePosition = touch.position;
-            else if (touch.phase == TouchPhase.Ended)
-                HandleSwipe(touch.position);
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
-                startSwipePosition = Input.mousePosition;
-            else if (Input.GetMouseButtonUp(0))
-                HandleSwipe(Input.mousePosition);
+            swipeInput = context.ReadValue<Vector2>();
         }
     }
 
-    private void HandleSwipe(Vector2 endPosition)
+    private void SetTerrariumLevel()
     {
-        float deltaX = endPosition.x - startSwipePosition.x;
+        int maxInsectsByLevel = 0;
+        
+        if(terrariumData == null) return;
 
-        if (Mathf.Abs(deltaX) < minSwipeDistance) return;
-
-        if (deltaX < 0)
+        if (terrariumData.terrariumLevel == 1)
         {
-            terrariumUI.SetActive(true);
-            leftUI.SetActive(false);
-            Debug.Log("showTerra");
+            maxInsectsByLevel = 1;
+            terrariumData.insects.Capacity = maxInsectsByLevel;
         }
-        else
+        if (terrariumData.terrariumLevel == 2)
         {
-            terrariumUI.SetActive(false);
+            maxInsectsByLevel = 1;
+            terrariumData.insects.Capacity = maxInsectsByLevel;
+        }
+        if (terrariumData.terrariumLevel == 3)
+        {
+            maxInsectsByLevel = 3;
+            terrariumData.insects.Capacity = maxInsectsByLevel;
+        }
+        if (terrariumData.terrariumLevel == 4)
+        {
+            maxInsectsByLevel = 4;
+            terrariumData.insects.Capacity = maxInsectsByLevel;
+        }
+    }
+
+    #region TouchInput
+
+    public void ActivateTerrariumUI()
+    {
+        if (swipeInput != Vector2.zero && swipeInput.x + swipeInput.y > 0f)
+        {
             leftUI.SetActive(true);
-            Debug.Log("Mask");
+            terrariumUI.SetActive(false);
+        }
+        else if (swipeInput != Vector2.zero && swipeInput.x + swipeInput.y < 0f)
+        {
+            leftUI.SetActive(false);
+            terrariumUI.SetActive(true);
         }
     }
+    public void Drag()
+    {
+        
+    }
+
+    public void Drop()
+    {
+        
+    }
+
+    #endregion
 }

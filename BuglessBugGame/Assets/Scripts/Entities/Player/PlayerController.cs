@@ -55,6 +55,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnSwipe(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            GameManager.instance.M_UI.terrariumManager.Swipe(context);
+        }
+    }
+
     private void Movement() 
     {
         Vector2 input = Vector2.ClampMagnitude(_moveInput, 1f);
