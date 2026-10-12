@@ -59,8 +59,6 @@ public class MiniGameManager : MonoBehaviour
         Player player = GameManager.instance.player;
         player.isInteracted = false;
 
-        Debug.Log($"{currentInsect.bug.name} has been picked up");
-
         CloseMiniGame();
     }
 

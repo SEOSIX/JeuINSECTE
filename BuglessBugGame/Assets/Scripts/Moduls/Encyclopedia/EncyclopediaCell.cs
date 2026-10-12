@@ -23,17 +23,25 @@ namespace Moduls
                 button.onClick.AddListener(HandleClick);
         }
 
+        void Update()
+        {
+            if (!currentInsect.isUnlocked)
+            {
+                icon.material = new Material(icon.material);
+                icon.material.SetFloat("_GrayscaleAmount", 1);
+            }
+            else
+            {
+                icon.material = new Material(icon.material);
+                icon.material.SetFloat("_GrayscaleAmount", 0);
+            }
+        }
         public void SetupInsectEncyclopedia(InsectData bug)
         {
             currentInsect = bug;
 
             if (icon != null)
                 icon.sprite = bug.insectIcon;
-
-            if (!currentInsect.isUnlocked)
-                icon.color = Color.gray;
-            else
-                icon.color = Color.white;
         }
 
         private void HandleClick()

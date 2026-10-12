@@ -1,14 +1,23 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GamePlayCore
 {
+    [Serializable]
+    public class InsectDrop
+    {
+        [SerializeField]private InsectData bug;
+        [SerializeField] private float percentageLuck;
+    }
     public class Insect : MonoBehaviour
     {
         [Header("Item")]
         public InsectData bug;
         public int count = 1;
+        public List<InsectDrop> drops = new List<InsectDrop>();
         
         [Header("Visual")]
         public TextMeshProUGUI pickupTitle;

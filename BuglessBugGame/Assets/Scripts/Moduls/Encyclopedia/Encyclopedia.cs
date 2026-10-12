@@ -36,12 +36,12 @@ public class Encyclopedia : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInsectPickUp.OnInsectPicked += AddToBook;
+        //PlayerInsectPickUp.OnInsectPicked += AddToBook;
     }
 
     private void OnDisable()
     {
-        PlayerInsectPickUp.OnInsectPicked -= AddToBook;
+        //PlayerInsectPickUp.OnInsectPicked -= AddToBook;
     }
 
     void Awake()

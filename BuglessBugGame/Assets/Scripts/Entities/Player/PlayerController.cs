@@ -93,6 +93,10 @@ public class PlayerController : MonoBehaviour
         
         bool isMoving = input.sqrMagnitude > 0.01f;
 
+        if (0 < 0 )
+        {
+            //TODO fix player Rotation
+        }
     }
 
 }
