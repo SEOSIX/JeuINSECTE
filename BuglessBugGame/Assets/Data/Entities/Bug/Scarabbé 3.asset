@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f77218dc579aaa5439df1d39344dfb8d, type: 3}
-  m_Name: Bumblebee
+  m_Name: "Scarabb\xE9 3"
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
-  insectName: Bumblebee
+  insectName: "Scarab\xE9"
   insectDescription:
   - Ceci est un insecte, nous pouvont le trouver dans la nature.
-  insectIcon: {fileID: 21300000, guid: 6918e60a1aab500439ff1c4bf2a173c5, type: 3}
+  insectIcon: {fileID: 21300000, guid: 2266cc5abe5c5624199b6a485f08d7c7, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
-  catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: e605b9ba1f15ba447bdb17e76d8d4056, type: 3}
+  catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: a25eb7c773cd1de49b5122de1ed11faf, type: 3}
   bugSpeed: 225
   changeDirectionPercentage: 0.01
   hideTime: 0.75
   hideChance: 1.16
   stopTime: 0
   tryCount: 4
-  typeCatch: 0
+  typeCatch: 1
