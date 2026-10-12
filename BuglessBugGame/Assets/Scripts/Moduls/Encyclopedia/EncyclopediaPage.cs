@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EncyclopediaPage : MonoBehaviour
 {
-    public const int MaxInsectsPerPage = 1;
+    public const int MaxInsectsPerPage = 9;
 
     [Header("Grille")]
     [SerializeField] private GameObject cellsContainer;

@@ -29,6 +29,11 @@ namespace Moduls
 
             if (icon != null)
                 icon.sprite = bug.insectIcon;
+
+            if (!currentInsect.isUnlocked)
+                icon.color = Color.gray;
+            else
+                icon.color = Color.white;
         }
 
         private void HandleClick()

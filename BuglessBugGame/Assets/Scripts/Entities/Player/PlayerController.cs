@@ -90,8 +90,7 @@ public class PlayerController : MonoBehaviour
                 targetRotation,
                   GameManager.instance.player.playerData.playerControllerData.rotationSpeed * Time.fixedDeltaTime));
         }
-
-
+        
         bool isMoving = input.sqrMagnitude > 0.01f;
 
     }

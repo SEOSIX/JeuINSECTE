@@ -16,7 +16,7 @@ MonoBehaviour:
     walkSpeed: 7
     runSpeed: 10
     CrouchSpeed: 4
-    rotationSpeed: 1
+    rotationSpeed: 30
     pickupDistance: 2
   playerInventoryData:
     insects: []

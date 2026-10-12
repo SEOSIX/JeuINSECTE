@@ -16,7 +16,7 @@ public class PlayerControllerData
     public float walkSpeed = 7.0f;
     public float runSpeed = 10f;
     public float CrouchSpeed = 4.0f;
-    public float rotationSpeed = 1.0f;
+    public float rotationSpeed = 15f;
     [Header("Pickup")]
     public float pickupDistance = 2f;
 }

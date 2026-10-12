@@ -16,6 +16,7 @@ public class InsectData : ScriptableObject
     public Sprite insectIcon;
     public GameObject insectPrefab;
     public int catchCount;
+    public bool isUnlocked;
     
     [Header("CatchMiniGame")]
     public GameObject catchMiniGamePrefabUI;

@@ -305,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   journey: {fileID: 0}
   lobby: {fileID: 0}
+  terrariumManager: {fileID: 0}
 --- !u!114 &2264575523076893744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c463147eb19e6498673828c89ccdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
+  terrariumUI: {fileID: 0}
+  leftUI: {fileID: 0}
+  terrariumData: {fileID: 0}
 --- !u!1 &8305607808632867805
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +463,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6788290739259890020}
     m_Modifications:
+    - target: {fileID: 1934767381004512282, guid: 411ec6c0ce0725d44ae4ee696c896a25, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 9ce5232d1c5714c4f851676d7e93594f, type: 2}
     - target: {fileID: 2789513537112588933, guid: 411ec6c0ce0725d44ae4ee696c896a25, type: 3}
       propertyPath: m_Mesh
       value: 
