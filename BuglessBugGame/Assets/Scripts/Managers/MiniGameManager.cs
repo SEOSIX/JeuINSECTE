@@ -17,6 +17,7 @@ public class MiniGameManager : MonoBehaviour
 
     [HideInInspector]public Coroutine loseCoroutine;
 
+    private InsectData _currentInsectData;
     private void Update()
     {
         if (loseCoroutine != null) return;
@@ -25,35 +26,37 @@ public class MiniGameManager : MonoBehaviour
     public void DetectForInteraction(Insect insect)
     {
         if (IsMiniGameActive) return;
+
+        currentInsect = insect;
+        _currentInsectData = currentInsect.PickRandomInsect();
         
         GameManager.instance.M_UI.isUiActive = true;
         GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(false);
         
         List<InsectSlot> insectList = GameManager.instance.player.playerData.playerInventoryData.insects;
-        InsectSlot existingSlot = insectList.Find(slot => slot.insect == insect.bug);
-        if (existingSlot != null && existingSlot.count == insect.bug.catchCount) return;
+        InsectSlot existingSlot = insectList.Find(slot => slot.insect == insect._insectPicked);
+        if (existingSlot != null && existingSlot.count == insect._insectPicked.catchCount) return;
 
-        if (insect.bug.catchMiniGamePrefabUI == null)
+        if (insect._insectPicked.catchMiniGamePrefabUI == null)
         {
-            Debug.LogWarning($"No prefab set for {insect.bug.name}");
+            Debug.LogWarning($"No prefab set for {insect._insectPicked.name}");
             return;
         }
 
-        currentInsect = insect;
-        currentMiniGameInstance = Instantiate(insect.bug.catchMiniGamePrefabUI, instanceMinigameParent.transform);
+        currentMiniGameInstance = Instantiate(insect._insectPicked.catchMiniGamePrefabUI, instanceMinigameParent.transform);
         currentMiniGameUI = currentMiniGameInstance.GetComponent<MiniGameUI>();
         
         //ici c'est pour init le MiniGame type d'input a recieve
-        currentMiniGameUI.Init(this, insect.bug);
+        currentMiniGameUI.Init(this, insect._insectPicked);
         currentMiniGameUI.loseInsectGo.SetActive(false);
-        MiniGameUI.currentTryCount = currentInsect.bug.tryCount;
+        MiniGameUI.currentTryCount = currentInsect._insectPicked.tryCount;
     }
 
     public void OnMiniGameSuccess()
     {
         if (currentInsect == null) return;
 
-        GameManager.instance.player.insectPickUp.AddItem(currentInsect.bug, currentInsect.count);
+        GameManager.instance.player.insectPickUp.AddItem(_currentInsectData);
         Destroy(currentInsect.gameObject);
 
         Player player = GameManager.instance.player;
@@ -64,7 +67,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void OnMiniGameFailed()
     {
-        MiniGameUI.currentTryCount = currentInsect.bug.tryCount;
+        MiniGameUI.currentTryCount = currentInsect._insectPicked.tryCount;
 
         if (loseCoroutine != null) return;
         loseCoroutine = StartCoroutine(RunAwayCoroutine());

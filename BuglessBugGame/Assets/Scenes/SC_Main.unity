@@ -514,6 +514,10 @@ PrefabInstance:
       propertyPath: bug
       value: 
       objectReference: {fileID: 11400000, guid: bdee23dc84f7fdd4b9fc4aa279ada3f9, type: 2}
+    - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
+      propertyPath: spotInsect
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe47ee030238fd47ae3b0cab8629297, type: 2}
     - target: {fileID: 1620162188458645773, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.3
@@ -2160,6 +2164,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1710659970441740735, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0007324219
+      objectReference: {fileID: 0}
     - target: {fileID: 3427955472491433001, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3594,6 +3602,10 @@ PrefabInstance:
       propertyPath: bug
       value: 
       objectReference: {fileID: 11400000, guid: 18ccfe6e45518f14aa3b4cf66be8ae45, type: 2}
+    - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
+      propertyPath: spotInsect
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe47ee030238fd47ae3b0cab8629297, type: 2}
     - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
       propertyPath: drops.Array.size
       value: 1
@@ -5133,6 +5145,10 @@ PrefabInstance:
       propertyPath: bug
       value: 
       objectReference: {fileID: 11400000, guid: 2a1334444768efb48899410935226a51, type: 2}
+    - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
+      propertyPath: spotInsect
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe47ee030238fd47ae3b0cab8629297, type: 2}
     - target: {fileID: 1620162188458645773, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.72
@@ -5648,6 +5664,10 @@ PrefabInstance:
       propertyPath: bug
       value: 
       objectReference: {fileID: 11400000, guid: 3c601bdc0a675a946a042e403052e5f3, type: 2}
+    - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
+      propertyPath: spotInsect
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe47ee030238fd47ae3b0cab8629297, type: 2}
     - target: {fileID: 1620162188458645773, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.27
@@ -9063,6 +9083,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
+      propertyPath: spotInsect
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe47ee030238fd47ae3b0cab8629297, type: 2}
     - target: {fileID: 1620162188458645773, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.169
@@ -9807,6 +9831,10 @@ PrefabInstance:
       propertyPath: bug
       value: 
       objectReference: {fileID: 11400000, guid: 1e92b2e965359b94597e456ca37081b5, type: 2}
+    - target: {fileID: 1069925377436665913, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
+      propertyPath: spotInsect
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe47ee030238fd47ae3b0cab8629297, type: 2}
     - target: {fileID: 1620162188458645773, guid: 061c4c4a1e497be4ca8ae15a13073bc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.91

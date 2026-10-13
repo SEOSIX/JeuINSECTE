@@ -1,3 +1,4 @@
+using GamePlayCore;
 using UnityEngine;
 
 public class IncectAI : MonoBehaviour
@@ -54,7 +55,7 @@ public class IncectAI : MonoBehaviour
 
     void Init()
     {
-        data = GameManager.instance.M_MiniGameManager.currentInsect.bug;
+        data = GameManager.instance.M_MiniGameManager.currentInsect._insectPicked;
         canvasRectTransform = GetComponent<RectTransform>();
         
         miniGameManager = GameManager.instance.M_MiniGameManager;

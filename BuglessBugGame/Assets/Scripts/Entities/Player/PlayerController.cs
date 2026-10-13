@@ -93,9 +93,9 @@ public class PlayerController : MonoBehaviour
         
         bool isMoving = input.sqrMagnitude > 0.01f;
 
-        if (0 < 0 )
+        if (!isMoving)
         {
-            //TODO fix player Rotation
+            GameManager.instance.player._rb.angularVelocity = Vector3.zero;
         }
     }
 
