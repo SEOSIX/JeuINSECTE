@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f77218dc579aaa5439df1d39344dfb8d, type: 3}
-  m_Name: Papillion 1
+  m_Name: Bombyx
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
-  insectName: Papillon
+  insectName: Pince Oreillle
   insectDescription:
   - Ceci est un insecte, nous pouvont le trouver dans la nature.
-  insectIcon: {fileID: 21300000, guid: 8aec7424320433940afd3b0de0f8837b, type: 3}
+  insectIcon: {fileID: 21300000, guid: a4dc8e541c2fd544c85e6e7d5c8ea48d, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
-  isUnlocked: 0
+  isUnlocked: 1
   catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: e605b9ba1f15ba447bdb17e76d8d4056, type: 3}
   bugSpeed: 225
   changeDirectionPercentage: 0.01
