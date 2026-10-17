@@ -15,15 +15,15 @@ MonoBehaviour:
   insectName: Mante
   insectDescription:
   - Ceci est un insecte, nous pouvont le trouver dans la nature.
-  insectIcon: {fileID: 21300000, guid: 0f6533b478b07ef48ae6790512e32f11, type: 3}
+  insectIcon: {fileID: 21300000, guid: fc88676075db37f458200653ed467696, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
-  isUnlocked: 1
-  catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: 346d3622943798e47b0d57763ef97d4d, type: 3}
-  bugSpeed: 100
-  changeDirectionPercentage: 0
-  hideTime: 2
-  hideChance: 100
+  isUnlocked: 0
+  catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: 5b97bed64e94ccf4984c30f0613e7014, type: 3}
+  bugSpeed: 150
+  changeDirectionPercentage: 0.01
+  hideTime: 0.01
+  hideChance: 1.16
   stopTime: 0
-  tryCount: 99
+  tryCount: 4
   typeCatch: 1

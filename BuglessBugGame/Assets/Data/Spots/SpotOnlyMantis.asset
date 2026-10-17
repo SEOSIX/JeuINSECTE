@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SpotOnlyMantis
   m_EditorClassIdentifier: Assembly-CSharp::InsectSpot
   insectSpots:
-  - insectData: {fileID: 11400000, guid: 3c601bdc0a675a946a042e403052e5f3, type: 2}
+  - insectData: {fileID: 11400000, guid: 418c73fa9ca1eee459ceec390f35138f, type: 2}
     insectChanceSpawn: 1
