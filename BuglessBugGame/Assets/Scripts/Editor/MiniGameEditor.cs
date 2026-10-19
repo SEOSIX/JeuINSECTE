@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class MiniGameEditor : EditorWindow
 {
-    private const string OutputFolder = "Assets/GeneratedGrids";
+    private const string OutputFolder = "Assets/Prefab/UI/MiniGameUI";
 
-    private bool[,] grid = new bool[8, 8];
+    private bool[,] grid = new bool[14, 8];
     private string prefabName = "GridImage";
     private Color fillColor = Color.white;
     private int cellPixelSize = 32;
-    private bool includeCanvas = true; 
+    private InsectData insectData;
+    private Editor dataEditor;
+    private Vector2 scroll;
 
-    [MenuItem("Tool/MiniGame")]
+    [MenuItem("Tools/MiniGame")]
     public static void Open()
     {
         GetWindow<MiniGameEditor>("MiniGameEditor");
@@ -21,20 +23,35 @@ public class MiniGameEditor : EditorWindow
 
     private void OnGUI()
     {
+        EditorGUILayout.LabelField("Drawing Grid", EditorStyles.boldLabel);
         DrawGrid();
 
-        EditorGUILayout.Space();
+        EditorGUILayout.Space(3);
         EditorGUILayout.LabelField("Génération", EditorStyles.boldLabel);
 
         prefabName = EditorGUILayout.TextField("Nom du prefab", prefabName);
         fillColor = EditorGUILayout.ColorField("Couleur des cases cochées", fillColor);
         cellPixelSize = Mathf.Max(1, EditorGUILayout.IntField("Taille d'une case (px)", cellPixelSize));
-        includeCanvas = EditorGUILayout.Toggle("Inclure un Canvas", includeCanvas);
+        
+        EditorGUILayout.Space(3);
+        EditorGUILayout.LabelField("InsectData", EditorStyles.boldLabel);
+        insectData = EditorGUILayout.ObjectField("InsectData", insectData, typeof(InsectData), false) as InsectData;
+        
 
         if (GUILayout.Button("Create Prefab"))
         {
             CreatePrefab();
         }
+        
+        if (EditorGUI.EndChangeCheck())
+        {
+            if (dataEditor != null) DestroyImmediate(dataEditor);
+            dataEditor = insectData != null ? Editor.CreateEditor(insectData) : null;
+        }
+        
+        scroll = EditorGUILayout.BeginScrollView(scroll);
+        dataEditor.OnInspectorGUI();
+        EditorGUILayout.EndScrollView();
     }
 
     //grille de bool pour parcours de l'insecte
@@ -97,9 +114,15 @@ public class MiniGameEditor : EditorWindow
     {
         if (!AssetDatabase.IsValidFolder(OutputFolder))
         {
-            AssetDatabase.CreateFolder("Assets", "GeneratedGrids");
+            AssetDatabase.AddObjectToAsset(this, "Assets/Prefab/UI/MiniGameUI");
         }
     }
+    
+    private void OnDisable()
+    {
+        if (dataEditor != null) DestroyImmediate(dataEditor);
+    }
+    
     private Sprite CreateSpriteAsset(string path, int width, int height)
     {
         Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
@@ -145,11 +168,6 @@ public class MiniGameEditor : EditorWindow
 
         RectTransform rect = imageObject.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(width * cellPixelSize, height * cellPixelSize);
-
-        if (!includeCanvas)
-        {
-            return imageObject;
-        }
 
         GameObject canvasObject = new GameObject(prefabName + "_Canvas",
             typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));

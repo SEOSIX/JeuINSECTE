@@ -49,7 +49,6 @@ public class IncectAI : MonoBehaviour
             if (aiState == AiState.Hide) HideBehaviour();
             else InsectMovements();
         }
-        Debug.Log(isHidden);
         CheckPosition();
     }
 
