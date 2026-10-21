@@ -134,7 +134,7 @@ MonoBehaviour:
   - {fileID: 7011509435720659104}
   loseInsectGo: {fileID: 6026120769206166874}
   swipeHitRadius: 40
-  circleClosureThreshold: 50
+  circleClosureThreshold: 200
   minCirclePoints: 10
   aiMovements: {fileID: 0}
 --- !u!222 &343543356304754656
