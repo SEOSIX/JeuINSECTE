@@ -11,6 +11,15 @@ public class MiniGameEditor : EditorWindow
     private string prefabName = "GridImage";
     private Color fillColor = Color.white;
     private int cellPixelSize = 32;
+    private int lineThickness = 4;
+    private float roundness = 0.5f;
+    private bool dashed = false;
+    private int dashLength = 6;
+    private int gapLength = 4;
+    private int dashPeriod;
+
+    private enum LineAxis { None, Horizontal, Vertical }
+    private GameObject childPrefab;
     private InsectData insectData;
     private Editor dataEditor;
     private Vector2 scroll;
@@ -28,33 +37,50 @@ public class MiniGameEditor : EditorWindow
 
         EditorGUILayout.Space(3);
         EditorGUILayout.LabelField("Génération", EditorStyles.boldLabel);
-
         prefabName = EditorGUILayout.TextField("Nom du prefab", prefabName);
         fillColor = EditorGUILayout.ColorField("Couleur des cases cochées", fillColor);
-        cellPixelSize = Mathf.Max(1, EditorGUILayout.IntField("Taille d'une case (px)", cellPixelSize));
-        
+        cellPixelSize = Mathf.Max(2, EditorGUILayout.IntField("Taille d'une case (px)", cellPixelSize));
+        lineThickness = Mathf.Clamp(EditorGUILayout.IntField("Épaisseur du trait (px)", lineThickness), 1, cellPixelSize);
+        roundness = EditorGUILayout.Slider("Arrondi des angles", roundness, 0f, 1f);
+
+        dashed = EditorGUILayout.Toggle("Trait en pointillé", dashed);
+        if (dashed)
+        {
+            EditorGUI.indentLevel++;
+            dashLength = Mathf.Max(1, EditorGUILayout.IntField("Longueur du trait (px)", dashLength));
+            gapLength = Mathf.Max(1, EditorGUILayout.IntField("Longueur du vide (px)", gapLength));
+            EditorGUI.indentLevel--;
+        }
+
+        childPrefab = EditorGUILayout.ObjectField("Prefab enfant", childPrefab, typeof(GameObject), false) as GameObject;
+
         EditorGUILayout.Space(3);
         EditorGUILayout.LabelField("InsectData", EditorStyles.boldLabel);
+        EditorGUI.BeginChangeCheck();
         insectData = EditorGUILayout.ObjectField("InsectData", insectData, typeof(InsectData), false) as InsectData;
-        
-
-        if (GUILayout.Button("Create Prefab"))
-        {
-            CreatePrefab();
-        }
-        
         if (EditorGUI.EndChangeCheck())
         {
             if (dataEditor != null) DestroyImmediate(dataEditor);
             dataEditor = insectData != null ? Editor.CreateEditor(insectData) : null;
         }
-        
-        scroll = EditorGUILayout.BeginScrollView(scroll);
-        dataEditor.OnInspectorGUI();
-        EditorGUILayout.EndScrollView();
+
+        if (GUILayout.Button("Create Prefab"))
+        {
+            CreatePrefab();
+        }
+
+        if (dataEditor != null)
+        {
+            scroll = EditorGUILayout.BeginScrollView(scroll);
+            dataEditor.OnInspectorGUI();
+            EditorGUILayout.EndScrollView();
+        }
     }
 
-    //grille de bool pour parcours de l'insecte
+    private void OnDisable()
+    {
+        if (dataEditor != null) DestroyImmediate(dataEditor);
+    }
     private void DrawGrid()
     {
         for (int y = 0; y < grid.GetLength(1); y++)
@@ -78,20 +104,19 @@ public class MiniGameEditor : EditorWindow
 
         if (!AnyCellChecked())
         {
-            EditorUtility.DisplayDialog("Create Prefab", "La grille est vide coche au moins une case", "OK");
+            EditorUtility.DisplayDialog("Create Prefab", "La grille est vide, coche au moins une case.", "OK");
             return;
         }
-
-        int width = grid.GetLength(0);
-        int height = grid.GetLength(1);
 
         EnsureOutputFolder();
 
         string pngPath = AssetDatabase.GenerateUniqueAssetPath($"{OutputFolder}/{prefabName}.png");
-        string prefabPath = AssetDatabase.GenerateUniqueAssetPath(Path.ChangeExtension(pngPath, ".prefab"));
+        string prefabPath = Path.ChangeExtension(pngPath, ".prefab");
 
-        Sprite sprite = CreateSpriteAsset(pngPath, width, height);
-        GameObject instance = BuildHierarchy(sprite, width, height);
+        Sprite sprite = CreateSprite(pngPath);
+        if (sprite == null) return;
+
+        GameObject instance = BuildHierarchy(sprite);
 
         PrefabUtility.SaveAsPrefabAsset(instance, prefabPath);
         DestroyImmediate(instance);
@@ -112,68 +137,223 @@ public class MiniGameEditor : EditorWindow
 
     private void EnsureOutputFolder()
     {
-        if (!AssetDatabase.IsValidFolder(OutputFolder))
+        if (AssetDatabase.IsValidFolder(OutputFolder)) return;
+
+        string current = "Assets";
+        string[] folders = OutputFolder.Replace("Assets/", "").Split('/');
+
+        foreach (string folder in folders)
         {
-            AssetDatabase.AddObjectToAsset(this, "Assets/Prefab/UI/MiniGameUI");
+            string next = current + "/" + folder;
+            if (!AssetDatabase.IsValidFolder(next))
+            {
+                AssetDatabase.CreateFolder(current, folder);
+            }
+            current = next;
         }
     }
-    
-    private void OnDisable()
+    private Sprite CreateSprite(string path)
     {
-        if (dataEditor != null) DestroyImmediate(dataEditor);
-    }
-    
-    private Sprite CreateSpriteAsset(string path, int width, int height)
-    {
-        Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        int cols = grid.GetLength(0);
+        int rows = grid.GetLength(1);
 
-        Color32 clear = new Color32(0, 0, 0, 0);
-        Color32 filled = fillColor;
-        Color32[] pixels = new Color32[width * height];
+        int texWidth = cols * cellPixelSize;
+        int texHeight = rows * cellPixelSize;
 
-        for (int y = 0; y < height; y++)
+        Color32[] pixels = new Color32[texWidth * texHeight];
+        Color32 color = fillColor;
+
+        int radius = Mathf.RoundToInt(roundness * cellPixelSize * 0.5f);
+        dashPeriod = dashed ? dashLength + gapLength : 0;
+
+        for (int y = 0; y < rows; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < cols; x++)
             {
-                int textureY = height - 1 - y;
-                pixels[textureY * width + x] = grid[x, y] ? filled : clear;
+                if (grid[x, y]) DrawCell(pixels, texWidth, texHeight, x, y, radius, color);
             }
         }
 
+        Texture2D texture = new Texture2D(texWidth, texHeight, TextureFormat.RGBA32, false);
         texture.SetPixels32(pixels);
-        texture.Apply();
 
         File.WriteAllBytes(path, texture.EncodeToPNG());
         DestroyImmediate(texture);
-        AssetDatabase.ImportAsset(path);
 
+        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
+        SetupImporter(path);
+
+        Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        if (sprite == null)
+        {
+            Debug.LogError("MiniGameEditor : impossible de charger le sprite " + path);
+        }
+        return sprite;
+    }
+
+    private bool IsChecked(int x, int y)
+    {
+        return x >= 0 && y >= 0 && x < grid.GetLength(0) && y < grid.GetLength(1) && grid[x, y];
+    }
+
+    private void DrawCell(Color32[] pixels, int texW, int texH, int x, int y, int radius, Color32 color)
+    {
+        bool left = IsChecked(x - 1, y);
+        bool right = IsChecked(x + 1, y);
+        bool up = IsChecked(x, y - 1);
+        bool down = IsChecked(x, y + 1);
+
+        int cell = cellPixelSize;
+        int t = lineThickness;
+        int half = t / 2;
+
+        int leftEdge = x * cell, rightEdge = leftEdge + cell;
+        int topEdge = y * cell, bottomEdge = topEdge + cell;
+        int cx = leftEdge + cell / 2;
+        int cy = topEdge + cell / 2;
+
+        if (radius > 0 && left != right && up != down)
+        {
+            DrawBend(pixels, texW, texH, cx, cy, right ? 1 : -1, down ? 1 : -1, radius, color,
+                leftEdge, rightEdge, topEdge, bottomEdge);
+            return;
+        }
+
+        if (!left && !right && !up && !down)
+        {
+            FillRect(pixels, texW, texH, cx - half, cy - half, t, t, color);
+            return;
+        }
+        if (right) FillRect(pixels, texW, texH, cx - half, cy - half, rightEdge - (cx - half), t, color, LineAxis.Horizontal);
+        if (left) FillRect(pixels, texW, texH, leftEdge, cy - half, (cx - half + t) - leftEdge, t, color, LineAxis.Horizontal);
+        if (down) FillRect(pixels, texW, texH, cx - half, cy - half, t, bottomEdge - (cy - half), color, LineAxis.Vertical);
+        if (up) FillRect(pixels, texW, texH, cx - half, topEdge, t, (cy - half + t) - topEdge, color, LineAxis.Vertical);
+    }
+
+    private void DrawBend(Color32[] pixels, int texW, int texH, int cx, int cy, int sx, int sy, int radius,
+        Color32 color, int leftEdge, int rightEdge, int topEdge, int bottomEdge)
+    {
+        int t = lineThickness;
+        int half = t / 2;
+
+        if (sx > 0) FillRect(pixels, texW, texH, cx + radius - 1, cy - half, rightEdge - (cx + radius) + 1, t, color, LineAxis.Horizontal);
+        else FillRect(pixels, texW, texH, leftEdge, cy - half, (cx - radius) - leftEdge + 1, t, color, LineAxis.Horizontal);
+
+        if (sy > 0) FillRect(pixels, texW, texH, cx - half, cy + radius - 1, t, bottomEdge - (cy + radius) + 1, color, LineAxis.Vertical);
+        else FillRect(pixels, texW, texH, cx - half, topEdge, t, (cy - radius) - topEdge + 1, color, LineAxis.Vertical);
+
+        float halfT = t * 0.5f;
+        float centerX = cx - half + halfT;
+        float centerY = cy - half + halfT;
+        float arcX = centerX + sx * radius;
+        float arcY = centerY + sy * radius;
+
+        int minX = Mathf.Max(0, Mathf.FloorToInt(Mathf.Min(centerX, arcX) - halfT - 1));
+        int maxX = Mathf.Min(texW - 1, Mathf.CeilToInt(Mathf.Max(centerX, arcX) + halfT + 1));
+        int minY = Mathf.Max(0, Mathf.FloorToInt(Mathf.Min(centerY, arcY) - halfT - 1));
+        int maxY = Mathf.Min(texH - 1, Mathf.CeilToInt(Mathf.Max(centerY, arcY) + halfT + 1));
+
+        for (int py = minY; py <= maxY; py++)
+        {
+            float dy = py + 0.5f - arcY;
+            if (dy * sy > 0) continue;
+
+            for (int px = minX; px <= maxX; px++)
+            {
+                float dx = px + 0.5f - arcX;
+                if (dx * sx > 0) continue;
+                
+                float distance = Mathf.Sqrt(dx * dx + dy * dy);
+                float coverage = Mathf.Clamp01(halfT + 0.5f - Mathf.Abs(distance - radius));
+                if (coverage <= 0f) continue;
+
+                if (dashPeriod > 0)
+                {
+                    float phi = Mathf.Atan2(Mathf.Abs(dx), -dy * sy);
+                    float phase = phi < Mathf.PI * 0.25f
+                        ? arcX - sx * radius * phi
+                        : arcY - sy * radius * (Mathf.PI * 0.5f - phi);
+                    if (!IsDashOn(phase)) continue;
+                }
+
+                byte alpha = (byte)(color.a * coverage);
+                int index = (texH - 1 - py) * texW + px;
+                if (alpha > pixels[index].a)
+                    pixels[index] = new Color32(color.r, color.g, color.b, alpha);
+            }
+        }
+    }
+    private bool IsDashOn(float position)
+    {
+        return Mathf.Repeat(position, dashPeriod) < dashLength;
+    }
+    private void FillRect(Color32[] pixels, int texWidth, int texHeight, int startX, int startY, int w, int h,
+        Color32 color, LineAxis axis = LineAxis.None)
+    {
+        bool dashHorizontal = dashPeriod > 0 && axis == LineAxis.Horizontal;
+        bool dashVertical = dashPeriod > 0 && axis == LineAxis.Vertical;
+
+        for (int py = startY; py < startY + h; py++)
+        {
+            if (py < 0 || py >= texHeight) continue;
+            if (dashVertical && !IsDashOn(py + 0.5f)) continue;
+
+            int textureY = texHeight - 1 - py;
+
+            for (int px = startX; px < startX + w; px++)
+            {
+                if (px < 0 || px >= texWidth) continue;
+                if (dashHorizontal && !IsDashOn(px + 0.5f)) continue;
+
+                pixels[textureY * texWidth + px] = color;
+            }
+        }
+    }
+
+    private void SetupImporter(string path)
+    {
         TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(path);
         importer.textureType = TextureImporterType.Sprite;
         importer.spriteImportMode = SpriteImportMode.Single;
-        importer.filterMode = FilterMode.Point;
+        importer.filterMode = FilterMode.Bilinear;
         importer.mipmapEnabled = false;
         importer.alphaIsTransparency = true;
         importer.textureCompression = TextureImporterCompression.Uncompressed;
         importer.SaveAndReimport();
-
-        return AssetDatabase.LoadAssetAtPath<Sprite>(path);
     }
-    private GameObject BuildHierarchy(Sprite sprite, int width, int height)
+    private void AddChildPrefab(Transform parent)
     {
+        if (childPrefab == null) return;
+
+        GameObject child = (GameObject)PrefabUtility.InstantiatePrefab(childPrefab, parent);
+
+        RectTransform childRect = child.transform as RectTransform;
+        if (childRect != null) childRect.anchoredPosition = Vector2.zero;
+        else child.transform.localPosition = Vector3.zero;
+    }
+
+    private GameObject BuildHierarchy(Sprite sprite)
+    {
+        GameObject canvasObject = new GameObject(prefabName + "_Canvas",
+            typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+        canvasObject.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+
         GameObject imageObject = new GameObject(prefabName, typeof(RectTransform), typeof(Image));
+        imageObject.transform.SetParent(canvasObject.transform, false);
+
+        RectTransform rect = imageObject.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        
+        
 
         Image image = imageObject.GetComponent<Image>();
         image.sprite = sprite;
         image.raycastTarget = false;
 
-        RectTransform rect = imageObject.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(width * cellPixelSize, height * cellPixelSize);
-
-        GameObject canvasObject = new GameObject(prefabName + "_Canvas",
-            typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-        canvasObject.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-        rect.SetParent(canvasObject.transform, false);
-        rect.anchoredPosition = Vector2.zero;
+        AddChildPrefab(canvasObject.transform);
 
         return canvasObject;
     }
