@@ -9,6 +9,13 @@ public class InsectData : ScriptableObject
         Swipe,
         DrawCircle
     }
+
+    public enum TypeMiniGame
+    {
+        Hider,
+        Line,
+        Jumper
+    }
     
     [Header("Infos générales")]
     public string insectName;
@@ -27,4 +34,5 @@ public class InsectData : ScriptableObject
     public float stopTime;
     public int tryCount;
     public TypeCatch typeCatch;
+    public TypeMiniGame typeMiniGame;
 }

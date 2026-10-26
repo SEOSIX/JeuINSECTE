@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -6,6 +7,11 @@ using UnityEngine.UI;
 public class MiniGameEditor : EditorWindow
 {
     private const string OutputFolder = "Assets/Prefab/UI/MiniGameUI";
+
+    private static readonly Vector2Int[] Directions =
+    {
+        new Vector2Int(1, 0), new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(0, -1)
+    };
 
     private bool[,] grid = new bool[14, 8];
     private string prefabName = "GridImage";
@@ -81,6 +87,7 @@ public class MiniGameEditor : EditorWindow
     {
         if (dataEditor != null) DestroyImmediate(dataEditor);
     }
+
     private void DrawGrid()
     {
         for (int y = 0; y < grid.GetLength(1); y++)
@@ -152,6 +159,7 @@ public class MiniGameEditor : EditorWindow
             current = next;
         }
     }
+
     private Sprite CreateSprite(string path)
     {
         int cols = grid.GetLength(0);
@@ -262,7 +270,7 @@ public class MiniGameEditor : EditorWindow
             {
                 float dx = px + 0.5f - arcX;
                 if (dx * sx > 0) continue;
-                
+
                 float distance = Mathf.Sqrt(dx * dx + dy * dy);
                 float coverage = Mathf.Clamp01(halfT + 0.5f - Mathf.Abs(distance - radius));
                 if (coverage <= 0f) continue;
@@ -283,10 +291,12 @@ public class MiniGameEditor : EditorWindow
             }
         }
     }
+
     private bool IsDashOn(float position)
     {
         return Mathf.Repeat(position, dashPeriod) < dashLength;
     }
+
     private void FillRect(Color32[] pixels, int texWidth, int texHeight, int startX, int startY, int w, int h,
         Color32 color, LineAxis axis = LineAxis.None)
     {
@@ -321,6 +331,7 @@ public class MiniGameEditor : EditorWindow
         importer.textureCompression = TextureImporterCompression.Uncompressed;
         importer.SaveAndReimport();
     }
+
     private void AddChildPrefab(Transform parent)
     {
         if (childPrefab == null) return;
@@ -332,29 +343,242 @@ public class MiniGameEditor : EditorWindow
         else child.transform.localPosition = Vector3.zero;
     }
 
+    #region Insect icon & AI
+
+    private RectTransform CreateInsectIcon(Transform parent)
+    {
+        GameObject iconObject = new GameObject("InsectIcon", typeof(RectTransform), typeof(Image));
+        iconObject.transform.SetParent(parent, false);
+
+        RectTransform rect = iconObject.GetComponent<RectTransform>();
+        rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = new Vector2(100f, 100f);
+
+        Image icon = iconObject.GetComponent<Image>();
+        icon.sprite = insectData != null ? insectData.insectIcon : null;
+        icon.preserveAspect = true;
+        icon.raycastTarget = false;
+
+        return rect;
+    }
+
+    private void AddMiniGameAI(GameObject parent, RectTransform insectIcon)
+    {
+        if (insectData == null)
+        {
+            Debug.LogWarning("MiniGameEditor : aucun InsectData assigné, aucun script d'IA ajouté.");
+            return;
+        }
+
+        switch (insectData.typeMiniGame)
+        {
+            case InsectData.TypeMiniGame.Hider:
+                HideInsectAI hideAi = parent.AddComponent<HideInsectAI>();
+                AssignInsectTransform(hideAi, insectIcon);
+                break;
+            case InsectData.TypeMiniGame.Line:
+                LineInsectAI lineAi = parent.AddComponent<LineInsectAI>();
+                lineAi.SetPath(BuildPath());
+                AssignInsectTransform(lineAi, insectIcon);
+                break;
+            default:
+                Debug.LogWarning("MiniGameEditor : pas de script d'IA prévu pour le type " + insectData.typeMiniGame);
+                break;
+        }
+    }
+
+    private void AssignInsectTransform(InsectBase ai, RectTransform insectIcon)
+    {
+        SerializedObject so = new SerializedObject(ai);
+        so.FindProperty("insectTransform").objectReferenceValue = insectIcon;
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    #endregion
+
+    #region MiniGameUI
+
+    // Ajoute MiniGameUI sur la racine (même GameObject que l'IA) et remplit ce qui peut l'être
+    private void AddMiniGameUI(GameObject parent, RectTransform drawingArea, RectTransform insectIcon)
+    {
+        MiniGameUI ui = parent.AddComponent<MiniGameUI>();
+        SerializedObject so = new SerializedObject(ui);
+
+        SetReference(so, "insectIconRect", insectIcon);
+        SetReference(so, "drawingArea", drawingArea);
+
+        if (insectData != null)
+        {
+            SetEnum(so, "miniGameType", insectData.typeMiniGame.ToString());
+            SetEnum(so, "catchType", insectData.typeCatch.ToString());
+        }
+
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    private void SetReference(SerializedObject so, string fieldName, Object value)
+    {
+        SerializedProperty property = so.FindProperty(fieldName);
+        if (property == null)
+        {
+            Debug.LogWarning("MiniGameEditor : champ introuvable sur MiniGameUI : " + fieldName);
+            return;
+        }
+        property.objectReferenceValue = value;
+    }
+
+    private void SetEnum(SerializedObject so, string fieldName, string valueName)
+    {
+        SerializedProperty property = so.FindProperty(fieldName);
+        if (property == null)
+        {
+            Debug.LogWarning("MiniGameEditor : champ introuvable sur MiniGameUI : " + fieldName);
+            return;
+        }
+
+        int index = System.Array.IndexOf(property.enumNames, valueName);
+        if (index >= 0) property.enumValueIndex = index;
+    }
+
+    #endregion
+
+    #region Path (LineInsectAI)
+
+    private List<Vector2> BuildPath()
+    {
+        List<Vector2> path = new List<Vector2>();
+
+        Vector2Int start = FindStartCell();
+        if (start.x < 0) return path;
+        if (IsClosedLoop())
+        {
+            WalkLoop(start, path);
+            return path;
+        }
+        bool[,] visited = new bool[grid.GetLength(0), grid.GetLength(1)];
+        VisitCell(start.x, start.y, visited, path);
+        return path;
+    }
+
+    private bool IsClosedLoop()
+    {
+        bool anyChecked = false;
+
+        for (int y = 0; y < grid.GetLength(1); y++)
+        {
+            for (int x = 0; x < grid.GetLength(0); x++)
+            {
+                if (!grid[x, y]) continue;
+                anyChecked = true;
+                if (CountNeighbours(x, y) != 2) return false;
+            }
+        }
+        return anyChecked;
+    }
+    private void WalkLoop(Vector2Int start, List<Vector2> path)
+    {
+        bool[,] visited = new bool[grid.GetLength(0), grid.GetLength(1)];
+        Vector2Int current = start;
+
+        while (true)
+        {
+            visited[current.x, current.y] = true;
+            path.Add(CellToNormalized(current.x, current.y));
+
+            bool moved = false;
+            foreach (Vector2Int d in Directions)
+            {
+                int nx = current.x + d.x, ny = current.y + d.y;
+                if (IsChecked(nx, ny) && !visited[nx, ny])
+                {
+                    current = new Vector2Int(nx, ny);
+                    moved = true;
+                    break;
+                }
+            }
+            if (!moved) break;
+        }
+    }
+
+    private Vector2Int FindStartCell()
+    {
+        Vector2Int first = new Vector2Int(-1, -1);
+
+        for (int y = 0; y < grid.GetLength(1); y++)
+        {
+            for (int x = 0; x < grid.GetLength(0); x++)
+            {
+                if (!grid[x, y]) continue;
+                if (first.x < 0) first = new Vector2Int(x, y);
+                if (CountNeighbours(x, y) == 1) return new Vector2Int(x, y);
+            }
+        }
+        return first;
+    }
+
+    private int CountNeighbours(int x, int y)
+    {
+        int count = 0;
+        foreach (Vector2Int d in Directions)
+        {
+            if (IsChecked(x + d.x, y + d.y)) count++;
+        }
+        return count;
+    }
+
+    private void VisitCell(int x, int y, bool[,] visited, List<Vector2> path)
+    {
+        visited[x, y] = true;
+        path.Add(CellToNormalized(x, y));
+
+        foreach (Vector2Int d in Directions)
+        {
+            int nx = x + d.x, ny = y + d.y;
+            if (IsChecked(nx, ny) && !visited[nx, ny])
+            {
+                VisitCell(nx, ny, visited, path);
+                path.Add(CellToNormalized(x, y));
+            }
+        }
+    }
+
+    private Vector2 CellToNormalized(int x, int y)
+    {
+        return new Vector2((x + 0.5f) / grid.GetLength(0), (y + 0.5f) / grid.GetLength(1));
+    }
+
+    #endregion
+
     private GameObject BuildHierarchy(Sprite sprite)
     {
-        GameObject canvasObject = new GameObject(prefabName + "_Canvas",
-            typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-        canvasObject.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+        GameObject rootObject = new GameObject(prefabName + "_Root", typeof(RectTransform));
+
+        RectTransform rootRect = rootObject.GetComponent<RectTransform>();
+        rootRect.anchorMin = Vector2.zero;
+        rootRect.anchorMax = Vector2.one;
+        rootRect.offsetMin = Vector2.zero;
+        rootRect.offsetMax = Vector2.zero;
 
         GameObject imageObject = new GameObject(prefabName, typeof(RectTransform), typeof(Image));
-        imageObject.transform.SetParent(canvasObject.transform, false);
+        imageObject.transform.SetParent(rootObject.transform, false);
 
         RectTransform rect = imageObject.GetComponent<RectTransform>();
         rect.anchorMin = Vector2.zero;
         rect.anchorMax = Vector2.one;
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
-        
-        
 
         Image image = imageObject.GetComponent<Image>();
         image.sprite = sprite;
         image.raycastTarget = false;
 
-        AddChildPrefab(canvasObject.transform);
+        RectTransform insectIcon = CreateInsectIcon(rootObject.transform);
 
-        return canvasObject;
+        AddChildPrefab(rootObject.transform);
+        AddMiniGameAI(rootObject, insectIcon);
+        AddMiniGameUI(rootObject, rect, insectIcon);
+
+        return rootObject;
     }
 }

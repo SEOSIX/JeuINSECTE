@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class MiniGameUI : MonoBehaviour
 {
+    [Header("Type")]
+    [SerializeField] private InsectData.TypeMiniGame miniGameType;
+    [SerializeField] private InsectData.TypeCatch catchType;
+    
     [Header("References")]
     [SerializeField] private TextMeshProUGUI tryCountTxt;
     [SerializeField] private RectTransform insectIconRect;
@@ -21,17 +25,19 @@ public class MiniGameUI : MonoBehaviour
     [Header("Circle Settings")]
     [SerializeField] private float circleClosureThreshold = 50f;
     [SerializeField] private int minCirclePoints = 10;
-    
+
     private MiniGameManager miniGameManager;
     private InsectData.TypeCatch typeCatch;
-    
+
     private Canvas rootCanvas;
     private List<Vector2> currentPoints = new List<Vector2>();
     private List<Vector2> currentLocalPoints = new List<Vector2>();
     private bool isDrawing;
-    
+
     [HideInInspector] public static int currentTryCount;
-    [HideInInspector] public IncectAI aiMovements;
+    public InsectBase aiMovements { get; private set; }
+    public HideInsectAI hideAiMovements { get; private set; }
+    public LineInsectAI lineAiMovements { get; private set; }
 
     public TextMeshProUGUI countTryText => tryCountTxt;
 
@@ -40,14 +46,37 @@ public class MiniGameUI : MonoBehaviour
         miniGameManager = manager;
         typeCatch = bug.typeCatch;
         rootCanvas = GameManager.instance.M_UI.journey._parentJourney.GetComponent<Canvas>();
-        
-        aiMovements = gameObject.GetComponent<IncectAI>();
+
+        SetupMovements(bug.typeMiniGame);
+
         tryCountTxt.enabled = true;
+    }
+    private void SetupMovements(InsectData.TypeMiniGame type)
+    {
+        hideAiMovements = null;
+        lineAiMovements = null;
+        aiMovements = null;
+
+        switch (type)
+        {
+            case InsectData.TypeMiniGame.Hider:
+                hideAiMovements = GetComponent<HideInsectAI>();
+                aiMovements = hideAiMovements;
+                break;
+
+            case InsectData.TypeMiniGame.Line:
+                lineAiMovements = GetComponent<LineInsectAI>();
+                aiMovements = lineAiMovements;
+                break;
+        }
+
+        if (aiMovements == null)
+            Debug.LogWarning($"MiniGameUI : aucune IA trouvée pour le type {type}", this);
     }
 
     private void Update()
     {
-        if (aiMovements.isHidden) return;
+        if (aiMovements != null && aiMovements.isHidden) return;
         HandleInput();
         tryCountTxt.text = $"essais restant : {currentTryCount}";
     }
@@ -93,7 +122,7 @@ public class MiniGameUI : MonoBehaviour
 
     private void AppendLocalPoint(Vector2 screenPos)
     {
-        Camera cam = rootCanvas.renderMode == 
+        Camera cam = rootCanvas.renderMode ==
                      RenderMode.ScreenSpaceOverlay ? null : rootCanvas.worldCamera;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -118,7 +147,7 @@ public class MiniGameUI : MonoBehaviour
 
         ResetDrawing();
     }
-    
+
     public void ResetDrawing()
     {
         isDrawing = false;
@@ -130,7 +159,7 @@ public class MiniGameUI : MonoBehaviour
     private void CheckFail()
     {
         if (miniGameManager.loseCoroutine != null) return;
-        
+
         currentTryCount--;
         tryCountTxt.text = $"essais restant : {currentTryCount}";
         if (currentTryCount <= 0)
@@ -142,94 +171,92 @@ public class MiniGameUI : MonoBehaviour
 
     #region DrawCircle
 
-        private void CheckCircle()
+    private void CheckCircle()
+    {
+        if (typeCatch != InsectData.TypeCatch.DrawCircle) return;
+
+        if (currentPoints.Count < minCirclePoints || insectIconRect == null)
         {
-            if (typeCatch != InsectData.TypeCatch.DrawCircle) return;
-
-            if (currentPoints.Count < minCirclePoints || insectIconRect == null)
-            {
-                CheckFail();
-                ResetDrawing();
-                return;
-            }
-
-            float distStartEnd = Vector2.Distance(currentPoints[0], currentPoints[^1]);
-            if (distStartEnd > circleClosureThreshold)
-            {
-                CheckFail();
-                ResetDrawing();
-                return;
-            }
-
-            Vector2 insectScreenPos = insectIconRect.position;
-
-            if (IsPointInsidePolygon(insectScreenPos, currentPoints))
-                Success();
-            else
-            {
-                CheckFail();
-                ResetDrawing();
-            }
+            CheckFail();
+            ResetDrawing();
+            return;
         }
 
-        private bool IsPointInsidePolygon(Vector2 point, List<Vector2> polygon)
+        float distStartEnd = Vector2.Distance(currentPoints[0], currentPoints[^1]);
+        if (distStartEnd > circleClosureThreshold)
         {
-            bool inside = false;
-            int j = polygon.Count - 1;
-
-            for (int i = 0; i < polygon.Count; i++)
-            {
-                if ((polygon[i].y > point.y) != (polygon[j].y > point.y) &&
-                    point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x)
-                {
-                    inside = !inside;
-                }
-                j = i;
-            }
-            return inside;
+            CheckFail();
+            ResetDrawing();
+            return;
         }
-        
-        
+
+        Vector2 insectScreenPos = insectIconRect.position;
+
+        if (IsPointInsidePolygon(insectScreenPos, currentPoints))
+            Success();
+        else
+        {
+            CheckFail();
+            ResetDrawing();
+        }
+    }
+
+    private bool IsPointInsidePolygon(Vector2 point, List<Vector2> polygon)
+    {
+        bool inside = false;
+        int j = polygon.Count - 1;
+
+        for (int i = 0; i < polygon.Count; i++)
+        {
+            if ((polygon[i].y > point.y) != (polygon[j].y > point.y) &&
+                point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x)
+            {
+                inside = !inside;
+            }
+            j = i;
+        }
+        return inside;
+    }
 
     #endregion
 
     #region Swipe
 
-        private void CheckSwipe()
-        {
-            if (typeCatch != InsectData.TypeCatch.Swipe) return;
+    private void CheckSwipe()
+    {
+        if (typeCatch != InsectData.TypeCatch.Swipe) return;
 
-            if (currentPoints.Count < 2 || insectIconRect == null)
+        if (currentPoints.Count < 2 || insectIconRect == null)
+        {
+            ResetDrawing();
+            CheckFail();
+            return;
+        }
+
+        Vector2 insectScreenPos = insectIconRect.position;
+
+        for (int i = 0; i < currentPoints.Count - 1; i++)
+        {
+            float dist = DistancePointToSegment(insectScreenPos, currentPoints[i], currentPoints[i + 1]);
+            if (dist <= swipeHitRadius)
             {
-                ResetDrawing();
-                CheckFail();
+                Success();
                 return;
             }
-
-            Vector2 insectScreenPos = insectIconRect.position;
-
-            for (int i = 0; i < currentPoints.Count - 1; i++)
-            {
-                float dist = DistancePointToSegment(insectScreenPos, currentPoints[i], currentPoints[i + 1]);
-                if (dist <= swipeHitRadius)
-                {
-                    Success();
-                    return;
-                }
-            }
-            CheckFail();
         }
+        CheckFail();
+    }
 
-        private float DistancePointToSegment(Vector2 point, Vector2 a, Vector2 b)
-        {
-            Vector2 ab = b - a;
-            float sqrLen = ab.sqrMagnitude;
-            if (sqrLen == 0f) return Vector2.Distance(point, a);
+    private float DistancePointToSegment(Vector2 point, Vector2 a, Vector2 b)
+    {
+        Vector2 ab = b - a;
+        float sqrLen = ab.sqrMagnitude;
+        if (sqrLen == 0f) return Vector2.Distance(point, a);
 
-            float t = Mathf.Clamp01(Vector2.Dot(point - a, ab) / sqrLen);
-            Vector2 projection = a + t * ab;
-            return Vector2.Distance(point, projection);
-        }
+        float t = Mathf.Clamp01(Vector2.Dot(point - a, ab) / sqrLen);
+        Vector2 projection = a + t * ab;
+        return Vector2.Distance(point, projection);
+    }
 
     #endregion
 
