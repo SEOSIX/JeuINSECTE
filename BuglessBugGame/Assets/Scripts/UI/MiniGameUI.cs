@@ -38,6 +38,7 @@ public class MiniGameUI : MonoBehaviour
     public InsectBase aiMovements { get; private set; }
     public HideInsectAI hideAiMovements { get; private set; }
     public LineInsectAI lineAiMovements { get; private set; }
+    public JumpingInsect jumpingAiMovements { get; private set; }
 
     public TextMeshProUGUI countTryText => tryCountTxt;
 
@@ -55,6 +56,7 @@ public class MiniGameUI : MonoBehaviour
     {
         hideAiMovements = null;
         lineAiMovements = null;
+        jumpingAiMovements = null;
         aiMovements = null;
 
         switch (type)
@@ -67,6 +69,11 @@ public class MiniGameUI : MonoBehaviour
             case InsectData.TypeMiniGame.Line:
                 lineAiMovements = GetComponent<LineInsectAI>();
                 aiMovements = lineAiMovements;
+                break;
+
+            case InsectData.TypeMiniGame.Jumper:
+                jumpingAiMovements = GetComponent<JumpingInsect>();
+                aiMovements = jumpingAiMovements;
                 break;
         }
 
