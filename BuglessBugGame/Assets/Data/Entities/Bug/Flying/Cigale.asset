@@ -27,3 +27,4 @@ MonoBehaviour:
   stopTime: 0
   tryCount: 4
   typeCatch: 1
+  typeMiniGame: 1

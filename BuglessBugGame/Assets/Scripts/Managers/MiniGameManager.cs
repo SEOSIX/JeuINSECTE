@@ -90,18 +90,21 @@ public class MiniGameManager : MonoBehaviour
     private IEnumerator RunAwayCoroutine()
     {
         var ai = currentMiniGameUI.aiMovements;
-        ai.StartRunAway();
-        
+
         var text = currentMiniGameUI.loseInsectGo.GetComponent<TextMeshProUGUI>();
-        int totalCharacters = text.textInfo.characterCount;
-        
-        StartCoroutine(RevealTextCoroutine(text, totalCharacters));
-        
-        while (!ai.RunAwayStep(Time.deltaTime))
-            yield return null;
+        StartCoroutine(RevealTextCoroutine(text, text.textInfo.characterCount));
+
+        if (ai != null)
+        {
+            while (!ai.IsOutsideScreen())
+            {
+                ai.RunAway();
+                yield return null;
+            }
+        }
 
         yield return new WaitForSeconds(1.5f);
-        
+
         CloseMiniGame();
         loseCoroutine = null;
     }
