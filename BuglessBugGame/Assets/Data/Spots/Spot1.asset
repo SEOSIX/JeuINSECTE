@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Spot1
   m_EditorClassIdentifier: Assembly-CSharp::InsectSpot
   insectSpots:
-  - insectData: {fileID: 11400000, guid: 3c601bdc0a675a946a042e403052e5f3, type: 2}
+  - insectData: {fileID: 11400000, guid: 4d79cfa39fdbf0f4890ac5fd5710425d, type: 2}
     insectChanceSpawn: 1
