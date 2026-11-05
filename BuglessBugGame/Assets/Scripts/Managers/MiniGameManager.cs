@@ -27,29 +27,34 @@ public class MiniGameManager : MonoBehaviour
     {
         if (IsMiniGameActive) return;
 
-        currentInsect = insect;
-        _currentInsectData = currentInsect.PickRandomInsect();
-        
-        GameManager.instance.M_UI.isUiActive = true;
-        GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(false);
-        
-        List<InsectSlot> insectList = GameManager.instance.player.playerData.playerInventoryData.insects;
-        InsectSlot existingSlot = insectList.Find(slot => slot.insect == insect._insectPicked);
-        if (existingSlot != null && existingSlot.count == insect._insectPicked.catchCount) return;
+        Player player = GameManager.instance.player;
+        player.isInteracted = false;
 
-        if (insect._insectPicked.catchMiniGamePrefabUI == null)
+        InsectData picked = insect.PickRandomInsect();
+        if (picked == null) return;
+
+        var insectList = player.playerData.playerInventoryData.insects;
+        for (int i = 0; i < insectList.Count; i++)
         {
-            Debug.LogWarning($"No prefab set for {insect._insectPicked.name}");
-            return;
+            if (insectList[i].insect == picked && insectList[i].count == picked.catchCount)
+                return;
         }
 
-        currentMiniGameInstance = Instantiate(insect._insectPicked.catchMiniGamePrefabUI, instanceMinigameParent.transform);
+        if (picked.catchMiniGamePrefabUI == null)
+        {
+            Debug.LogWarning($"No prefab set for {picked.name}");
+            return;
+        }
+        currentInsect = insect;
+        _currentInsectData = picked;
+        GameManager.instance.M_UI.isUiActive = true;
+        GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(false);
+
+        currentMiniGameInstance = Instantiate(picked.catchMiniGamePrefabUI, instanceMinigameParent.transform);
         currentMiniGameUI = currentMiniGameInstance.GetComponent<MiniGameUI>();
-        
-        //ici c'est pour init le MiniGame type d'input a recieve
-        currentMiniGameUI.Init(this, insect._insectPicked);
+        currentMiniGameUI.Init(this, picked);
         currentMiniGameUI.loseInsectGo.SetActive(false);
-        MiniGameUI.currentTryCount = currentInsect._insectPicked.tryCount;
+        MiniGameUI.currentTryCount = picked.tryCount;
     }
 
     public void OnMiniGameSuccess()
