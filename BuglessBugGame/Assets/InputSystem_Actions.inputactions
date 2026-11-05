@@ -62,12 +62,12 @@
                 },
                 {
                     "name": "Swipe",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
-                    "expectedControlType": "Touch",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Next",
@@ -455,7 +455,7 @@
                 {
                     "name": "",
                     "id": "802c94b9-d501-4b01-94b8-3665e3f5af13",
-                    "path": "<Touchscreen>/primaryTouch",
+                    "path": "<Touchscreen>/primaryTouch/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
