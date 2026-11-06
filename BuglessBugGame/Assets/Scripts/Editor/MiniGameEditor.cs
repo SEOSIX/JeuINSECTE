@@ -58,7 +58,7 @@ public class MiniGameEditor : EditorWindow
             EditorGUI.indentLevel--;
         }
 
-        childPrefab = EditorGUILayout.ObjectField("Prefab enfant", childPrefab, typeof(GameObject), false) as GameObject;
+        childPrefab = EditorGUILayout.ObjectField("Line renderer prefab", childPrefab, typeof(GameObject), false) as GameObject;
 
         EditorGUILayout.Space(3);
         EditorGUILayout.LabelField("InsectData", EditorStyles.boldLabel);
