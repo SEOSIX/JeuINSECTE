@@ -392,7 +392,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
   terrariumUI: {fileID: 0}
   leftUI: {fileID: 0}
-  terrariumData: {fileID: 0}
+  slideDuration: 0.3
+  hiddenOffset: 600
+  slideEase: 9
+  position:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 36637a7c-7c4c-4b90-bd7d-7db92cc4a631
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  press:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c6f3d246-6e3b-4a35-8ff4-f35816e850d5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  swipeResistance: 100
 --- !u!1 &8305607808632867805
 GameObject:
   m_ObjectHideFlags: 0

@@ -87,4 +87,26 @@ public class TerrariumManager : MonoBehaviour
             .DOAnchorPosX(shownX, slideDuration)
             .SetEase(slideEase);
     }
+    
+
+    public void OpenTerrariumUI()
+    {
+        terrariumUI.SetActive(true);
+    }
+
+    public void CloseTerrariumUI()
+    {
+        slideTween?.Kill();
+        leftUI.SetActive(false);
+
+        terrariumUI.SetActive(false);
+    }
+
+    public void ToggleTerrariumUI()
+    {
+        if (terrariumUI.activeSelf)
+            CloseTerrariumUI();
+        else
+            OpenTerrariumUI();
+    }
 }

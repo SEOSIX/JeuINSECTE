@@ -5,7 +5,7 @@ public class ContainerManager : MonoBehaviour
 {
     [SerializeField] private GameObject containerPrefab;
     
-    private List<RectTransform> slots = new List<RectTransform>();
+    [SerializeField] private List<RectTransform> slots = new List<RectTransform>();
 
     private void Awake()
     {
