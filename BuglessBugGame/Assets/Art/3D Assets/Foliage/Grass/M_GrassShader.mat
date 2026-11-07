@@ -52,6 +52,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GroundTexture:
+        m_Texture: {fileID: 2800000, guid: b64ab656a1073fd4a8b7460fe471ba49, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,6 +70,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2DLOD_ade04ed5f7824b1dbc54b1537e22907e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: a9da9ff989c96af40860c4a70aeabf86, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -113,6 +121,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Gradient: 0
+    - _GrassWind: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -125,7 +135,9 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _TipLenght: 0
     - _Tip_lenght: 624.68
+    - _WindSpeed: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
@@ -136,9 +148,10 @@ Material:
     - _GrassColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
     - _GroundCenter: {r: 0, g: 0, b: 0, a: 0}
     - _GroundSize: {r: 6.8, g: 6.8, b: 0, a: 0}
-    - _GroundTiling: {r: 1.19, g: 1.06, b: 0, a: 0}
+    - _GroundTiling: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TipColor: {r: 1, g: 1, b: 1, a: 0}
+    - _WindDirection: {r: 2, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &330926282056678932
