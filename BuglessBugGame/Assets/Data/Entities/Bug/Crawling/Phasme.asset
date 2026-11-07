@@ -18,7 +18,7 @@ MonoBehaviour:
   insectIcon: {fileID: 21300000, guid: 583b1b585c5082742b228ead9d69e360, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
-  isUnlocked: 1
+  isUnlocked: 0
   catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: e605b9ba1f15ba447bdb17e76d8d4056, type: 3}
   bugSpeed: 225
   changeDirectionPercentage: 0.01
@@ -27,3 +27,4 @@ MonoBehaviour:
   stopTime: 0
   tryCount: 4
   typeCatch: 1
+  typeMiniGame: 0

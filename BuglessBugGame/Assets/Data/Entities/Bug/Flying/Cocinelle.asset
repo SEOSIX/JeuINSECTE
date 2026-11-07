@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f77218dc579aaa5439df1d39344dfb8d, type: 3}
-  m_Name: Abeille
+  m_Name: Cocinelle
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
-  insectName: Abeille
+  insectName: Cocinelle
   insectDescription:
   - Ceci est un insecte, nous pouvont le trouver dans la nature.
-  insectIcon: {fileID: 21300000, guid: 583b1b585c5082742b228ead9d69e360, type: 3}
+  insectIcon: {fileID: 21300000, guid: 6918e60a1aab500439ff1c4bf2a173c5, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 10
-  isUnlocked: 1
-  catchMiniGamePrefabUI: {fileID: 6155119589516047154, guid: acf8ca56f19c33b42bd5fc106531f4d4, type: 3}
+  isUnlocked: 0
+  catchMiniGamePrefabUI: {fileID: 8540298992226163854, guid: d5469810a0e21a143b14701e0080b778, type: 3}
   bugSpeed: 622.36
   changeDirectionPercentage: 0.484
   hideTime: 0.75

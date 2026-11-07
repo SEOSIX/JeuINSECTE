@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Testings
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapImage: {fileID: 0}
-  mapName: SC_Testing_Garden
+  mapName: SC_Garden
   mapDescription: Scene testings
   insectsAvailable:
   - {fileID: 11400000, guid: 18ccfe6e45518f14aa3b4cf66be8ae45, type: 2}
