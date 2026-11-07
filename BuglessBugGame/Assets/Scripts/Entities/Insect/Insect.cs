@@ -19,30 +19,28 @@ namespace GamePlayCore
         private bool isAimedAt;
         
         [HideInInspector] public InsectData _insectPicked;
-
+        private static readonly List<InsectData> _candidates = new List<InsectData>();
 
         void Update()
         {
             CheckForInteract();
         }
 
+
         public InsectData PickRandomInsect()
         {
             var spots = spotInsect.insectSpots;
-            var candidates = new List<InsectData>();
+            _candidates.Clear();
 
             for (int i = 0; i < spots.Count; i++)
             {
                 if (Random.value < spots[i].insectChanceSpawn)
-                {
-                    candidates.Add(spots[i].insectData);
-                }
+                    _candidates.Add(spots[i].insectData);
             }
 
-            if (candidates.Count == 0) return null;
-            
-            _insectPicked = candidates[Random.Range(0, candidates.Count)];
-            Debug.Log(_insectPicked.insectName);
+            if (_candidates.Count == 0) return null;
+
+            _insectPicked = _candidates[Random.Range(0, _candidates.Count)];
             return _insectPicked;
         }
 

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,87 +7,84 @@ public class TerrariumManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject terrariumUI;
     [SerializeField] private GameObject leftUI;
-    
-    [SerializeField]private TerrariumData terrariumData;
 
-    private Vector2 swipeInput;
-    private PlayerInput playerInput;
+    [Header("Left UI Animation")]
+    [SerializeField] private float slideDuration = 0.3f;
+    [SerializeField] private float hiddenOffset = 600f;
+    [SerializeField] private Ease slideEase = Ease.OutCubic;
+
+    public delegate void OnSwipe(Vector2 direction);
+    public event OnSwipe swipePerformed;
+    [SerializeField] private InputAction position, press;
+    [SerializeField] private float swipeResistance = 100;
+
+    private Vector2 initialPos;
+    private Vector2 currentPos => position.ReadValue<Vector2>();
+
+    private RectTransform leftUIRect;
+    private float shownX;
+    private float hiddenX;
+    private Tween slideTween;
 
     private void Awake()
     {
-        Init();
+        position.Enable();
+        press.Enable();
+        press.performed += _ => { initialPos = currentPos; };
+        press.canceled += _ => DetectSwipe();
+
+        leftUIRect = leftUI.GetComponent<RectTransform>();
+        shownX = leftUIRect.anchoredPosition.x;
+        hiddenX = shownX - hiddenOffset;
     }
-    
-    private void Init()
+
+    private void OnDestroy()
     {
-        SetTerrariumLevel();
+        slideTween?.Kill();
     }
-    
-    private void Update()
+
+    private void DetectSwipe()
     {
-        ActivateTerrariumUI();
+        Vector2 delta = currentPos - initialPos;
+        Vector2 direction = Vector2.zero;
+
+        if (Mathf.Abs(delta.x) > swipeResistance)
+            direction.x = Mathf.Sign(delta.x);
+        if (Mathf.Abs(delta.y) > swipeResistance)
+            direction.y = Mathf.Sign(delta.y);
+
+        if (direction != Vector2.zero)
+            swipePerformed?.Invoke(direction);
     }
 
     public void Swipe(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            swipeInput = context.ReadValue<Vector2>();
-        }
+        swipePerformed?.Invoke(context.ReadValue<Vector2>());
     }
 
-    private void SetTerrariumLevel()
+    public void CloseLeftUI()
     {
-        int maxInsectsByLevel = 0;
-        
-        if(terrariumData == null) return;
+        if (!leftUI.activeSelf) return;
 
-        if (terrariumData.terrariumLevel == 1)
-        {
-            maxInsectsByLevel = 1;
-            terrariumData.insects.Capacity = maxInsectsByLevel;
-        }
-        if (terrariumData.terrariumLevel == 2)
-        {
-            maxInsectsByLevel = 1;
-            terrariumData.insects.Capacity = maxInsectsByLevel;
-        }
-        if (terrariumData.terrariumLevel == 3)
-        {
-            maxInsectsByLevel = 3;
-            terrariumData.insects.Capacity = maxInsectsByLevel;
-        }
-        if (terrariumData.terrariumLevel == 4)
-        {
-            maxInsectsByLevel = 4;
-            terrariumData.insects.Capacity = maxInsectsByLevel;
-        }
+        slideTween?.Kill();
+        slideTween = leftUIRect
+            .DOAnchorPosX(hiddenX, slideDuration)
+            .SetEase(slideEase)
+            .OnComplete(() => leftUI.SetActive(false));
     }
 
-    #region TouchInput
-
-    public void ActivateTerrariumUI()
+    public void OpenLeftUI()
     {
-        if (swipeInput != Vector2.zero && swipeInput.x + swipeInput.y > 0f)
+        slideTween?.Kill();
+
+        if (!leftUI.activeSelf)
         {
+            leftUIRect.anchoredPosition = new Vector2(hiddenX, leftUIRect.anchoredPosition.y);
             leftUI.SetActive(true);
-            terrariumUI.SetActive(false);
         }
-        else if (swipeInput != Vector2.zero && swipeInput.x + swipeInput.y < 0f)
-        {
-            leftUI.SetActive(false);
-            terrariumUI.SetActive(true);
-        }
-    }
-    public void Drag()
-    {
-        
-    }
 
-    public void Drop()
-    {
-        
+        slideTween = leftUIRect
+            .DOAnchorPosX(shownX, slideDuration)
+            .SetEase(slideEase);
     }
-
-    #endregion
 }

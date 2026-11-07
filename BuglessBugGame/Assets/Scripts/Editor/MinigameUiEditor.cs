@@ -85,6 +85,18 @@ public class MiniGameUiEditor : Editor
                 "Line type: the insect follows the line drawn by the MiniGameEditor. No hiding spots to configure.",
                 MessageType.Info);
         }
+        else if (IsEnum(miniGameType, nameof(InsectData.TypeMiniGame.Jumper)))
+        {
+            EditorGUILayout.Space(6);
+            EditorGUILayout.LabelField("Jumper", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox(
+                "Jumper type: the insect jumps like a grasshopper (side view). " +
+                "Jump settings (force, gravity, wait time...) are on the JumpingInsect component.",
+                MessageType.Info);
+
+            if (((MiniGameUI)target).GetComponent<JumpingInsect>() == null)
+                EditorGUILayout.HelpBox("No JumpingInsect component found on this GameObject.", MessageType.Warning);
+        }
     }
 
     private void DrawCatchTypeFields()

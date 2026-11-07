@@ -10,11 +10,21 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed;
     private Vector2 _moveInput;
     private PlayerInput playerInput;
+    private TerrariumManager _terrarium;
+    
+    private void OnDestroy()
+    {
+        if (_terrarium != null)
+            _terrarium.swipePerformed -= OnSwipeDetected;
+    }
 
     private void Start()
     {
         _player = GameManager.instance.player;
         currentSpeed = _player.playerData.playerControllerData.walkSpeed;
+
+        _terrarium = GameManager.instance.M_UI.terrariumManager;
+        _terrarium.swipePerformed += OnSwipeDetected;
     }
 
 
@@ -25,7 +35,8 @@ public class PlayerController : MonoBehaviour
         Movement();
         if (GameManager.instance.player._rb.linearVelocity.y > 0f)
         {
-            GameManager.instance.player._rb.linearVelocity = new Vector3(GameManager.instance.player._rb.linearVelocity.x, 0f, GameManager.instance.player._rb.linearVelocity.z);
+            GameManager.instance.player._rb.linearVelocity = new 
+                Vector3(GameManager.instance.player._rb.linearVelocity.x, 0f, GameManager.instance.player._rb.linearVelocity.z);
         }
     }
 
@@ -54,14 +65,21 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.player.isInteracted = false;
         }
     }
-
-    public void OnSwipe(InputAction.CallbackContext context)
+    private void OnSwipeDetected(Vector2 direction)
     {
-        if (context.performed)
+        if (direction.x < 0)
         {
-            GameManager.instance.M_UI.terrariumManager.Swipe(context);
+            _terrarium.CloseLeftUI();
         }
+        else if (direction.x > 0)
+        {
+            _terrarium.OpenLeftUI();
+        }
+
+        // swipe haut if (direction.y > 0) 
+        //swipe bas else if (direction.y < 0)
     }
+    
 
     private void Movement() 
     {
