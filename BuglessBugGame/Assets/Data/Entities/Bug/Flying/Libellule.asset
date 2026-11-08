@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Libellule
   insectDescription:
-  - C'est une libellule !
+  - "Oui mort je me suis bless\xE9 .C'est ma lubululle !"
   insectIcon: {fileID: 21300000, guid: f1a8f49b7b837344184bba8baa62ad69, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
