@@ -20,11 +20,11 @@ MonoBehaviour:
   catchCount: 0
   isUnlocked: 0
   catchMiniGamePrefabUI: {fileID: 6155119589516047154, guid: acf8ca56f19c33b42bd5fc106531f4d4, type: 3}
-  bugSpeed: 225
+  bugSpeed: 800
   changeDirectionPercentage: 0.01
   hideTime: 0.75
   hideChance: 1.16
   stopTime: 0
   tryCount: 4
-  typeCatch: 1
-  typeMiniGame: 0
+  typeCatch: 0
+  typeMiniGame: 1
