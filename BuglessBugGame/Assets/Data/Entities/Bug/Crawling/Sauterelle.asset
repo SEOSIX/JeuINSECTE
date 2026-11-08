@@ -25,6 +25,6 @@ MonoBehaviour:
   hideTime: 0.1
   hideChance: 100
   stopTime: 0
-  tryCount: 99
+  tryCount: 4
   typeCatch: 1
   typeMiniGame: 1

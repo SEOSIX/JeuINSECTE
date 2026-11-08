@@ -42,10 +42,10 @@ RectTransform:
   - {fileID: 5136411249750803695}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 2400, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &174500721066427996
 Canvas:
@@ -167,7 +167,9 @@ MonoBehaviour:
   jumpDuration: 0.6
   horizontalFactor: 2.94
   waitRange: {x: 0.4, y: 1.2}
-  jumpHeightVariation: 0.25
+  jumpHeightVariation: 0.1
+  groundDivisorRange: {x: 0.1, y: 10}
+  wallBounceJumps: {x: 3, y: 4}
   maxTilt: 30
 --- !u!1 &1928705202231719902
 GameObject:
