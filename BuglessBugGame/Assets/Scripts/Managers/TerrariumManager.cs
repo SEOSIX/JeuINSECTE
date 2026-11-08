@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +26,7 @@ public class TerrariumManager : MonoBehaviour
     private float shownX;
     private float hiddenX;
     private Tween slideTween;
+    private Coroutine slideRoutine;
 
     private void Awake()
     {
@@ -34,7 +36,7 @@ public class TerrariumManager : MonoBehaviour
         press.canceled += _ => DetectSwipe();
 
         leftUIRect = leftUI.GetComponent<RectTransform>();
-        shownX = leftUIRect.anchoredPosition.x;
+        shownX = 0;
         hiddenX = shownX - hiddenOffset;
     }
 
@@ -64,28 +66,50 @@ public class TerrariumManager : MonoBehaviour
 
     public void CloseLeftUI()
     {
-        if (!leftUI.activeSelf) return;
-
         slideTween?.Kill();
-        slideTween = leftUIRect
-            .DOAnchorPosX(hiddenX, slideDuration)
+        slideTween = leftUIRect.DOAnchorPosX(hiddenX, slideDuration)
             .SetEase(slideEase)
-            .OnComplete(() => leftUI.SetActive(false));
+            .SetUpdate(true);
     }
 
     public void OpenLeftUI()
     {
-        slideTween?.Kill();
+        leftUI.SetActive(true);
 
-        if (!leftUI.activeSelf)
+        // Si l'UI est déjà affichée, on rejoue l'animation depuis la position cachée
+        if (Mathf.Abs(leftUIRect.anchoredPosition.x - shownX) < 1f)
+            SetX(hiddenX);
+
+        StartSlide(shownX, false);
+    }
+    
+    private void StartSlide(float targetX, bool deactivateAtEnd)
+    {
+        if (slideRoutine != null) StopCoroutine(slideRoutine);
+        slideRoutine = StartCoroutine(SlideRoutine(targetX, deactivateAtEnd));
+    }
+
+    private IEnumerator SlideRoutine(float targetX, bool deactivateAtEnd)
+    {
+        float startX = leftUIRect.anchoredPosition.x;
+        float t = 0f;
+
+        while (t < 1f)
         {
-            leftUIRect.anchoredPosition = new Vector2(hiddenX, leftUIRect.anchoredPosition.y);
-            leftUI.SetActive(true);
+            t += Time.unscaledDeltaTime / slideDuration; 
+            float eased = 1f - Mathf.Pow(1f - Mathf.Clamp01(t), 3f);
+            SetX(Mathf.Lerp(startX, targetX, eased));
+            yield return null;
         }
 
-        slideTween = leftUIRect
-            .DOAnchorPosX(shownX, slideDuration)
-            .SetEase(slideEase);
+        SetX(targetX);
+        if (deactivateAtEnd) leftUI.SetActive(false);
+        slideRoutine = null;
+    }
+
+    private void SetX(float x)
+    {
+        leftUIRect.anchoredPosition = new Vector2(x, leftUIRect.anchoredPosition.y);
     }
     
 
@@ -97,7 +121,6 @@ public class TerrariumManager : MonoBehaviour
     public void CloseTerrariumUI()
     {
         slideTween?.Kill();
-        leftUI.SetActive(false);
 
         terrariumUI.SetActive(false);
     }

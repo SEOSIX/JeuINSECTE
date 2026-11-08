@@ -70,12 +70,12 @@ public class PlayerController : MonoBehaviour
         if (direction.x < 0)
         {
             _terrarium.CloseLeftUI();
-            _terrarium.ToggleTerrariumUI();
+            _terrarium.OpenTerrariumUI();
         }
         else if (direction.x > 0)
         {
             _terrarium.OpenLeftUI();
-            _terrarium.ToggleTerrariumUI();
+            _terrarium.CloseTerrariumUI();
         }
 
         // swipe haut if (direction.y > 0) 
