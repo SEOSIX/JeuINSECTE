@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77218dc579aaa5439df1d39344dfb8d, type: 3}
+  m_Name: Cocinelle
+  m_EditorClassIdentifier: Assembly-CSharp::InsectData
+  insectName: Coccinelle
+  insectDescription:
+  - "C'est une coccinelle ! \xE7a me rappelle mon dessin anim\xE9 pr\xE9fer\xE9."
+  insectIcon: {fileID: 21300000, guid: 6918e60a1aab500439ff1c4bf2a173c5, type: 3}
+  insectPrefab: {fileID: 0}
+  catchCount: 10
+  isUnlocked: 0
+  catchMiniGamePrefabUI: {fileID: 1566920387473872604, guid: 05ca67131770e4a468e50c7d3ad9bf7c, type: 3}
+  bugSpeed: 900
+  changeDirectionPercentage: 0.01
+  hideTime: 0.75
+  hideChance: 1.16
+  stopTime: 0
+  tryCount: 4
+  typeCatch: 0
+  typeMiniGame: 1
