@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c463147eb19e6498673828c89ccdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
-  terrariumUI: {fileID: 0}
+  terrariumUI: {fileID: 441793951420178254}
   leftUI: {fileID: 6103846211896040232}
   slideDuration: 0.3
   hiddenOffset: 600
@@ -580,6 +580,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+--- !u!1 &441793951420178254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7643991859816889753, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+  m_PrefabInstance: {fileID: 7797273960030937815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &893589072921513253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6941122201561362418, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
