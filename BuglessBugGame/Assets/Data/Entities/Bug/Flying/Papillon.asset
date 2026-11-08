@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Papillon
   insectDescription:
-  - Ceci est un insecte, nous pouvont le trouver dans la nature.
+  - C'est un papillon !
   insectIcon: {fileID: 21300000, guid: 8aec7424320433940afd3b0de0f8837b, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AlphaTreeSpot
   m_EditorClassIdentifier: Assembly-CSharp::InsectSpot
   insectSpots:
-  - insectData: {fileID: 11400000, guid: 1e92b2e965359b94597e456ca37081b5, type: 2}
-    insectChanceSpawn: 0.7
+  - insectData: {fileID: 11400000, guid: 2a1334444768efb48899410935226a51, type: 2}
+    insectChanceSpawn: 0.3
   - insectData: {fileID: 11400000, guid: 0b7776b4a5eb03a48a30911955c25094, type: 2}
-    insectChanceSpawn: 0.1
+    insectChanceSpawn: 0.35
   - insectData: {fileID: 11400000, guid: 18ccfe6e45518f14aa3b4cf66be8ae45, type: 2}
-    insectChanceSpawn: 0.2
+    insectChanceSpawn: 0.35
