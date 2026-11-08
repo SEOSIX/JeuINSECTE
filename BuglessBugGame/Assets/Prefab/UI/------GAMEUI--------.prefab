@@ -3866,6 +3866,7 @@ GameObject:
   - component: {fileID: 666969086551808752}
   - component: {fileID: 6712639156510989671}
   - component: {fileID: 2828627448821588704}
+  - component: {fileID: 5922177491330841097}
   m_Layer: 0
   m_Name: ------GAMEUI--------
   m_TagString: Untagged
@@ -3939,6 +3940,25 @@ MonoBehaviour:
   mapPreviewPrefab: {fileID: 675779526196540673, guid: a76a8d2f093d6944dbeb3893d44239a7, type: 3}
   previewContainer: {fileID: 8246737847089974983}
   returnToLobbyButton: {fileID: 5110634150877399817}
+--- !u!114 &5922177491330841097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972461908132216335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed81df68db85d2444bf629f4023252d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ContainerManager
+  containerPrefab: {fileID: 4040864681072149413, guid: ed850c34bae2a964497146a2fe51d3d6, type: 3}
+  slots:
+  - {fileID: 4172103045565086777}
+  - {fileID: 5146328700768501559}
+  - {fileID: 3519643842002083633}
+  - {fileID: 5936991653712766003}
+  - {fileID: 9060858207237618008}
 --- !u!1 &5101082201256186870
 GameObject:
   m_ObjectHideFlags: 0
