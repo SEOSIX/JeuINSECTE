@@ -3225,6 +3225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3509932973961750734, guid: 476d95034e74679458404f2d72e3fd4f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3574891599691803758, guid: 476d95034e74679458404f2d72e3fd4f, type: 3}
       propertyPath: m_Name
       value: AlphaTreeSpot
@@ -6941,6 +6945,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 476774099}
     m_Modifications:
+    - target: {fileID: 857618295834290977, guid: 42da3ec5f15ff0744a2d1a64c78d4e14, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1640879685052210082, guid: 42da3ec5f15ff0744a2d1a64c78d4e14, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.3392401
@@ -6979,6 +6987,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1640879685052210082, guid: 42da3ec5f15ff0744a2d1a64c78d4e14, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3509932973961750734, guid: 42da3ec5f15ff0744a2d1a64c78d4e14, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3574891599691803758, guid: 42da3ec5f15ff0744a2d1a64c78d4e14, type: 3}
@@ -41076,6 +41088,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3509932973961750734, guid: 2b705aa5bb2ed414da8a179cade276a0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3574891599691803758, guid: 2b705aa5bb2ed414da8a179cade276a0, type: 3}
       propertyPath: m_Name
       value: AlphaFlowerSpot
@@ -64553,6 +64569,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3509932973961750734, guid: 2e718c3021e442b46a2ccc95b62e6225, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3574891599691803758, guid: 2e718c3021e442b46a2ccc95b62e6225, type: 3}
       propertyPath: m_Name
       value: AlphaRockSpot
@@ -74170,6 +74190,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1640879685052210082, guid: bc129b1eee3bea94bb514ffb99e2546f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3509932973961750734, guid: bc129b1eee3bea94bb514ffb99e2546f, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3574891599691803758, guid: bc129b1eee3bea94bb514ffb99e2546f, type: 3}
