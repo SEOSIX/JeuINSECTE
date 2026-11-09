@@ -29,7 +29,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3011
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -124,10 +124,10 @@ Material:
     - _InnerOutlineCutoof: 5
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OutlineThickness: 0.00007
+    - _OutlineThickness: 0.00075
     - _Parallax: 0.005
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: 11
     - _ReceiveShadows: 1
     - _Scribble_Frame_rate: 3
     - _Scribble_scale: 5
@@ -145,8 +145,8 @@ Material:
     - _focal: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.20784314, g: 0.06354411, b: 0.047058824, a: 1}
-    - _Color2: {r: 0.5, g: 0.19870767, b: 0, a: 1}
+    - _Color: {r: 0.9716981, g: 0.91559815, b: 0.75627446, a: 1}
+    - _Color2: {r: 0.9150943, g: 0.7291638, b: 0.58272517, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Scribble_min_max: {r: 0.5, g: 1.5, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

@@ -64,9 +64,11 @@ public class JourneyMapManage : MonoBehaviour
             Debug.LogWarning("Aucune map sélectionnée.");
             return;
         }
-        SceneManager.LoadScene(currentSelectedMapData.mapName);
-        ClosePreview();
-        GameManager.instance.M_UI.lobby._parentMapUI.SetActive(false);
+        TransitionManager.Instance.LoadScene(currentSelectedMapData.mapName, onLoaded: () =>
+        {
+            ClosePreview();
+            GameManager.instance.M_UI.lobby._parentMapUI.SetActive(false);
+        });
     }
     
     private void ClosePreview()
@@ -82,7 +84,12 @@ public class JourneyMapManage : MonoBehaviour
 
     private void ReturnToLobby()
     {
-        GameManager.instance.M_UI.lobby._parentMapUI.SetActive(false);
-        GameManager.instance.M_UI.lobby._parentLobbyUI.SetActive(true);
+        returnToLobbyButton.interactable = false;
+        ClosePreview();
+
+        GameManager.instance.M_UI.lobby.GoToLobby(() =>
+        {
+            returnToLobbyButton.interactable = true;
+        });
     }
 }
