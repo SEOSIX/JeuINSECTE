@@ -429,7 +429,7 @@ MonoBehaviour:
       m_Action: Press
       m_Flags: 0
     m_Flags: 0
-  swipeResistance: 100
+  swipeResistance: 300
 --- !u!1001 &359846645752222900
 PrefabInstance:
   m_ObjectHideFlags: 0

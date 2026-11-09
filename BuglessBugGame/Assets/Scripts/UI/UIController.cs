@@ -14,14 +14,12 @@ public class UIController : MonoBehaviour
     private Coroutine catchCoroutine;
     private void Start()
     {
-        
         _catchButton.onClick.AddListener(CatchInsect);
     }
-
+    
     private void CatchInsect()
     {
-        Player player = GameManager.instance.player;
-        
-        player.isInteracted = true;
+        GameManager.instance.player.RaiseInteract();
+        GameManager.instance.player.isInteracted = true;
     }
 }

@@ -21,11 +21,26 @@ namespace GamePlayCore
         [HideInInspector] public InsectData _insectPicked;
         private static readonly List<InsectData> _candidates = new List<InsectData>();
 
+        private void OnEnable()
+        { 
+            GameManager.instance.player.InteractPerformed += OnInteract;
+        }
+
+        private void OnDisable()
+        { 
+            GameManager.instance.player.InteractPerformed -= OnInteract;
+        }
+        
         void Update()
         {
             CheckForInteract();
         }
 
+        private void OnInteract()
+        {
+            if (isInside)
+                GameManager.instance.M_MiniGameManager.DetectForInteraction(this);
+        }
 
         public InsectData PickRandomInsect()
         {
