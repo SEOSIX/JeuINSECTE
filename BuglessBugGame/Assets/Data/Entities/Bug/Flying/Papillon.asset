@@ -15,7 +15,7 @@ MonoBehaviour:
   insectName: Papillon
   insectDescription:
   - C'est un papillon !
-  insectIcon: {fileID: 21300000, guid: 8aec7424320433940afd3b0de0f8837b, type: 3}
+  insectIcon: {fileID: 21300000, guid: 015bfe9c92f345a4487a22b0a7f0f5cd, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
   isUnlocked: 0

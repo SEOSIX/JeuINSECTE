@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Moduls;
 using UnityEngine;
@@ -27,12 +29,20 @@ public class Encyclopedia : MonoBehaviour
     [Header("Pool")]
     [SerializeField] private Transform cellPool;
 
+    [Header("Slide")]
+    [SerializeField] private float slideDuration = 0.5f;
+    [SerializeField] private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
     public EncyclopediaData Data => data;
 
     private const int InsectsPerSpread = EncyclopediaPage.MaxInsectsPerPage * 2;
     private int currentSpread = 0;
 
     private readonly List<EncyclopediaCell> allCells = new List<EncyclopediaCell>();
+
+    private RectTransform uiRect;
+    private Vector2 uiTargetPos;
+    private Coroutine slideRoutine;
 
     private void OnEnable()
     {
@@ -51,9 +61,15 @@ public class Encyclopedia : MonoBehaviour
         nextPageBookButton.onClick.AddListener(NextSpread);
         previousPageBookButton.onClick.AddListener(PreviousSpread);
 
+        if (encyclopediaUI != null)
+        {
+            uiRect = encyclopediaUI.GetComponent<RectTransform>();
+            uiTargetPos = uiRect.anchoredPosition;
+        }
+
         InitializeFromData();
     }
-    
+
     private void InitializeFromData()
     {
         if (data == null) return;
@@ -66,18 +82,68 @@ public class Encyclopedia : MonoBehaviour
 
     void OpenBook()
     {
-        if (encyclopediaUI != null)
+        if (encyclopediaUI == null) return;
+
+        Vector2 from;
+        if (encyclopediaUI.activeSelf)
+        {
+            from = uiRect.anchoredPosition;
+        }
+        else
+        {
             encyclopediaUI.SetActive(true);
+            Canvas.ForceUpdateCanvases();
+            from = uiTargetPos + Vector2.down * GetSlideDistance();
+            uiRect.anchoredPosition = from;
+        }
 
         leftPage.ShowGrid();
         rightPage.ShowGrid();
         RefreshCurrentSpread();
+
+        StartSlide(from, uiTargetPos, null);
     }
 
     void CloseBook()
     {
-        if (encyclopediaUI != null)
+        if (encyclopediaUI == null || !encyclopediaUI.activeSelf) return;
+
+        Vector2 offscreen = uiTargetPos + Vector2.down * GetSlideDistance();
+
+        StartSlide(uiRect.anchoredPosition, offscreen, () =>
+        {
             encyclopediaUI.SetActive(false);
+            uiRect.anchoredPosition = uiTargetPos;
+        });
+    }
+
+    private float GetSlideDistance()
+    {
+        Canvas root = uiRect.GetComponentInParent<Canvas>().rootCanvas;
+        return ((RectTransform)root.transform).rect.height;
+    }
+
+    private void StartSlide(Vector2 from, Vector2 to, Action onComplete)
+    {
+        if (slideRoutine != null) StopCoroutine(slideRoutine);
+        slideRoutine = StartCoroutine(SlideRoutine(from, to, onComplete));
+    }
+
+    private IEnumerator SlideRoutine(Vector2 from, Vector2 to, Action onComplete)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < slideDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = slideCurve.Evaluate(Mathf.Clamp01(elapsed / slideDuration));
+            uiRect.anchoredPosition = Vector2.LerpUnclamped(from, to, t);
+            yield return null;
+        }
+
+        uiRect.anchoredPosition = to;
+        slideRoutine = null;
+        onComplete?.Invoke();
     }
 
     void AddToBook(InsectData insectData, int count = 1)
@@ -93,7 +159,7 @@ public class Encyclopedia : MonoBehaviour
                 RefreshCurrentSpread();
         }
     }
-    
+
     private void CreateCell(InsectData insectData)
     {
         GameObject newInsect = Instantiate(insectPrefab, cellPool);
@@ -149,7 +215,7 @@ public class Encyclopedia : MonoBehaviour
         nextPageBookButton.interactable = allCells.Count > 0 && currentSpread < MaxSpread;
         previousPageBookButton.interactable = currentSpread > 0;
     }
-    
+
     public void NextSpread()
     {
         if (currentSpread < MaxSpread)
