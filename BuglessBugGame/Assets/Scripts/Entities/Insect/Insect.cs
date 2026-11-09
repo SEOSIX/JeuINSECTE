@@ -26,7 +26,6 @@ namespace GamePlayCore
             CheckForInteract();
         }
 
-
         public InsectData PickRandomInsect()
         {
             var spots = spotInsect.insectSpots;

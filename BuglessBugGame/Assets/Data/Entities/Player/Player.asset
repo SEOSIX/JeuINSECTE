@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   playerControllerData:
-    walkSpeed: 7
+    walkSpeed: 4
     runSpeed: 10
     CrouchSpeed: 4
     rotationSpeed: 30

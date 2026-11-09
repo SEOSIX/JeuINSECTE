@@ -103,6 +103,9 @@ public class PlayerController : MonoBehaviour
 
         if (isoDirection.sqrMagnitude > 0.01f)
         {
+            
+            _player.animationManager.SetWalk();
+            
             Quaternion targetRotation = Quaternion.LookRotation(isoDirection);
 
             GameManager.instance.player._rb.MoveRotation(Quaternion.Slerp(
@@ -116,6 +119,7 @@ public class PlayerController : MonoBehaviour
         if (!isMoving)
         {
             GameManager.instance.player._rb.angularVelocity = Vector3.zero;
+            _player.animationManager.SetIdle();
         }
     }
 
