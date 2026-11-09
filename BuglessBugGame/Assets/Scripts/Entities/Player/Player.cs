@@ -14,9 +14,6 @@ public class Player : MonoBehaviour
     public PlayerAnimationManager animationManager => p_animationManager;
     public Rigidbody _rb => ridigBody;
     
-    public event Action InteractPerformed;
-    public void RaiseInteract() => InteractPerformed?.Invoke();
-    
     [HideInInspector] public bool isInteracted;
     private void Awake()
     {

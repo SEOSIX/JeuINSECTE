@@ -16,10 +16,10 @@ public class UIController : MonoBehaviour
     {
         _catchButton.onClick.AddListener(CatchInsect);
     }
-    
+
     private void CatchInsect()
     {
-        GameManager.instance.player.RaiseInteract();
-        GameManager.instance.player.isInteracted = true;
+        Player player = GameManager.instance.player;
+        player.isInteracted = true;
     }
 }
