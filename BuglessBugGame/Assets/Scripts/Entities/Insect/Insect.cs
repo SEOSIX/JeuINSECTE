@@ -48,8 +48,6 @@ namespace GamePlayCore
             if (GameManager.instance.player.isInteracted && isInside)
             {
                 GameManager.instance.M_MiniGameManager.DetectForInteraction(this);
-                
-                print("telaviv");
             }
         }
         
