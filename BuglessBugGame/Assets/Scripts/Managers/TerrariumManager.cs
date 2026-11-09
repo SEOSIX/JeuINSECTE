@@ -30,15 +30,29 @@ public class TerrariumManager : MonoBehaviour
 
     private void Awake()
     {
-        position.Enable();
-        press.Enable();
-        press.performed += _ => { initialPos = currentPos; };
-        press.canceled += _ => DetectSwipe();
-
         leftUIRect = leftUI.GetComponent<RectTransform>();
         shownX = 0;
         hiddenX = shownX - hiddenOffset;
     }
+
+    private void OnEnable()
+    {
+        position.Enable();
+        press.Enable();
+        press.performed += OnPressStarted;
+        press.canceled += OnPressEnded;
+    }
+
+    private void OnDisable()
+    {
+        press.performed -= OnPressStarted;
+        press.canceled -= OnPressEnded;
+        position.Disable();
+        press.Disable();
+    }
+
+    private void OnPressStarted(InputAction.CallbackContext ctx) => initialPos = currentPos;
+    private void OnPressEnded(InputAction.CallbackContext ctx) => DetectSwipe();
 
     private void OnDestroy()
     {

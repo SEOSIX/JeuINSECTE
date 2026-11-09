@@ -1,14 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-/// <summary>
-/// À placer sur l'IMAGE draggable.
-/// L'image est enfant d'un "Box" (slot) de SlotObject (qui a un Horizontal Layout Group).
-/// - Drag : l'image suit le pointeur (reparentée sur le Canvas pour passer au-dessus de tout).
-/// - Drop sur un Terrarium : l'image est reparentée dans le Terrarium (Terrarium.cs).
-/// - Drop ailleurs : l'image retourne dans son slot d'origine.
-/// </summary>
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(CanvasGroup))]
 public class Container : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -21,6 +13,7 @@ public class Container : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private Transform originalParent;
     private int originalSiblingIndex;
     private bool droppedInTerrarium;
+    private bool isDraggingFromSlot;
     
     public bool IsInTerrarium => droppedInTerrarium;
     public InsectData Insect { get; private set; }
@@ -53,6 +46,7 @@ public class Container : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (droppedInTerrarium)
             return;
 
+        GameManager.instance.M_UI.terrariumManager.enabled = false;
         originalParent = transform.parent;
         originalSiblingIndex = transform.GetSiblingIndex();
         DraggingFromSlot = originalParent;
@@ -79,6 +73,8 @@ public class Container : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             ReturnToSlot();
 
         DraggingFromSlot = null;
+        
+        GameManager.instance.M_UI.terrariumManager.enabled = true;
     }
     public void PlaceInTerrarium(RectTransform terrariumArea)
     {
