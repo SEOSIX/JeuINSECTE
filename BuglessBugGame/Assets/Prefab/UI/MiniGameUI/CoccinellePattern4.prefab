@@ -262,6 +262,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   hideSpot: []
   loseInsectGo: {fileID: 7893083651013308143}
+  obstacle: {fileID: 0}
   swipeHitRadius: 40
   circleClosureThreshold: 50
   minCirclePoints: 10
