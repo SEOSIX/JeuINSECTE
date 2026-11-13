@@ -419,7 +419,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
   terrariumUI: {fileID: 441793951420178254}
   leftUI: {fileID: 6103846211896040232}
-  tutoTextUI: {fileID: 0}
   slideDuration: 0.3
   hiddenOffset: 600
   slideEase: 9
@@ -439,6 +438,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Position
       m_Flags: 0
+    - m_Name: 
+      m_Id: 392032ef-77af-4997-9224-56b1b24efb2b
+      m_Path: <Mouse>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Position
+      m_Flags: 0
     m_Flags: 0
   press:
     m_Name: Press
@@ -451,6 +458,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 6bf6b11e-ed00-4a1f-a418-9531435bd3aa
       m_Path: <Touchscreen>/Press
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Press
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 20e9e3d1-6321-4636-92e6-78919369d2aa
+      m_Path: <Mouse>/press
       m_Interactions: 
       m_Processors: 
       m_Groups: 
