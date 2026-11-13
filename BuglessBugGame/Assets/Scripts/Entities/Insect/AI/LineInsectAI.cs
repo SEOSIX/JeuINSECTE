@@ -6,6 +6,9 @@ public class LineInsectAI : InsectBase
     [SerializeField] private List<Vector2> pathPoints = new List<Vector2>();
 
     private int targetIndex;
+    private bool isHidden;
+
+    public bool IsHidden => isHidden;
 
     public void SetPath(List<Vector2> points)
     {
@@ -30,6 +33,7 @@ public class LineInsectAI : InsectBase
             InsectMovements();
 
         CheckPosition();
+        UpdateHiddenState();
     }
 
     public override void InsectMovements()
@@ -50,6 +54,25 @@ public class LineInsectAI : InsectBase
         direction = toTarget.normalized;
         insectTransform.anchoredPosition += direction * step;
     }
+
+    private void UpdateHiddenState()
+    {
+        isHidden = false;
+
+        var ui = miniGameManager.currentMiniGameUI;
+        if (ui == null || ui.hideSpot == null) return;
+
+        foreach (RectTransform spot in ui.hideSpot)
+        {
+            Vector2 local = spot.InverseTransformPoint(insectTransform.position);
+            if (spot.rect.Contains(local))
+            {
+                isHidden = true;
+                return;
+            }
+        }
+    }
+
     private Vector2 ToLocal(Vector2 normalized)
     {
         Vector2 size = canvasRectTransform.rect.size;

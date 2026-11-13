@@ -81,9 +81,7 @@ public class MiniGameUiEditor : Editor
         else if (IsEnum(miniGameType, nameof(InsectData.TypeMiniGame.Line)))
         {
             EditorGUILayout.Space(6);
-            EditorGUILayout.HelpBox(
-                "Line type: the insect follows the line drawn by the MiniGameEditor. No hiding spots to configure.",
-                MessageType.Info);
+            EditorGUILayout.PropertyField(hideSpot, true);
         }
         else if (IsEnum(miniGameType, nameof(InsectData.TypeMiniGame.Jumper)))
         {
