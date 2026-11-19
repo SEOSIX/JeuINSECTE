@@ -26,6 +26,13 @@ public class PlayerInsectPickUp : MonoBehaviour
         LastPickedInsectCount = count;
         if (!insect.isUnlocked)
             insect.isUnlocked = true;
+        else
+        {
+            inventoryData.coinsCount += insect.coinValueOnResell;
+            Debug.Log(inventoryData.coinsCount);
+            return;
+        }
+        Debug.Log(LastPickedInsect);
         
         List<InsectSlot> insects = inventoryData.insects;
         InsectSlot existingSlot = insects.Find(slot => slot.insect == insect);

@@ -69,13 +69,13 @@ public class PlayerController : MonoBehaviour
     {
         if (direction.x < 0)
         {
-            _terrarium.CloseLeftUI();
-            _terrarium.OpenTerrariumUI();
+            if (_terrarium.IsLeftUIOpen)
+                _terrarium.CloseLeftUI();
         }
         else if (direction.x > 0)
         {
-            _terrarium.OpenLeftUI();
-            _terrarium.CloseTerrariumUI();
+            if (!_terrarium.IsLeftUIOpen && _terrarium.WasAtMaxOnPress)
+                _terrarium.OpenLeftUI();
         }
 
         // swipe haut if (direction.y > 0) 
@@ -122,5 +122,4 @@ public class PlayerController : MonoBehaviour
             _player.animationManager.SetIdle();
         }
     }
-
 }

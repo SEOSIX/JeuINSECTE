@@ -24,7 +24,8 @@ public class PlayerControllerData
 [Serializable]
 public class PlayerInventoryData
 {
-    [Header("Inventory")]
+    [Header("Inventory")] 
+    public int coinsCount;
     public List<InsectSlot> insects = new List<InsectSlot>();
     
     public List<InsectData> insectsOnInventory = new List<InsectData>();
