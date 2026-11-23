@@ -21,6 +21,11 @@ public class TerrariumFocus : MonoBehaviour
     [SerializeField] private float orbitSmoothing = 12f;
     [SerializeField] private bool returnOnRelease = true;
 
+    [Header("Gyroscope")] 
+    [SerializeField] private bool useGyro = true;
+    [SerializeField] private float gyroSensitivity = 1f;
+    private bool isgyroActive;
+
     public bool IsFocused { get; private set; }
     public Transform FocusedItem { get; private set; }
     public event Action exited;
@@ -42,6 +47,12 @@ public class TerrariumFocus : MonoBehaviour
 
     private void Update()
     {
+        if (IsFocused && isgyroActive)
+        {
+            float rate = Input.gyro.rotationRateUnbiased.y * Mathf.Rad2Deg;
+            orbitTargetYaw = Mathf.Clamp(orbitTargetYaw + rate * gyroSensitivity * Time.unscaledDeltaTime,
+                                         - maxOrbitAngle, maxOrbitAngle);
+        }
         UpdateOrbit();
     }
     
@@ -97,6 +108,9 @@ public class TerrariumFocus : MonoBehaviour
         }
         cam.DOOrthoSize(baseOrthoSize * focusZoomFactor, focusDuration)
             .SetEase(focusEase).SetUpdate(true);
+        
+        isgyroActive = useGyro && SystemInfo.supportsGyroscope;
+        if (isgyroActive) Input.gyro.enabled = true;
     }
 
     public void Exit()
@@ -121,6 +135,8 @@ public class TerrariumFocus : MonoBehaviour
         terrariumsContainer.DOLocalMove(restLocalPos, focusDuration)
             .SetEase(focusEase).SetUpdate(true)
             .OnComplete(() => exited?.Invoke());
+        
+        if (isgyroActive) {Input.gyro.enabled = true; isgyroActive = false; }
     }
     public void Drag(float deltaXPixels)
     {
