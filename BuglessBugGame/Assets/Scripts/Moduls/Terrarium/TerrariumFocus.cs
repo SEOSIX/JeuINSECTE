@@ -34,11 +34,6 @@ public class TerrariumFocus : MonoBehaviour
     private Vector3 orbitPivot, baseCamPos;
     private Quaternion baseCamRot;
 
-    private void Awake()
-    {
-        if (cam == null) cam = Camera.main;
-    }
-
     private void OnDestroy()
     {
         if (terrariumsContainer != null) terrariumsContainer.DOKill();

@@ -246,7 +246,6 @@ GameObject:
   - component: {fileID: 1979504362791621730}
   - component: {fileID: 1406632719112030253}
   - component: {fileID: 4093774979402171084}
-  - component: {fileID: 5039552167253802289}
   m_Layer: 0
   m_Name: -------GAMEMANAGER--------
   m_TagString: Untagged
@@ -404,60 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda1e744bd30f8947bf59360fce670f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGameManager
-  instanceMinigameParent: {fileID: 4230113851778678918}
---- !u!114 &5039552167253802289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8139945426383917259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c463147eb19e6498673828c89ccdf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
-  terrariumUI: {fileID: 441793951420178254}
-  leftUI: {fileID: 6103846211896040232}
-  tutoTextUI: {fileID: 0}
-  slideDuration: 0.3
-  hiddenOffset: 600
-  slideEase: 9
-  position:
-    m_Name: Position
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 36637a7c-7c4c-4b90-bd7d-7db92cc4a631
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 16294972-c581-4ffa-823e-e0d7ba4516ea
-      m_Path: <Touchscreen>/position
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Position
-      m_Flags: 0
-    m_Flags: 0
-  press:
-    m_Name: Press
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c6f3d246-6e3b-4a35-8ff4-f35816e850d5
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 6bf6b11e-ed00-4a1f-a418-9531435bd3aa
-      m_Path: <Touchscreen>/Press
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Press
-      m_Flags: 0
-    m_Flags: 0
-  swipeResistance: 180
+  instanceMinigameParent: {fileID: 4829710721350872653}
 --- !u!1001 &359846645752222900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -613,6 +559,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 666969086551808752, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
   m_PrefabInstance: {fileID: 1551363867785153564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4829710721350872653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6233291362623971921, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
+  m_PrefabInstance: {fileID: 1551363867785153564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7797273960030937815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -670,11 +621,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
---- !u!1 &441793951420178254 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7643991859816889753, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
-  m_PrefabInstance: {fileID: 7797273960030937815}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &893589072921513253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6941122201561362418, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
@@ -738,11 +684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!1 &4230113851778678918 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6233291362623971921, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
-  m_PrefabInstance: {fileID: 7797273960030937815}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5171352882619541183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3166361864245789800, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
@@ -751,11 +692,6 @@ GameObject:
 --- !u!1 &5559854903807703835 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2386320428083173836, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
-  m_PrefabInstance: {fileID: 7797273960030937815}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6103846211896040232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4071338247112980991, guid: 05de0ed17bfe72e40b407d6e06a4eb68, type: 3}
   m_PrefabInstance: {fileID: 7797273960030937815}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6778509652086692463 stripped

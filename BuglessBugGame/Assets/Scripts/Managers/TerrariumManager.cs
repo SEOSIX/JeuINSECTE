@@ -2,9 +2,12 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class TerrariumManager : MonoBehaviour
 {
+    public static TerrariumManager Instance { get; private set; }
+    
     [Header("UI")]
     [SerializeField] private GameObject leftUI;
 
@@ -48,6 +51,7 @@ public class TerrariumManager : MonoBehaviour
     private bool isLeftUIOpen = true;
     private bool wasAtMaxOnPress;
     private bool isDragging;
+    private bool inLobby;
     private bool canScroll;
     private float scroll, targetScroll;
 
@@ -56,7 +60,13 @@ public class TerrariumManager : MonoBehaviour
 
     private void Awake()
     {
-        if (cam == null) cam = Camera.main;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         leftUIRect = leftUI.GetComponent<RectTransform>();
         leftShownX = leftUIRect.anchoredPosition.x;
@@ -71,24 +81,62 @@ public class TerrariumManager : MonoBehaviour
         terrariumsContainer.localPosition = terrariumsHiddenPos;
         terrariumsContainer.gameObject.SetActive(false);
         canScroll = false;
+        ResetLobbyState();
+        inLobby = SceneManager.GetActiveScene().name == "SC_Lobby";
     }
 
     private void OnEnable()
     {
+        if (Instance != this) return;
         position.Enable();
         press.Enable();
         press.performed += OnPressStarted;
         press.canceled += OnPressEnded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
         if (focus != null) focus.exited += OnFocusExited;
     }
 
     private void OnDisable()
     {
+        if (Instance != this) return;
         press.performed -= OnPressStarted;
         press.canceled -= OnPressEnded;
         position.Disable();
         press.Disable();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
         if (focus != null) focus.exited -= OnFocusExited;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        inLobby = scene.name == "SC_Lobby";
+        if (inLobby)
+        {
+            ResetLobbyState();
+        }
+        else
+        {
+            leftUI.SetActive(false);
+            terrariumsContainer.gameObject.SetActive(false);
+            canScroll = false;
+            isDragging = false;
+        }
+    }
+    private void ResetLobbyState()
+    {
+        leftUIRect.DOKill();
+        terrariumsContainer.DOKill();
+
+        leftUI.SetActive(true);
+        leftUIRect.anchoredPosition = new Vector2(leftShownX, leftUIRect.anchoredPosition.y);
+
+        scroll = targetScroll = Mathf.Clamp(0f, minScroll, maxScroll);
+        terrariumsContainer.localPosition = terrariumsHiddenPos;
+        terrariumsContainer.gameObject.SetActive(false);
+
+        isLeftUIOpen = true;
+        canScroll = false;
+        isDragging = false;
     }
 
     private void OnDestroy()
@@ -104,7 +152,7 @@ public class TerrariumManager : MonoBehaviour
 
     private void Update()
     {
-        // Pendant le focus, le glissement pilote l'orbit de la caméra
+        if (!inLobby) return;
         if (focus != null && focus.IsFocused)
         {
             if (isDragging)

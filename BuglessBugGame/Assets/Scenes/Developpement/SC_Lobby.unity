@@ -527,6 +527,141 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7050992074205922431, guid: fcee2cd799a693b4fad38f87be891317, type: 3}
   m_PrefabInstance: {fileID: 966519675}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &555356733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 555356736}
+  - component: {fileID: 555356735}
+  - component: {fileID: 555356734}
+  m_Layer: 0
+  m_Name: TerrariumManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &555356734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555356733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c463147eb19e6498673828c89ccdf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrariumManager
+  leftUI: {fileID: 1475403271}
+  slideDuration: 0.3
+  slideEase: 9
+  leftUIHiddenOffset: 600
+  terrariumsContainer: {fileID: 1610114204}
+  terrariumsHiddenOffset: 6
+  focus: {fileID: 555356735}
+  minScroll: -5
+  maxScroll: 5
+  scrollSmoothing: 15
+  cam: {fileID: 993813321}
+  tapThreshold: 20
+  terrariumsLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  position:
+    m_Name: Position
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 36637a7c-7c4c-4b90-bd7d-7db92cc4a631
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 16294972-c581-4ffa-823e-e0d7ba4516ea
+      m_Path: <Touchscreen>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Position
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 49813df2-bd1e-430c-82cc-10d59b8863a5
+      m_Path: <Mouse>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Position
+      m_Flags: 0
+    m_Flags: 0
+  press:
+    m_Name: Press
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c6f3d246-6e3b-4a35-8ff4-f35816e850d5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6bf6b11e-ed00-4a1f-a418-9531435bd3aa
+      m_Path: <Touchscreen>/Press
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Press
+      m_Flags: 0
+    - m_Name: 
+      m_Id: ea82f553-92b0-4313-874e-0bb2ccaa3537
+      m_Path: <Mouse>/press
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Press
+      m_Flags: 0
+    m_Flags: 0
+  swipeResistance: 180
+--- !u!114 &555356735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555356733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5399fd97c26210047810f25f5eecb86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrariumFocus
+  terrariumsContainer: {fileID: 1610114204}
+  cam: {fileID: 993813321}
+  focusDuration: 0.4
+  focusEase: 9
+  focusZoomFactor: 0.7
+  offscreenMargin: 2
+  maxOrbitAngle: 12
+  orbitSensitivity: -0.05
+  orbitSmoothing: 7
+  returnOnRelease: 1
+--- !u!4 &555356736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555356733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.82321, y: 0, z: 22.28543}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1610114204}
+  - {fileID: 993813322}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &632179000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,7 +848,7 @@ Transform:
   m_GameObject: {fileID: 646970359}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.94, z: 3.76396}
+  m_LocalPosition: {x: 0, y: 2.02, z: 3.76396}
   m_LocalScale: {x: 1.0740216, y: 0.8288098, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1293,11 +1428,11 @@ Transform:
   m_GameObject: {fileID: 993813319}
   serializedVersion: 2
   m_LocalRotation: {x: 0.03212474, y: -0, z: -0, w: 0.9994839}
-  m_LocalPosition: {x: 0, y: 3.48, z: -20.08}
+  m_LocalPosition: {x: -0.82321, y: 3.48, z: -42.365433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 555356736}
   m_LocalEulerAnglesHint: {x: 3.682, y: 0, z: 0}
 --- !u!114 &993813323
 MonoBehaviour:
@@ -1383,6 +1518,11 @@ GameObject:
 --- !u!1 &1042872264 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7279704500669365342, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+  m_PrefabInstance: {fileID: 2146713862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1475403271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3244774981612385763, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
   m_PrefabInstance: {fileID: 2146713862}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1510134139
@@ -1523,7 +1663,7 @@ Transform:
   m_GameObject: {fileID: 1610114203}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: -3, y: 1.45, z: 3.0000036}
+  m_LocalPosition: {x: -3.82321, y: 1.45, z: -19.285427}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1531,7 +1671,7 @@ Transform:
   - {fileID: 762736750}
   - {fileID: 632179001}
   - {fileID: 966519676}
-  m_Father: {fileID: 2015013500}
+  m_Father: {fileID: 555356736}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &1610114205
 MonoBehaviour:
@@ -1725,7 +1865,6 @@ Transform:
   - {fileID: 1510134140}
   - {fileID: 207140396}
   - {fileID: 336941691}
-  - {fileID: 1610114204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2146713862
@@ -1928,6 +2067,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2198945338293788783, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: terrariumManager
+      value: 
+      objectReference: {fileID: 555356734}
     - target: {fileID: 2264575523076893744, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: _leaveButton
       value: 
@@ -2104,10 +2247,22 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 5019101652342196974, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 993813321}
+    - target: {fileID: 5019101652342196974, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: terrariumsContainer
+      value: 
+      objectReference: {fileID: 1610114204}
     - target: {fileID: 5039552167253802289, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 993813321}
+    - target: {fileID: 5039552167253802289, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
+      propertyPath: focus
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5039552167253802289, guid: 6d8b4bee7fdfb1046b37548e9b790703, type: 3}
       propertyPath: hiddenOffset
       value: 550
@@ -2535,7 +2690,7 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 993813322}
   - {fileID: 334257639}
   - {fileID: 2015013500}
+  - {fileID: 555356736}
   - {fileID: 2146713862}
