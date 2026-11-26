@@ -6,12 +6,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [HideInInspector]public UIJourney journey;
-    [HideInInspector]public UIChalet lobby; 
-    public TerrariumManager terrariumManager;
-
-    private bool IsUIActive;
-    private TerrariumManager currentTerrariumManager;
+    [HideInInspector]public UIChalet lobby;
+    [HideInInspector]public TerrariumManager terrariumManager;
     
+    private bool IsUIActive;
     public bool isUiActive
     {
         get => IsUIActive;
@@ -22,17 +20,6 @@ public class UIManager : MonoBehaviour
     {
         journey = GetComponent<UIJourney>();
         lobby = GetComponent<UIChalet>();
-    }
-
-    private void Start()
-    {
-        if (terrariumManager != null)
-        {
-            currentTerrariumManager = terrariumManager;
-        }
-        if (terrariumManager == null)
-        {
-            terrariumManager = currentTerrariumManager;
-        }
+        terrariumManager = TerrariumManager.Instance;
     }
 }

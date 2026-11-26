@@ -60,7 +60,7 @@ public class TerrariumManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
@@ -153,13 +153,14 @@ public class TerrariumManager : MonoBehaviour
     private void Update()
     {
         if (!inLobby) return;
+
         if (focus != null && focus.IsFocused)
         {
             if (isDragging)
             {
-                float dx = currentPos.x - lastPos.x;
+                Vector2 delta = currentPos - lastPos;
                 lastPos = currentPos;
-                focus.Drag(dx);
+                focus.Drag(delta);
             }
             return;
         }

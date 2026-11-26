@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         _player = GameManager.instance.player;
         currentSpeed = _player.playerData.playerControllerData.walkSpeed;
 
-        _terrarium = GameManager.instance.M_UI.terrariumManager;
+        _terrarium = TerrariumManager.Instance;
         _terrarium.swipePerformed += OnSwipeDetected;
     }
 

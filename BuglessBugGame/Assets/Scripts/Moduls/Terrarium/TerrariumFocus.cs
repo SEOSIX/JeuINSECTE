@@ -36,6 +36,7 @@ public class TerrariumFocus : MonoBehaviour
 
     private bool orbitActive;
     private float orbitYaw, orbitTargetYaw;
+    private float orbitPitch, orbitTargetPitch;
     private Vector3 orbitPivot, baseCamPos;
     private Quaternion baseCamRot;
 
@@ -52,6 +53,8 @@ public class TerrariumFocus : MonoBehaviour
             float rate = Input.gyro.rotationRateUnbiased.y * Mathf.Rad2Deg;
             orbitTargetYaw = Mathf.Clamp(orbitTargetYaw + rate * gyroSensitivity * Time.unscaledDeltaTime,
                                          - maxOrbitAngle, maxOrbitAngle);
+            orbitTargetPitch = Mathf.Clamp(orbitTargetPitch + rate * gyroSensitivity * Time.unscaledDeltaTime,
+                -maxOrbitAngle, maxOrbitAngle);
         }
         UpdateOrbit();
     }
@@ -63,6 +66,8 @@ public class TerrariumFocus : MonoBehaviour
         baseCamPos = cam.transform.position;
         baseCamRot = cam.transform.rotation;
         orbitYaw = orbitTargetYaw = 0f;
+        orbitPitch = orbitTargetPitch = 0f;
+        
         orbitActive = true;
 
         IsFocused = true;
@@ -119,6 +124,7 @@ public class TerrariumFocus : MonoBehaviour
         IsFocused = false;
         FocusedItem = null;
         orbitTargetYaw = 0f;
+        orbitTargetPitch = 0f;
 
         cam.DOKill();
         cam.DOOrthoSize(baseOrthoSize, focusDuration).SetEase(focusEase).SetUpdate(true);
@@ -138,14 +144,25 @@ public class TerrariumFocus : MonoBehaviour
         
         if (isgyroActive) {Input.gyro.enabled = true; isgyroActive = false; }
     }
-    public void Drag(float deltaXPixels)
+    
+    
+    public void Drag(Vector2 deltaXPixels)
     {
-        if (!IsFocused) return;
-        orbitTargetYaw = Mathf.Clamp(orbitTargetYaw + deltaXPixels * orbitSensitivity, -maxOrbitAngle, maxOrbitAngle);
+        Vector3 rate = Input.gyro.rotationRateUnbiased * Mathf.Rad2Deg;
+        float dt = Time.unscaledDeltaTime;
+
+        orbitTargetYaw = Mathf.Clamp(orbitTargetYaw + deltaXPixels.x * gyroSensitivity * dt,
+            -maxOrbitAngle, maxOrbitAngle);
+        orbitTargetPitch = Mathf.Clamp(orbitTargetPitch + -deltaXPixels.y * gyroSensitivity * dt,
+            -maxOrbitAngle, maxOrbitAngle);
     }
     public void ReleaseDrag()
     {
-        if (IsFocused && returnOnRelease) orbitTargetYaw = 0f;
+        if (IsFocused && returnOnRelease)
+        {
+            orbitTargetYaw = 0f;
+            orbitTargetPitch = 0f;
+        }
     }
 
     private void UpdateOrbit()
@@ -154,14 +171,20 @@ public class TerrariumFocus : MonoBehaviour
 
         float k = 1f - Mathf.Exp(-orbitSmoothing * Time.unscaledDeltaTime);
         orbitYaw = Mathf.Lerp(orbitYaw, orbitTargetYaw, k);
+        orbitPitch = Mathf.Lerp(orbitPitch, orbitTargetPitch, k);
         
-        if (!IsFocused && Mathf.Abs(orbitYaw) < 0.01f)
+        if (!IsFocused && Mathf.Abs(orbitYaw) < 0.01f && Mathf.Abs(orbitPitch) < 0.01f)
         {
             orbitYaw = orbitTargetYaw = 0f;
+            orbitPitch = orbitTargetPitch = 0f;
             orbitActive = false;
         }
 
-        Quaternion rot = Quaternion.AngleAxis(orbitYaw, Vector3.up);
+        Quaternion yawRot   = Quaternion.AngleAxis(orbitYaw, Vector3.up);
+        Vector3 camRight    = baseCamRot * Vector3.right;
+        Quaternion pitchRot = Quaternion.AngleAxis(orbitPitch, camRight);
+
+        Quaternion rot = yawRot * pitchRot;
         cam.transform.SetPositionAndRotation(
             orbitPivot + rot * (baseCamPos - orbitPivot),
             rot * baseCamRot);
