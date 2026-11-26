@@ -1,0 +1,486 @@
+fileFormatVersion: 2
+guid: 08c8563c12df2be4fb0c8c3e05770de7
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: f4d1175a5eb8a1c4c866a1e41ff3ee80
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  multiSpriteImportData: []
+  layeredSpriteImportData:
+  - name: Wing_Front_Bottom
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1284
+      y: 320
+      width: 539
+      height: 156
+    spriteID: 97d2f92c38d409d4bac83bdaebc8194a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1284, y: 320}
+    spritePosition: {x: 21, y: 289}
+  - name: Wing_Front_Top
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 509
+      height: 308
+    spriteID: 58e3b3bce5e1152418f69f7e5d96e2ac
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 76, y: 380}
+  - name: Eye_Front
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1966
+      y: 320
+      width: 76
+      height: 81
+    spriteID: b71b0b3433358cc4db1f3d63a684ea0c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1966, y: 320}
+    spritePosition: {x: 592, y: 353}
+  - name: Legs
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 521
+      y: 4
+      width: 231
+      height: 225
+    spriteID: 7aab0e7981e21b8448450e2cd4d76093
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 17, y: -126}
+    spritePosition: {x: 504, y: 130}
+  - name: Head
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 846
+      width: 89
+      height: 87
+    spriteID: 686664c0fc74ba84ba872427936f6cfb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 846}
+    spritePosition: {x: 611, y: 345}
+  - name: Eye_Back
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 101
+      y: 846
+      width: 76
+      height: 81
+    spriteID: 2df69a43f99f5284c86653a8b4f2a19b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 101, y: 846}
+    spritePosition: {x: 639, y: 361}
+  - name: Body_Short_Line
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1831
+      y: 320
+      width: 127
+      height: 116
+    spriteID: 3918e80cb4a039a4081f04cb394b5cf2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1831, y: 320}
+    spritePosition: {x: 512, y: 303}
+  - name: Wing_Back_Top
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 320
+      width: 300
+      height: 518
+    spriteID: faff02b62b1cfa241835f23176692085
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 320}
+    spritePosition: {x: 588, y: 390}
+  - name: Wing_Back_Bottom
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 312
+      y: 320
+      width: 439
+      height: 343
+    spriteID: f80fcb668096cef4eb68ded093b81869
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 312, y: 320}
+    spritePosition: {x: 582, y: 359}
+  - name: Body_Long
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 759
+      y: 320
+      width: 517
+      height: 237
+    spriteID: 983efa37d3980014d8e49cc9f3229744
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 759, y: 320}
+    spritePosition: {x: 23, y: 129}
+  spriteImportData: []
+  rigSpriteImportData: []
+  sharedRigSpriteImportData: []
+  mosaicSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  generateTileAssets: 0
+  tilePaletteCellLayout: 0
+  tilePaletteHexagonLayout: 0
+  tilePaletteCellSize: {x: 1, y: 1, z: 0}
+  tilePaletteCellSizing: 0
+  transparencySortMode: 0
+  transparencySortAxis: {x: 0, y: 0, z: 1}
+  tileTemplate: {instanceID: 0}
+  padding: 4
+  spriteSizeExpand: 0
+  skeletonAssetReferenceID: 
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  pSDLayerImportSetting: []
+  psdLayers:
+  - name: New group
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: b7797556b63c59c40864c35b50f52e80
+    layerID: 47
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Wing_Front_Bottom
+    spriteName: Wing_Front_Bottom
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 97d2f92c38d409d4bac83bdaebc8194a
+    layerID: 44
+    mosaicPosition: {x: 1284, y: 320}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Wing_Front_Top
+    spriteName: Wing_Front_Top
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 58e3b3bce5e1152418f69f7e5d96e2ac
+    layerID: 39
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Eye_Front
+    spriteName: Eye_Front
+    isGroup: 0
+    parentIndex: 0
+    spriteID: b71b0b3433358cc4db1f3d63a684ea0c
+    layerID: 34
+    mosaicPosition: {x: 1966, y: 320}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Legs
+    spriteName: Legs
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 7aab0e7981e21b8448450e2cd4d76093
+    layerID: 30
+    mosaicPosition: {x: 521, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Head
+    spriteName: Head
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 686664c0fc74ba84ba872427936f6cfb
+    layerID: 29
+    mosaicPosition: {x: 4, y: 846}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Eye_Back
+    spriteName: Eye_Back
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 2df69a43f99f5284c86653a8b4f2a19b
+    layerID: 24
+    mosaicPosition: {x: 101, y: 846}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Body_Short_Line
+    spriteName: Body_Short_Line
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 3918e80cb4a039a4081f04cb394b5cf2
+    layerID: 20
+    mosaicPosition: {x: 1831, y: 320}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Wing_Back_Top
+    spriteName: Wing_Back_Top
+    isGroup: 0
+    parentIndex: 0
+    spriteID: faff02b62b1cfa241835f23176692085
+    layerID: 53
+    mosaicPosition: {x: 4, y: 320}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Wing_Back_Bottom
+    spriteName: Wing_Back_Bottom
+    isGroup: 0
+    parentIndex: 0
+    spriteID: f80fcb668096cef4eb68ded093b81869
+    layerID: 58
+    mosaicPosition: {x: 312, y: 320}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Body_Long
+    spriteName: Body_Long
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 983efa37d3980014d8e49cc9f3229744
+    layerID: 7
+    mosaicPosition: {x: 759, y: 320}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  mosaicPSDLayers: []
+  rigPSDLayers: []
+  sharedRigPSDLayers: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
