@@ -14,6 +14,7 @@ public class MiniGameManager : MonoBehaviour
     public Insect currentInsect {get; private set;}
 
     public bool IsMiniGameActive => currentMiniGameInstance != null;
+    private bool isTransitioning = false;
 
     [HideInInspector]public Coroutine loseCoroutine;
 
@@ -41,13 +42,20 @@ public class MiniGameManager : MonoBehaviour
         }
 
         if (picked.catchMiniGamePrefabUI == null)
-        {
-            Debug.LogWarning($"No prefab set for {picked.name}");
             return;
-        }
+
+        StartCoroutine(StartMiniGameRoutine(insect, picked));
+    }
+
+    private IEnumerator StartMiniGameRoutine(Insect insect, InsectData picked)
+    {
+        isTransitioning = true;
         currentInsect = insect;
         _currentInsectData = picked;
         GameManager.instance.M_UI.isUiActive = true;
+
+        yield return TransitionManager.Instance.IrisOut();
+
         GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(false);
 
         currentMiniGameInstance = Instantiate(picked.catchMiniGamePrefabUI, instanceMinigameParent.transform);
@@ -55,6 +63,10 @@ public class MiniGameManager : MonoBehaviour
         currentMiniGameUI.Init(this, picked);
         currentMiniGameUI.loseInsectGo.SetActive(false);
         MiniGameUI.currentTryCount = picked.tryCount;
+        
+        yield return TransitionManager.Instance.IrisIn();
+
+        isTransitioning = false;
     }
 
     public void OnMiniGameSuccess()
@@ -67,7 +79,7 @@ public class MiniGameManager : MonoBehaviour
         Player player = GameManager.instance.player;
         player.isInteracted = false;
 
-        CloseMiniGame();
+        StartCoroutine(CloseMiniGameRoutine());
     }
 
     public void OnMiniGameFailed()
@@ -79,8 +91,13 @@ public class MiniGameManager : MonoBehaviour
         
     }
 
-    private void CloseMiniGame()
+    private IEnumerator CloseMiniGameRoutine()
     {
+        if (isTransitioning) yield break;
+        isTransitioning = true;
+        
+        yield return TransitionManager.Instance.IrisOut();
+
         if (currentMiniGameInstance != null)
         {
             Destroy(currentMiniGameInstance);
@@ -88,9 +105,15 @@ public class MiniGameManager : MonoBehaviour
         currentMiniGameInstance = null;
         currentMiniGameUI = null;
         currentInsect = null;
+    
         GameManager.instance.M_UI.isUiActive = false;
         GameManager.instance.player.isInteracted = false;
         GameManager.instance.M_UI.journey._outMiniGame_UI.SetActive(true);
+
+        // Réouverture sur le jeu principal
+        yield return TransitionManager.Instance.IrisIn();
+
+        isTransitioning = false;
     }
     private IEnumerator RunAwayCoroutine()
     {
@@ -110,7 +133,7 @@ public class MiniGameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        CloseMiniGame();
+        StartCoroutine(CloseMiniGameRoutine());
         loseCoroutine = null;
     }
 

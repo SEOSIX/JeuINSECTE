@@ -57,7 +57,7 @@ public class HideInsectAI : InsectBase
         {
             directionChangeTimer = IntervalPickChance;
 
-            if (Random.value < data.hideChance && TryGetNearestSpot(out targetSpot) && lastHideSpot != targetSpot.anchoredPosition)
+            if (Random.value < data.insectHideData.hideChance && TryGetNearestSpot(out targetSpot) && lastHideSpot != targetSpot.anchoredPosition)
             {
                 lastHideSpot = targetSpot.anchoredPosition;
 
@@ -65,7 +65,7 @@ public class HideInsectAI : InsectBase
                 arrivedAtSpot = false;
                 return;
             }
-            if (Random.value < data.changeDirectionPercentage)
+            if (Random.value < data.insectHideData.changeDirectionPercentage)
                 direction = GetRandomDirection();
         }
         insectTransform.anchoredPosition += direction * data.bugSpeed * Time.fixedDeltaTime;
@@ -103,7 +103,7 @@ public class HideInsectAI : InsectBase
             if (toTarget.magnitude <= arriveDistance)
             {
                 arrivedAtSpot = true;
-                hideTimer = data.hideTime;
+                hideTimer = data.insectHideData.hideTime;
             }
             else
             {

@@ -33,6 +33,10 @@ public class MiniGameUI : MonoBehaviour
     private List<Vector2> currentPoints = new List<Vector2>();
     private List<Vector2> currentLocalPoints = new List<Vector2>();
     private bool isDrawing;
+    
+    public UILineDrawer LineDrawer => lineDrawer;
+    public RectTransform DrawingArea => drawingArea;
+    public BlockInsectAI blockAiMovements { get; private set; }
 
     [HideInInspector] public static int currentTryCount;
     public InsectBase aiMovements { get; private set; }
@@ -75,6 +79,11 @@ public class MiniGameUI : MonoBehaviour
                 jumpingAiMovements = GetComponent<JumpingInsect>();
                 aiMovements = jumpingAiMovements;
                 break;
+            
+            case InsectData.TypeMiniGame.Block:
+                blockAiMovements = GetComponent<BlockInsectAI>();
+                aiMovements = blockAiMovements;
+                break;
         }
 
         if (aiMovements == null)
@@ -116,7 +125,26 @@ public class MiniGameUI : MonoBehaviour
         currentPoints.Add(startScreenPos);
         AppendLocalPoint(startScreenPos);
 
-        lineDrawer.SetPoints(currentLocalPoints);
+        lineDrawer.BeginLine(currentLocalPoints[0]);
+    }
+
+    private void EndInput()
+    {
+        isDrawing = false;
+        if (lineDrawer.CurrentDrawMode == UILineDrawer.DrawMode.StraightLine)
+            return;
+
+        switch (typeCatch)
+        {
+            case InsectData.TypeCatch.DrawCircle:
+                CheckCircle();
+                break;
+            case InsectData.TypeCatch.Swipe:
+                CheckSwipe();
+                break;
+        }
+
+        ResetDrawing();
     }
 
     private void AddPoint(Vector2 screenPos)
@@ -136,23 +164,6 @@ public class MiniGameUI : MonoBehaviour
             drawingArea, screenPos, cam, out Vector2 localPoint);
 
         currentLocalPoints.Add(localPoint);
-    }
-
-    private void EndInput()
-    {
-        isDrawing = false;
-
-        switch (typeCatch)
-        {
-            case InsectData.TypeCatch.DrawCircle:
-                CheckCircle();
-                break;
-            case InsectData.TypeCatch.Swipe:
-                CheckSwipe();
-                break;
-        }
-
-        ResetDrawing();
     }
 
     public void ResetDrawing()

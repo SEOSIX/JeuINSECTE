@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,8 @@ public class InsectData : ScriptableObject
     {
         Hider,
         Line,
-        Jumper
+        Jumper,
+        Block
     }
     
     [Header("Infos générales")]
@@ -30,11 +32,37 @@ public class InsectData : ScriptableObject
     [Header("CatchMiniGame")]
     public GameObject catchMiniGamePrefabUI;
     public float bugSpeed;
+    public int tryCount;
+    public TypeCatch typeCatch;
+    public TypeMiniGame typeMiniGame;
+    
+    public InsectHideData insectHideData;
+    public InsectBlockingData insectBlockingData;
+}
+
+[Serializable]
+public class InsectHideData
+{
     [Range(0f, 1f)]public float changeDirectionPercentage;
     public float hideTime;
     public float hideChance;
     public float stopTime;
-    public int tryCount;
-    public TypeCatch typeCatch;
-    public TypeMiniGame typeMiniGame;
+}
+
+[Serializable]
+public class InsectBlockingData
+{
+    [Header("MiniGameBlocking")]
+    public float rayDistance = 80f;
+    public float bounceConeAngle = 45f;
+    public float staminaInsect = 7f;
+
+    [Header("Smooth ZigZag Settings")]
+    public float zigzagAmplitude = 22f;
+    public float zigzagFrequency = 3f;
+    public float organicVariation = 0.35f;
+
+    [Header("Rotation Settings")]
+    public float rotationOffset = -90f;
+    public float rotationSpeed = 12f;
 }

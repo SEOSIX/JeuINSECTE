@@ -95,7 +95,7 @@ public class IncectAI : MonoBehaviour
             directionChangeTimer = intervalPickChance;
             
 
-            if (Random.value < data.hideChance && TryGetNearestSpot(out targetSpot) && lastHideSpot != targetSpot.anchoredPosition)
+            if (Random.value < data.insectHideData.hideChance && TryGetNearestSpot(out targetSpot) && lastHideSpot != targetSpot.anchoredPosition)
             {
                 lastHideSpot = targetSpot.anchoredPosition;
                 
@@ -103,7 +103,7 @@ public class IncectAI : MonoBehaviour
                 arrivedAtSpot = false;
                 return;
             }
-            if (Random.value < data.changeDirectionPercentage)
+            if (Random.value < data.insectHideData.changeDirectionPercentage)
                 direction = GetRandomDirection();
         }
         insectTransform.anchoredPosition += direction * data.bugSpeed * Time.fixedDeltaTime;
@@ -196,7 +196,7 @@ public class IncectAI : MonoBehaviour
             if (toTarget.magnitude <= arriveDistance)
             {
                 arrivedAtSpot = true;
-                hideTimer = data.hideTime;
+                hideTimer = data.insectHideData.hideTime;
             }
             else
             {

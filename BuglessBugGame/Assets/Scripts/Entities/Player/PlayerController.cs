@@ -11,28 +11,20 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed;
     private Vector2 _moveInput;
     private PlayerInput playerInput;
-    private TerrariumManager _terrarium;
-
-
-    private void OnEnable()
-    {
-        _terrarium = TerrariumManager.Instance;
-        if (_terrarium.inLobby)
-        {
-            _terrarium.swipePerformed += OnSwipeDetected;
-        }
-    }
-
     private void OnDestroy()
     {
-        if (_terrarium != null)
-            _terrarium.swipePerformed -= OnSwipeDetected;
+        if (TerrariumManager.Instance != null)
+            TerrariumManager.Instance.swipePerformed -= OnSwipeDetected;
     }
 
     private void Start()
     {
         _player = GameManager.instance.player;
         currentSpeed = _player.playerData.playerControllerData.walkSpeed;
+        if (TerrariumManager.Instance.inLobby)
+        {
+            TerrariumManager.Instance.swipePerformed += OnSwipeDetected;
+        }
     }
 
 
@@ -77,13 +69,13 @@ public class PlayerController : MonoBehaviour
     {
         if (direction.x < 0)
         {
-            if (_terrarium.IsLeftUIOpen)
-                _terrarium.CloseLeftUI();
+            if (TerrariumManager.Instance.IsLeftUIOpen)
+                TerrariumManager.Instance.CloseLeftUI();
         }
         else if (direction.x > 0)
         {
-            if (!_terrarium.IsLeftUIOpen && _terrarium.WasAtMaxOnPress)
-                _terrarium.OpenLeftUI();
+            if (!TerrariumManager.Instance.IsLeftUIOpen && TerrariumManager.Instance.WasAtMaxOnPress)
+                TerrariumManager.Instance.OpenLeftUI();
         }
 
         // swipe haut if (direction.y > 0) 
