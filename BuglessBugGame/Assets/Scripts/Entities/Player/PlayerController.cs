@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,17 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveInput;
     private PlayerInput playerInput;
     private TerrariumManager _terrarium;
-    
+
+
+    private void OnEnable()
+    {
+        _terrarium = TerrariumManager.Instance;
+        if (_terrarium.inLobby)
+        {
+            _terrarium.swipePerformed += OnSwipeDetected;
+        }
+    }
+
     private void OnDestroy()
     {
         if (_terrarium != null)
@@ -22,9 +33,6 @@ public class PlayerController : MonoBehaviour
     {
         _player = GameManager.instance.player;
         currentSpeed = _player.playerData.playerControllerData.walkSpeed;
-
-        _terrarium = TerrariumManager.Instance;
-        _terrarium.swipePerformed += OnSwipeDetected;
     }
 
 

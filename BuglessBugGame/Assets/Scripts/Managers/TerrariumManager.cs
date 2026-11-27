@@ -51,7 +51,7 @@ public class TerrariumManager : MonoBehaviour
     private bool isLeftUIOpen = true;
     private bool wasAtMaxOnPress;
     private bool isDragging;
-    private bool inLobby;
+    public bool inLobby;
     private bool canScroll;
     private float scroll, targetScroll;
 
