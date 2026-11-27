@@ -18,14 +18,24 @@ MonoBehaviour:
   insectIcon: {fileID: 21300000, guid: abeda469f0f604d4fb48cfbfbfe441f6, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 10
-  isUnlocked: 0
+  isUnlocked: 1
   coinValueOnResell: 5
   catchMiniGamePrefabUI: {fileID: 1008587590516538932, guid: 7f84467e9311cd340932b6b9a9c33b65, type: 3}
-  bugSpeed: 150
-  changeDirectionPercentage: 0.01
-  hideTime: 0.75
-  hideChance: 1.16
-  stopTime: 0
+  bugSpeed: 400
   tryCount: 4
   typeCatch: 0
   typeMiniGame: 3
+  insectHideData:
+    changeDirectionPercentage: 0
+    hideTime: 0
+    hideChance: 0
+    stopTime: 0
+  insectBlockingData:
+    rayDistance: 80
+    bounceConeAngle: 45
+    staminaInsect: 15
+    zigzagAmplitude: 98.7
+    zigzagFrequency: 1
+    organicVariation: 3.25
+    rotationOffset: -90
+    rotationSpeed: 12
