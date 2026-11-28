@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Mante religieuse
   insectDescription:
-  - "C'est une mante religieuse ! La l\xE9gende raconte qu'elle prie de temps en
-    temps..."
+  - "Un insecte souple et gracieux, r\xE9put\xE9e pour d\xE9vorer ses pairs masculins.
+    On dit de cet insecte qu'il est pieux."
   insectIcon: {fileID: 3407487874569032938, guid: 9e74dd7b77a99fd49a77810b4f364aa7, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0

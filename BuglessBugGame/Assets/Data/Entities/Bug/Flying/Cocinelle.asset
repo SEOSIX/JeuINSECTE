@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Coccinelle
   insectDescription:
-  - "C'est une coccinelle ! \xE7a me rappelle mon dessin anim\xE9 pr\xE9fer\xE9."
+  - "Un petit col\xE9opt\xE8re tr\xE8s \xE9l\xE9gant \xE0 l'exosquelette tachet\xE9
+    que l'on peut apercevoir pr\xE8s des plantes. Il parait que les sp\xE9cimens
+    \xE0 7 points portent bonheur. "
   insectIcon: {fileID: 21300000, guid: abeda469f0f604d4fb48cfbfbfe441f6, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 10

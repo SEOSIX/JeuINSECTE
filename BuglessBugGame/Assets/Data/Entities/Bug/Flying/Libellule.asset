@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Libellule
   insectDescription:
-  - "Oui mort je me suis bless\xE9 .C'est ma lubululle !"
+  - "Un insecte aux reflets bleut\xE9s, r\xE9put\xE9 pour sa rapidit\xE9 et son aisance
+    au bord de l\u2019eau."
   insectIcon: {fileID: 21300000, guid: 9225c1555effbb0498996b34eb52901c, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0

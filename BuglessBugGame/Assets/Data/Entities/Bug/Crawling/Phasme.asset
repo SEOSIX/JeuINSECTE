@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Bousier
   insectDescription:
-  - Ceci est un insecte, nous pouvont le trouver dans la nature.
+  - "Une dr\xF4le de b\xEAte semblable \xE0 une brindille. Son camouflage lui sert
+    \xE0 se cacher des pr\xE9dateurs ; il peut imiter une branche dans le vent s'il
+    se sent menac\xE9. "
   insectIcon: {fileID: 21300000, guid: 583b1b585c5082742b228ead9d69e360, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0

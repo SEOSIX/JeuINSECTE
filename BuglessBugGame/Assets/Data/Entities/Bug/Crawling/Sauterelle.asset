@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InsectData
   insectName: Sauterelle
   insectDescription:
-  - C'est une sauterelle !
+  - "Un insecte que l\u2019on voit souvent bondir hors des hautes herbes. Il change
+    peu d\u2019habitat mais reste assez difficile \xE0 attraper sans lui courir apr\xE8s."
   insectIcon: {fileID: 21300000, guid: 725fa8e51ec7ed04fadce48850164210, type: 3}
   insectPrefab: {fileID: 0}
   catchCount: 0
